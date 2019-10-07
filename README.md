@@ -7,6 +7,6 @@
 - Gonzalo Torrez
 
 ### UML:
-- Link: <completar>
+- Link: (completar)
   
   
