@@ -3,7 +3,7 @@ package usuarioTest;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-public class UsuarioPropietarioTest {
+public class UsuarioTest {
 
 	@Before
 	public void setup() {
@@ -11,7 +11,7 @@ public class UsuarioPropietarioTest {
 	}
 	
 	@Test
-	public void testPropietarioDebeEstarRegistradoEnElSitioParaPublicar() {
+	public void testUsuarioDebeEstarRegistradoEnElSitioParaInteractuar() {
 		
 	}
 }

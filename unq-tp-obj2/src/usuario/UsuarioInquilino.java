@@ -1,5 +1,5 @@
 package usuario;
 
-public class UsuarioInquilino {
+public class UsuarioInquilino implements Usuario {
 
 }

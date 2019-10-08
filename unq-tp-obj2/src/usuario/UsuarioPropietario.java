@@ -2,10 +2,8 @@ package usuario;
 
 import org.junit.jupiter.api.Test;
 
-public class UsuarioPropietario {
+public class UsuarioPropietario implements Usuario {
 
-	@Test
-	public void testPropietarioDebeEstarRegistradoEnElSitioParaPublicar() {
-		
-	}
+	
+	
 }
