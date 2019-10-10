@@ -1,5 +1,10 @@
 package usuario;
 
+import java.util.ArrayList;
+
+import clases.Inmueble;
+import clases.SitioWeb;
+
 public abstract class Usuario {
 	protected String nombre;
 	protected String email;
@@ -35,5 +40,9 @@ public abstract class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public abstract void publicarInmueble(Inmueble nvoInmueble, SitioWeb sitioWeb);
+
+	public abstract void registrarse();
 
 }

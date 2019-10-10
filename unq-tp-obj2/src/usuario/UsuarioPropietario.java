@@ -3,6 +3,7 @@ package usuario;
 import java.util.ArrayList;
 
 import clases.Inmueble;
+import clases.SitioWeb;
 
 public class UsuarioPropietario extends Usuario {
 
@@ -10,6 +11,7 @@ public class UsuarioPropietario extends Usuario {
 	
 	public UsuarioPropietario(String nombre, String email, Integer telefono) {
 		super(nombre, email, telefono);
+		this.inmuebles = new ArrayList<Inmueble>();
 	}
 
 	/**
@@ -23,9 +25,15 @@ public class UsuarioPropietario extends Usuario {
 	 * @param Integer checkIn - Horario expresado con 4 digitos
 	 * @param Integer checkOut - Horario expresado con 4 digitos
 	 */
-	public void publicarInmueble(String tipo, String pais, String ciudad, 
-			ArrayList<String> servicios, Integer capacidad, Integer checkIn, Integer checkOut) {
-		
+
+	@Override
+	public void publicarInmueble(Inmueble nvoInmueble, SitioWeb sitioWeb) {
+		sitioWeb.darDeAltaNuevoInmueble(nvoInmueble);		
+	}
+
+	@Override
+	public void registrarse() {
+		// TODO Auto-generated method stub
 		
 	}
 	

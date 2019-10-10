@@ -25,6 +25,8 @@ public class SitioWeb {
 		this.inmuebles = inmuebles;
 	}
 
-	
+	public void darDeAltaNuevoInmueble(Inmueble nvoInmueble) {
+		inmuebles.add(nvoInmueble);
+	}
 
 }
