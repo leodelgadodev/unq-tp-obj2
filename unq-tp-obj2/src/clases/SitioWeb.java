@@ -3,12 +3,15 @@ package clases;
 import java.util.ArrayList;
 import java.util.List;
 
+import reserva.Reserva;
 import usuario.Usuario;
 
 public class SitioWeb {
 	
 	private List<Usuario> usuariosRegistrados;
 	private List<Inmueble> inmuebles;
+	private List<Reserva> reservasPendientes;
+	private List<Reserva> reservasConcretadas;
 	
 	
 	public SitioWeb() {
@@ -29,8 +32,23 @@ public class SitioWeb {
 		return inmuebles;
 	}
 
-	public void darDeAltaNuevoInmueble(Inmueble nvoInmueble) { // seria el metodo ponerEnAlquiler en el UML. GT
+	public void ponerEnAlquiler(Inmueble nvoInmueble) { // seria el metodo ponerEnAlquiler en el UML. GT
 		inmuebles.add(nvoInmueble);
 	}
+	
+	public void agregarReservaConcretada(Reserva unaReserva) {
+		this.reservasPendientes.add(unaReserva);
+	}
 
+	public void agregarReservaPendiente(Reserva unaReserva) {
+		this.reservasPendientes.add(unaReserva);
+	}
+
+	public void eliminarReservaPendiente(Reserva unaReserva) {
+		this.reservasPendientes.remove(unaReserva);
+	}
+	
+	public void eliminarReservaConcretada(Reserva unaReserva) {
+		this.reservasConcretadas.remove(unaReserva);
+	}
 }

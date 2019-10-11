@@ -5,10 +5,13 @@ import java.util.List;
 
 import clases.Inmueble;
 import clases.SitioWeb;
+import reserva.Reserva;
 
 public class UsuarioPropietario extends Usuario {
 
 	private List<Inmueble> inmuebles;
+	private Reserva reservaPendiente;
+	private SitioWeb sitioWeb;
 	
 	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono) {
 		super(nombre, apellido, email, telefono);
@@ -29,12 +32,17 @@ public class UsuarioPropietario extends Usuario {
 
 	@Override
 	public void publicarInmueble(Inmueble nvoInmueble, SitioWeb sitioWeb) {
-		sitioWeb.darDeAltaNuevoInmueble(nvoInmueble);		
+		sitioWeb.ponerEnAlquiler(nvoInmueble);		
 	}
 
 	@Override
 	public void registrarse(SitioWeb sitioWeb) {
 		sitioWeb.registrarUsuario(this);
+	}
+	
+	public void aceptarReserva(Reserva reservaPendiente) {
+		this.sitioWeb.eliminarReservaPendiente(reservaPendiente);
+		this.sitioWeb.agregarReservaConcretada(reservaPendiente);
 	}
 	
 }
