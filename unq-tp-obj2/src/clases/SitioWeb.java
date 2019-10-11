@@ -1,31 +1,35 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import usuario.Usuario;
 
 public class SitioWeb {
 	
-	private ArrayList<Usuario> usuariosRegistrados;
-	private ArrayList<Inmueble> inmuebles;
+	private List<Usuario> usuariosRegistrados;
+	private List<Inmueble> inmuebles;
 	
-	public ArrayList<Usuario> getUsuariosRegistrados() {
+	
+	public SitioWeb() {
+		
+		this.usuariosRegistrados = new ArrayList<Usuario>();
+		this.inmuebles = new ArrayList<Inmueble>();
+	}
+
+	public List<Usuario> getUsuariosRegistrados() {
 		return usuariosRegistrados;
 	}
 
-	public void setUsuariosRegistrados(ArrayList<Usuario> usuariosRegistrados) {
-		this.usuariosRegistrados = usuariosRegistrados;
+	public void registrarUsuario(Usuario usuario) {
+		this.usuariosRegistrados.add(usuario);
 	}
 
-	public ArrayList<Inmueble> getInmuebles() {
+	public List<Inmueble> getInmuebles() {
 		return inmuebles;
 	}
 
-	public void setInmuebles(ArrayList<Inmueble> inmuebles) {
-		this.inmuebles = inmuebles;
-	}
-
-	public void darDeAltaNuevoInmueble(Inmueble nvoInmueble) {
+	public void darDeAltaNuevoInmueble(Inmueble nvoInmueble) { // seria el metodo ponerEnAlquiler en el UML. GT
 		inmuebles.add(nvoInmueble);
 	}
 

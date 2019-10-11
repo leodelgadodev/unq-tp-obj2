@@ -1,16 +1,17 @@
 package usuario;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import clases.Inmueble;
 import clases.SitioWeb;
 
 public class UsuarioPropietario extends Usuario {
 
-	private ArrayList<Inmueble> inmuebles;
+	private List<Inmueble> inmuebles;
 	
-	public UsuarioPropietario(String nombre, String email, Integer telefono) {
-		super(nombre, email, telefono);
+	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono) {
+		super(nombre, apellido, email, telefono);
 		this.inmuebles = new ArrayList<Inmueble>();
 	}
 
@@ -32,9 +33,8 @@ public class UsuarioPropietario extends Usuario {
 	}
 
 	@Override
-	public void registrarse() {
-		// TODO Auto-generated method stub
-		
+	public void registrarse(SitioWeb sitioWeb) {
+		sitioWeb.registrarUsuario(this);
 	}
 	
 }

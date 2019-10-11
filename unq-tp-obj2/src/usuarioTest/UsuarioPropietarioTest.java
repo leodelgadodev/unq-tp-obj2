@@ -22,13 +22,13 @@ public class UsuarioPropietarioTest extends UsuarioTest {
 	@Before
 	public void setUp() {
 		
-	Usuario prop1 = new UsuarioPropietario("Fer", "fer@email.com", 8001111);
-	Usuario prop2 = new UsuarioPropietario("Gonza", "gonza@email.com", 8002222);
-	Usuario prop3 = new UsuarioPropietario("Leo", "leo@email.com", 8003333);
+	Usuario prop1 = new UsuarioPropietario("Fer","Santacruz", "fer@email.com", 8001111);
+	Usuario prop2 = new UsuarioPropietario("Gonza","Torrez", "gonza@email.com", 8002222);
+	Usuario prop3 = new UsuarioPropietario("Leo","Delgado", "leo@email.com", 8003333);
 	
-	Usuario inquilino1 = new UsuarioInquilino("Diego", "diegotorres@email.com", 8004444);
-	Usuario inquilino2 = new UsuarioInquilino("Diego", "diegocano@email.com", 8005555);
-	Usuario inquilino3 = new UsuarioInquilino("Martin", "martinrosenfeld@email.com", 8006666);
+	Usuario inquilino1 = new UsuarioInquilino("Diego","Cano", "diegotorres@email.com", 8004444);
+	Usuario inquilino2 = new UsuarioInquilino("Diego","Torres", "diegocano@email.com", 8005555);
+	Usuario inquilino3 = new UsuarioInquilino("Martin"," ", "martinrosenfeld@email.com", 8006666);
 	
 	servicios.add("gas");
 	servicios.add("agua");
