@@ -1,5 +1,6 @@
 package clasesTest;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class AdministradorTest {
 	public void darDeAltaCategoriasUtilizadasParaRankearPropietarios() {
 		admin.crearCategoriaDeRankingPropietario("Disponibilidad");
 		
-		assertEquals(1, web.categoriasRankingPropietario().size());
+		assertEquals(1, web.getCategoriasRankingPropietario().size());
 		
 		ArrayList<String> a = new ArrayList<String>();
 		a.add("Cordialidad");
@@ -35,7 +36,7 @@ public class AdministradorTest {
 		
 		admin.crearCategoriaDeRankingPropietario(a);
 	
-		assertEquals(3, web.categoriasRankingPropietario().size());
+		assertEquals(3, web.getCategoriasRankingPropietario().size());
 		
 	}
 	
@@ -43,7 +44,7 @@ public class AdministradorTest {
 	public void darDeAltaCategoriasUtilizadasParaRankearInquilinos() {
 		admin.crearCategoriaDeRankingInquilino("Cordialidad");
 		
-		assertEquals(1, web.categoriasRankingInquilino().size());
+		assertEquals(1, web.getCategoriasRankingInquilino().size());
 		
 		ArrayList<String> a = new ArrayList<String>();
 		a.add("Puntualidad");
@@ -51,14 +52,14 @@ public class AdministradorTest {
 		
 		admin.crearCategoriaDeRankingInquilino(a);
 		
-		assertEquals(3, web.categoriasRankingInquilino().size());
+		assertEquals(3, web.getCategoriasRankingInquilino().size());
 	}
 	
 	@Test
 	public void darDeAltaCategoriasUtilizadasParaRankearInmuebles() {
 		admin.crearCategoriaDeRankingInmueble("Ubicación");
 		
-		assertEquals(1, web.categoriasRankingInmueble().size());
+		assertEquals(1, web.getCategoriasRankingInmueble().size());
 		
 		ArrayList<String> a = new ArrayList<String>();
 		a.add("Limpieza");
@@ -66,14 +67,14 @@ public class AdministradorTest {
 		
 		admin.crearCategoriaDeRankingInmueble(a);
 		
-		assertEquals(3, web.categoriasRankingInmueble().size());
+		assertEquals(3, web.getCategoriasRankingInmueble().size());
 	}
 	
 	@Test
-	public void darDeAltaTiposDeInmuebles() {
+	public void darDeAltaTipoDeInmuebles() {
 		admin.darDeAltaTipoDeInmueble("Quincho");
 		
-		assertEquals(1, web.tiposDeInmueble().size());
+		assertEquals(1, web.getTiposInmueble().size());
 		
 		ArrayList<String> a = new ArrayList<String>();
 		a.add("Habitacion");
@@ -82,23 +83,23 @@ public class AdministradorTest {
 		
 		admin.darDeAltaTipoDeInmueble(a);
 		
-		assertEquals(4, web.tiposDeInmueble().size());
+		assertEquals(4, web.getTiposInmueble().size());
 	}
 	
 	@Test
 	public void darDeAltaServiciosDeInmuebles() {
-		admin.darDeAltaServicioDeInmuebles("Wifi");
+		admin.darDeAltaServiciosDeInmuebles("Wifi");
 		
-		assertEquals(1, web.serviciosDeInmuebles().size());
+		assertEquals(1, web.getServiciosInmuebles().size());
 		
 		ArrayList<String> a = new ArrayList<String>();
 		a.add("Agua potable");
 		a.add("Gas");
 		a.add("Pensión completa");
 		
-		admin.darDeAltaServicioDeInmuebles(a);
+		admin.darDeAltaServiciosDeInmuebles(a);
 		
-		assertEquals(4, web.serviciosDeInmuebles().size());
+		assertEquals(4, web.getServiciosInmuebles().size());
 		
 		
 	}
