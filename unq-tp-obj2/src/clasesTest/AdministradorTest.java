@@ -14,6 +14,8 @@ public class AdministradorTest {
 
 	// "Dar de alta" siginifca agregar nuevos
 	
+	// Tests dan Null y no se por que, arreglar - Leo
+	
 	Administrador admin = new Administrador();
 	SitioWeb web = new SitioWeb();
 	

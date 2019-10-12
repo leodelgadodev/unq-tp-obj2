@@ -30,20 +30,17 @@ public class UsuarioPropietarioTest extends UsuarioTest {
 	Usuario inquilino2 = new UsuarioInquilino("Diego","Torres", "diegocano@email.com", 8005555);
 	Usuario inquilino3 = new UsuarioInquilino("Martin"," ", "martinrosenfeld@email.com", 8006666);
 	
-	servicios.add("gas");
-	servicios.add("agua");
+	servicios.add("Gas");
+	servicios.add("Agua");
+	servicios.add("Wifi");
 	
 	Inmueble depto1 = new Inmueble("Depto","BsAs",servicios,3,1200,1000,50);
 	}
 	
 	@Test
 	public void testPropietarioNoRegistradoNoPuedePublicar() {
-		ArrayList<String> servicios = new ArrayList<String>;
-		servicios.add("wifi");
-		servicios.add("agua");
-		servicios.add("gas");
-		
-		Assert.error(prop1.publicarInmueble(depto1),"No puede publicar si no está registrado.");
+
+		Assert.error(prop1.publicarInmueble(depto1),"No puede publicar si no estï¿½ registrado.");
 	}
 	
 	@Test
