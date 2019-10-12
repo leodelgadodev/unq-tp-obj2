@@ -1,5 +1,7 @@
 package usuarioTest;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class UsuarioPropietarioTest extends UsuarioTest {
 	
 	Usuario inquilino1 = new UsuarioInquilino("Diego","Cano", "diegotorres@email.com", 8004444);
 	Usuario inquilino2 = new UsuarioInquilino("Diego","Torres", "diegocano@email.com", 8005555);
-	Usuario inquilino3 = new UsuarioInquilino("Martin"," ", "martinrosenfeld@email.com", 8006666);
+	Usuario inquilino3 = new UsuarioInquilino("Martin","Rosenfeld", "martinrosenfeld@email.com", 8006666);
 	
 	servicios.add("Gas");
 	servicios.add("Agua");

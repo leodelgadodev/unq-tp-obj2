@@ -1,5 +1,6 @@
 package clasesTest;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -40,6 +41,25 @@ public class SitioWebTest {
 		
 		web.agregarCategoriaDeRankingPropietario(s);
 		assertFalse(web.getCategoriasRankingPropietario().isEmpty());
+	}
+	
+	@Test
+	public void agregarCategoriaDeRankigPropieriarioConArray() {
+		ArrayList<String> a = new ArrayList<>();
+		a.add("Puntualidad");
+		a.add("Cordialidad");
+		
+		assertTrue(web.getCategoriasRankingPropietario().isEmpty());
+		
+		web.agregarCategoriaDeRankingPropietario("Hospitalidad");
+		
+		assertFalse(web.getCategoriasRankingPropietario().isEmpty());
+		
+		for (String elem : a) {
+		web.agregarCategoriaDeRankingPropietario(elem);
+		}
+		
+		assertEquals(3,web.getCategoriasRankingPropietario().size());
 	}
 	
 	@Test

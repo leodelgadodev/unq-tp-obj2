@@ -32,7 +32,7 @@ public class Administrador {
 	public void crearCategoriaDeRankingInquilino(ArrayList<String> categorias) {
 
 		for (String c : categorias) {
-			web.agregarCategoriaDeRankingPropietario(c);
+			web.agregarCategoriaDeRankingInquilino(c);
 		}
 	}
 	

@@ -3,17 +3,19 @@ package usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import clases.Inmueble;
 import clases.SitioWeb;
 
-public abstract class Usuario {
+public class Usuario {
 	protected String nombre;
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
 	protected LocalDate fechaDeCreacion; 
 	protected List<String>comentarios;
+	protected SitioWeb web;
 
 	public Usuario(String nombre, String apellido, String email, Integer telefono) {
 
@@ -65,9 +67,38 @@ public abstract class Usuario {
 		this.email = email;
 	}
 
-	public abstract void publicarInmueble(Inmueble nvoInmueble, SitioWeb sitioWeb);
-
-	public abstract void registrarse(SitioWeb sitioweb);
+	public void registrarse(SitioWeb sitioweb) {
+		this.web = sitioweb;
+		web.registrarUsuario(this);
+	}
+	
+	public void publicarInmueble(
+			String tipo, String ciudad, String pais, 
+			String direccion, Set<String> servicios, 
+			Integer capacidad, String horaCheckIn, 
+			String horaCheckOut, Double precio
+			) {
+		
+		if(web.esUnInmuebleValido(tipo, servicios)) {
+		
+		Inmueble i = new Inmueble(
+				this, tipo, ciudad, pais, direccion, servicios,
+				capacidad, horaCheckIn, horaCheckOut, precio);
+		
+		Usuario userP = new UsuarioPropietario(
+				this.getNombre(), this.getApellido(),
+				this.getEmail(), this.getTelefono()
+				);
+		
+		web.registrarUsuario(userP);
+		web.registrarInmueble(i);
+		
+		web.darDeBajaUsuario(this);
+		
+		} else {
+			web.avisoInmuebleInvalido();
+		}
+	}
 
 
 }

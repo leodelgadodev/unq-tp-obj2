@@ -11,19 +11,11 @@ import usuario.UsuarioPropietario;
 public class UsuarioTest {
 
 
-	@Test
-	public void testConstructorUsuarioInquilino() {
-		Usuario user1 = new UsuarioInquilino("Aaa", "Aaa", "a@email.com", 1111);
-		
-		assertNotNull(user1.getNombre());
-		assertNotNull(user1.getApellido());
-		assertNotNull(user1.getEmail());
-		assertNotNull(user1.getTelefono());
-	}
+	
 	
 	@Test
-	public void testConstructorUsuarioPropietario() {
-		Usuario user2 = new UsuarioPropietario("Aaa", "Aaa", "a@email.com", 1111);
+	public void testConstructorUsuario() {
+		Usuario user2 = new Usuario("Aaa", "Aaa", "a@email.com", 1111);
 		
 		assertNotNull(user2.getNombre());
 		assertNotNull(user2.getApellido());

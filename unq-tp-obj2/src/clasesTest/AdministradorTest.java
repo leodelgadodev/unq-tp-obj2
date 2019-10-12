@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import clases.Administrador;
@@ -19,15 +21,23 @@ public class AdministradorTest {
 	Administrador admin = new Administrador();
 	SitioWeb web = new SitioWeb();
 	
+	@Before
+	public void setup() {
+		admin.setSitioWeb(web);
+	}
+	
+	
 	@Test
 	public void administradorConoceAlSitioWeb() {
-		admin.setSitioWeb(web);
+		this.setup();
 		
 		assertNotNull(admin.getSitioWeb());
 	}
 	
 	@Test
 	public void darDeAltaCategoriasUtilizadasParaRankearPropietarios() {
+		this.setup();
+
 		admin.crearCategoriaDeRankingPropietario("Disponibilidad");
 		
 		assertEquals(1, web.getCategoriasRankingPropietario().size());
@@ -44,6 +54,8 @@ public class AdministradorTest {
 	
 	@Test
 	public void darDeAltaCategoriasUtilizadasParaRankearInquilinos() {
+		this.setup();
+		
 		admin.crearCategoriaDeRankingInquilino("Cordialidad");
 		
 		assertEquals(1, web.getCategoriasRankingInquilino().size());
@@ -52,13 +64,19 @@ public class AdministradorTest {
 		a.add("Puntualidad");
 		a.add("Disponibilidad");
 		
+		admin.crearCategoriaDeRankingInquilino("hospitalidad");
+		
+		assertEquals(2, web.getCategoriasRankingInquilino().size());
+		
 		admin.crearCategoriaDeRankingInquilino(a);
 		
-		assertEquals(3, web.getCategoriasRankingInquilino().size());
+		assertEquals(4, web.getCategoriasRankingInquilino().size());
 	}
 	
 	@Test
 	public void darDeAltaCategoriasUtilizadasParaRankearInmuebles() {
+		this.setup();
+		
 		admin.crearCategoriaDeRankingInmueble("Ubicación");
 		
 		assertEquals(1, web.getCategoriasRankingInmueble().size());
@@ -74,6 +92,8 @@ public class AdministradorTest {
 	
 	@Test
 	public void darDeAltaTipoDeInmuebles() {
+		this.setup();
+		
 		admin.darDeAltaTipoDeInmueble("Quincho");
 		
 		assertEquals(1, web.getTiposInmueble().size());
@@ -90,6 +110,8 @@ public class AdministradorTest {
 	
 	@Test
 	public void darDeAltaServiciosDeInmuebles() {
+		this.setup();
+		
 		admin.darDeAltaServiciosDeInmuebles("Wifi");
 		
 		assertEquals(1, web.getServiciosInmuebles().size());
@@ -102,7 +124,6 @@ public class AdministradorTest {
 		admin.darDeAltaServiciosDeInmuebles(a);
 		
 		assertEquals(4, web.getServiciosInmuebles().size());
-		
 		
 	}
 }
