@@ -13,9 +13,10 @@ public class Usuario {
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
-	protected LocalDate fechaDeCreacion; 
-	protected List<String>comentarios;
+	protected LocalDate fechaDeCreacion; // para que??? - Leo
+	//protected List<String>comentarios; No hace falta para este hito - Leo
 	protected SitioWeb web;
+
 
 	public Usuario(String nombre, String apellido, String email, Integer telefono) {
 
@@ -24,16 +25,16 @@ public class Usuario {
 		this.email = email;
 		this.telefono = telefono;
 		this.fechaDeCreacion = LocalDate.now(); // Podria ser asi o fijarle una fecha en concreto ? GT
-		this.comentarios = new ArrayList<String>();
+		//this.comentarios = new ArrayList<String>(); // No hace falta para este hito - L
 	}
 
 	public LocalDate getFechaDeCreacion() {
 		return fechaDeCreacion;
 	}
 
-	public List<String> getComentarios() {
-		return comentarios;
-	}
+	//public List<String> getComentarios() {
+		//return comentarios; // No hace falta para este hito - L
+	//}
 
 	public void setTelefono(Integer telefono) {
 		this.telefono = telefono;
@@ -71,34 +72,5 @@ public class Usuario {
 		this.web = sitioweb;
 		web.registrarUsuario(this);
 	}
-	
-	public void publicarInmueble(
-			String tipo, String ciudad, String pais, 
-			String direccion, Set<String> servicios, 
-			Integer capacidad, String horaCheckIn, 
-			String horaCheckOut, Double precio
-			) {
-		
-		if(web.esUnInmuebleValido(tipo, servicios)) {
-		
-		Inmueble i = new Inmueble(
-				this, tipo, ciudad, pais, direccion, servicios,
-				capacidad, horaCheckIn, horaCheckOut, precio);
-		
-		Usuario userP = new UsuarioPropietario(
-				this.getNombre(), this.getApellido(),
-				this.getEmail(), this.getTelefono()
-				);
-		
-		web.registrarUsuario(userP);
-		web.registrarInmueble(i);
-		
-		web.darDeBajaUsuario(this);
-		
-		} else {
-			web.avisoInmuebleInvalido();
-		}
-	}
-
 
 }

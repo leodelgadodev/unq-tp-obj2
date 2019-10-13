@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import excepciones.InmuebleInvalidoException;
+import excepciones.UsuarioNoRegistradoException;
 import reserva.Reserva;
 import usuario.Usuario;
 
 public class SitioWeb {
+	//Esto deberia ser un Singleton - Leo
 	
 	private List<Usuario> usuariosRegistrados;
 	private List<Inmueble> inmuebles;
-	private List<Reserva> reservasPendientes;
-	private List<Reserva> reservasConcretadas;
+	private List<Reserva> reservasPendientes; //No hace falta para este hito - L
+	private List<Reserva> reservasConcretadas; // No hace falta para este hito - L
 	
-	private ArrayList<String> catRankProp;
-	private ArrayList<String> catRankInqui;
-	private ArrayList<String> catRankInmu;
+	private ArrayList<String> catRankProp; // No hace falta para este hito - L
+	private ArrayList<String> catRankInqui; // No hace falta para este hito - L
+	private ArrayList<String> catRankInmu; // No hace falta para este hito - L
 	
 	private ArrayList<String> tiposInmueble;
 	private ArrayList<String> serviciosInmuebles;
@@ -75,7 +78,7 @@ public class SitioWeb {
 	
 	// ---------------------------------------------
 	
-	// RESERVAS
+	// RESERVAS // No hace falta para este hito - L
 	
 	// ---------------------------------------------
 	
@@ -174,48 +177,16 @@ public class SitioWeb {
 		inmuebles.add(i);
 	}
 
-	public static String br = System.getProperty("line.separator");
-	
-	/**
-	 * Es llamado por el Usuario al intentar publicar un inmueble.
-	 * Si falla el intento de registrar de inmueble, denota un msj
-	 * de error por consola, avisando que para registrar el inmueble
-	 * necesita que el tipo o los servicios ofrecidos coincidan con
-	 * alguno de los tipos y servicios dados de alta en el sitio web.
-	 */
-	public void avisoInmuebleInvalido() {
-		System.out.println("No pudimos registrar su inmueble. Por favor,"
-				+ "verifique que sea un tipo de inmueble posible y que"
-				+ "los servicios ofrecidos coincidan con los servicios"
-				+ "posibles. "
-				+ "Los tipos de inmuebles posibles son: "
-				+ this.listarTiposDeInmueblesPosibles()
-				+ "Los servicios que puede ofrecer su inmueble son: "
-				+ this.listarServiciosDeInmueblesPosibles());
-	}
-	
-	public String listarTiposDeInmueblesPosibles() {
-		ArrayList<String> tipos = new ArrayList<>();
-		String lista = "";
-		for (String t : tipos) {
-			lista = lista + "- " + t + ". " + br;
-		}
-		
-		return lista;
-	}
-	
-	public String listarServiciosDeInmueblesPosibles() {
-		ArrayList<String> servicios = new ArrayList<>();
-		String lista = "";
-		for (String s : servicios) {
-			lista = lista + "- " + s + ". " + br;
-		}
-		
-		return lista;
-	}
-
 	public void darDeBajaUsuario(Usuario u) {
 		usuariosRegistrados.remove(u);
+	}
+
+	public Exception avisoUsuarioNoRegistrado() throws UsuarioNoRegistradoException {
+		throw new UsuarioNoRegistradoException();
+	}
+	
+	public Exception avisoInmuebleInvalido() throws InmuebleInvalidoException {
+		throw new InmuebleInvalidoException();
 	}
 	
 	

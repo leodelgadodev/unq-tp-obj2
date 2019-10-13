@@ -1,17 +1,17 @@
 package usuarioTest;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import clases.SitioWeb;
 import usuario.Usuario;
-import usuario.UsuarioInquilino;
-import usuario.UsuarioPropietario;
 
 public class UsuarioTest {
-
-
 	
+	private Usuario user1 = new Usuario("Aaa", "Aaa", "a@email.com", 1111);
+	private SitioWeb web = new SitioWeb();
 	
 	@Test
 	public void testConstructorUsuario() {
@@ -24,34 +24,21 @@ public class UsuarioTest {
 	}
 	
 	@Test
-	public void testSettersUsuarioInquilino() {
-		Usuario user = new UsuarioInquilino(null, null, null, null);
+	public void testUsuarioNoRegistradoNoPuedeReservar() {
 		
-		user.setNombre("bbb");
-		user.setApellido("bbb");
-		user.setEmail("b@email.com");
-		user.setTelefono(2222);
-		
-		assertNotNull(user.getNombre());
-		assertNotNull(user.getApellido());
-		assertNotNull(user.getEmail());
-		assertNotNull(user.getTelefono());
+		assertTrue(false);
 	}
 	
 	@Test
-	public void testSettersUsuarioPropietario() {
-		Usuario user = new UsuarioPropietario(null, null, null, null);
-		
-		user.setNombre("bbb");
-		user.setApellido("bbb");
-		user.setEmail("b@email.com");
-		user.setTelefono(2222);
-		
-		assertNotNull(user.getNombre());
-		assertNotNull(user.getApellido());
-		assertNotNull(user.getEmail());
-		assertNotNull(user.getTelefono());
+	public void testUsuarioRegistradoPuedeReservar() {
+		user1.registrarse(web);
+		//Falta...
+		assertTrue(false);
 	}
 	
-	
+	@Test
+	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
+		//Falta...
+		assertTrue(false);
+	}
 }
