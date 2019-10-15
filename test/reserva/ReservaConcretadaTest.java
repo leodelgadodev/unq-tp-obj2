@@ -1,4 +1,4 @@
-package reservaTest;
+package reserva;
 
 public class ReservaConcretadaTest {
 

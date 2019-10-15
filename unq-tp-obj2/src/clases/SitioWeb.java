@@ -173,9 +173,9 @@ public class SitioWeb {
 	 * Agrega el inmueble a la lista de inmuebles del sitio.
 	 * @param i - Inmueble
 	 */
-	public void registrarInmueble(Inmueble i) {
-		inmuebles.add(i);
-	}
+	//public void registrarInmueble(Inmueble i) { // ya hay un metodo que hace esto -> ponerEnAlquiler(Inmueble nvoInmueble) GT
+	//	inmuebles.add(i);
+	//}
 
 	public void darDeBajaUsuario(Usuario u) {
 		usuariosRegistrados.remove(u);

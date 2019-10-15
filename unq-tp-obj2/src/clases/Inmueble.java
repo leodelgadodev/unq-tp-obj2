@@ -18,7 +18,6 @@ public class Inmueble {
 	
 	private Usuario propietario; // deberia estar para luego obtener la info del mismo a partir de los inmuebles en el sitio. GT
 	private String tipoDeInmueble;
-	//private String locacion; //Tendria que ser una clase.
 	private String ciudad;
 	private String pais;
 	private String direccion;
@@ -30,7 +29,7 @@ public class Inmueble {
 	private LocalTime horaCheckIn; //Creo que deberiamos usar LocalDateTime.
 	private LocalTime horaCheckOut;
 	private double precio; //Por dia
-	private List<String> comentarios; 
+	//private List<String> comentarios; // todavia no para este hito GT 
 
 	public Inmueble(Usuario prop, String tipo, String ciudad, 
 			String pais, String direccion, Set<String> servicios, 
@@ -47,15 +46,11 @@ public class Inmueble {
 		this.setHoraCheckOut(horaCheckOut);
 		this.setPrecio(precio);
 		
-		this.comentarios = new ArrayList<String>(); // podria estar en otro lado o aqui?? GT
+		//this.comentarios = new ArrayList<String>(); //  todavia no para este hito GT
 		// Mejor acá, inicializarlo pero al crearlo no tiene comentarios. Despues los
 		// inquilinos le van a ir agregando comentarios - Leo
 	}
 	
-	
-	//public String getLocacion() {
-		//return locacion;
-	//}
 	
 	public int getCapacidad() {
 		return capacidad;
@@ -105,13 +100,13 @@ public class Inmueble {
 		this.direccion = direccion;
 	}
 
-	public List<String> getComentarios() {
-		return comentarios;
-	}
+	//public List<String> getComentarios() { // todavia no para este hito GT
+	//	return comentarios;
+	//}
 
-	public void setComentarios(List<String> comentarios) {
-		this.comentarios = comentarios;
-	}
+	//public void setComentarios(List<String> comentarios) { // todavia no para este hito GT
+	//	this.comentarios = comentarios;
+	//}
 
 	public Set<String> getServicios(){
 		return servicios;

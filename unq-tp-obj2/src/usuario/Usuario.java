@@ -13,24 +13,26 @@ public class Usuario {
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
-	protected LocalDate fechaDeCreacion; // para que??? - Leo
+	//protected LocalDate fechaDeCreacion; // para que??? - Leo // se necesitara para conocer hace cuanto que es usuario del sitio.Todavia no para este hito GT
 	//protected List<String>comentarios; No hace falta para este hito - Leo
 	protected SitioWeb web;
 
 
-	public Usuario(String nombre, String apellido, String email, Integer telefono) {
+	public Usuario(String nombre, String apellido, String email, Integer telefono, SitioWeb web) {
 
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.telefono = telefono;
-		this.fechaDeCreacion = LocalDate.now(); // Podria ser asi o fijarle una fecha en concreto ? GT
+		
+		this.registrarse(web);
+		//this.fechaDeCreacion = LocalDate.now(); // todavia no para este hito GT
 		//this.comentarios = new ArrayList<String>(); // No hace falta para este hito - L
 	}
 
-	public LocalDate getFechaDeCreacion() {
-		return fechaDeCreacion;
-	}
+	//public LocalDate getFechaDeCreacion() { // todavia no para este hito GT
+	//	return fechaDeCreacion;
+	//}
 
 	//public List<String> getComentarios() {
 		//return comentarios; // No hace falta para este hito - L

@@ -15,8 +15,8 @@ public class UsuarioPropietario extends Usuario {
 	private List<Inmueble> inmuebles;
 	private Reserva reservaPendiente;
 	
-	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono) {
-		super(nombre, apellido, email, telefono);
+	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono,SitioWeb web) {
+		super(nombre, apellido, email, telefono,web);
 		this.inmuebles = new ArrayList<Inmueble>();
 	}
 
@@ -47,15 +47,15 @@ public class UsuarioPropietario extends Usuario {
 				this, tipo, ciudad, pais, direccion, servicios,
 				capacidad, horaCheckIn, horaCheckOut, precio);
 		
-		Usuario userP = new UsuarioPropietario(
-				this.getNombre(), this.getApellido(),
-				this.getEmail(), this.getTelefono()
-				);
+		//Usuario userP = new UsuarioPropietario(  // no seria necesario ya que al crear el inmueble le estas pasando el propietario. GT
+			//	this.getNombre(), this.getApellido(),
+				//this.getEmail(), this.getTelefono(),
+				//this.web);
 		
-		web.registrarUsuario(userP);
-		web.registrarInmueble(i);
+		//web.registrarUsuario(userP); ya deberia estar registrado, para ello lo hace desde el contructor de usuario. GT
+		web.ponerEnAlquiler(i);
 		
-		web.darDeBajaUsuario(this);
+		//web.darDeBajaUsuario(this); // ?? GT
 		
 		} else web.avisoInmuebleInvalido();
 	}

@@ -1,4 +1,4 @@
-package usuarioTest;
+package usuario;
 
 import static org.junit.Assert.assertNotNull;
 

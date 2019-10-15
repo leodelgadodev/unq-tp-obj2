@@ -1,4 +1,4 @@
-package rankingTest;
+package ranking;
 
 public class RankingInmuebleTest {
 
