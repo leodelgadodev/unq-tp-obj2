@@ -11,6 +11,7 @@ import usuario.Usuario;
 
 public class SitioWeb {
 	//Esto deberia ser un Singleton - Leo
+	private static SitioWeb web;
 	
 	private List<Usuario> usuariosRegistrados;
 	private List<Inmueble> inmuebles;
@@ -24,7 +25,7 @@ public class SitioWeb {
 	private ArrayList<String> tiposInmueble;
 	private ArrayList<String> serviciosInmuebles;
 	
-	public SitioWeb() {
+	private SitioWeb() {
 		
 		this.usuariosRegistrados = new ArrayList<Usuario>();
 		this.inmuebles = new ArrayList<Inmueble>();
@@ -36,7 +37,14 @@ public class SitioWeb {
 		this.tiposInmueble = new ArrayList<String>();
 		this.serviciosInmuebles = new ArrayList<String>();
 	}
-
+	
+	public static SitioWeb getInstancia() {
+		if(web == null) {
+			web = new SitioWeb();
+		}
+		return web;
+	}
+	
 	public List<Reserva> getReservasPendientes() {
 		return reservasPendientes;
 	}
