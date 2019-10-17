@@ -11,7 +11,7 @@ import usuario.Usuario;
 
 public class SitioWeb {
 	//Esto deberia ser un Singleton - Leo
-	private static SitioWeb web;
+	public static SitioWeb web = new SitioWeb();
 	
 	private List<Usuario> usuariosRegistrados;
 	private List<Inmueble> inmuebles;
@@ -25,7 +25,7 @@ public class SitioWeb {
 	private ArrayList<String> tiposInmueble;
 	private ArrayList<String> serviciosInmuebles;
 	
-	private SitioWeb() {
+	public SitioWeb() {
 		
 		this.usuariosRegistrados = new ArrayList<Usuario>();
 		this.inmuebles = new ArrayList<Inmueble>();

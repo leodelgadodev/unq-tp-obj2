@@ -2,26 +2,23 @@ package clases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import clases.Inmueble;
 import usuario.Usuario;
 import usuario.UsuarioPropietario;
 
-public class InmuebleTest {
+class TestInmueble {
 
 	Set<String> servicios = new HashSet<>();
 	Set<String> serviciosTest = new HashSet<>();
-	Usuario prop = new UsuarioPropietario(null, null, null, null,null);
+	Usuario prop = new UsuarioPropietario(null, null, null, null);
 	Inmueble i = new Inmueble(
 			prop,
 			"Casa",
@@ -35,7 +32,8 @@ public class InmuebleTest {
 			7000.00
 			);
 	
-	public void setup() {
+	@BeforeEach
+	void setUp() throws Exception {
 		servicios.add("Gas");
 		servicios.add("Agua");
 		servicios.add("Wifi");
@@ -44,10 +42,14 @@ public class InmuebleTest {
 		serviciosTest.add("Gas");
 		serviciosTest.add("Wifi");
 	}
-	
+
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
 	@Test
 	public void inmuebleConstructor() {
-		this.setup();
 
 		assertNotNull(i);
 	}
@@ -86,7 +88,6 @@ public class InmuebleTest {
 	
 	@Test
 	public void setServicios() {
-		this.setup();
 		// Que pasa al intentar setear un servicio
 		// que no fue dado de alta por el admin?
 		
@@ -138,5 +139,5 @@ public class InmuebleTest {
 		i.setComentarios(c);
 		assertEquals(c,i.getComentarios());
 	}*/
-
+	
 }

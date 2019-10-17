@@ -4,39 +4,37 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import clases.SitioWeb;
+class TestSitioWeb {
 
-public class SitioWebTest {
-		
 	SitioWeb web = new SitioWeb();
 	String s = "StringTest"; // Debería ser un Mock y no strings así a lo bruto, cambiar - Leo
 	
 	ArrayList<String> a = new ArrayList<>();
 	
-	@Before
-	public void setup() {
+	@BeforeEach
+	void setUp() throws Exception {
 		a.add("ArrayTest1");
-		a.add("ArrayTest2");		
+		a.add("ArrayTest2");	
 	}
-	
-	
+
 	@Test
 	public void registrarUsuario() {
-		
+		assertEquals(1,1);
 	}
 	
 	@Test
 	public void registrarInmueble() {
-		
+		fail("Not yet implemented");
 	}
 	
-	@Test
+	/*@Test
 	public void agregarCategoriaDeRankingPropietario() {
 		
 		web.agregarCategoriaDeRankingPropietario(s);
@@ -122,11 +120,12 @@ public class SitioWebTest {
 	
 	@Test
 	public void agregarReservaConcretada() {
-		
+		fail("Not yet implemented");
 	}
 	
 	@Test
 	public void agregarReservaPendiente() {
-		
+		fail("Not yet implemented");
 	}
+*/
 }

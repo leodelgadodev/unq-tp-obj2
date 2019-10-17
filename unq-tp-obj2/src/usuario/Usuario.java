@@ -16,20 +16,19 @@ public class Usuario {
 	protected Integer telefono;
 	//protected LocalDate fechaDeCreacion; // para que??? - Leo // se necesitara para conocer hace cuanto que es usuario del sitio.Todavia no para este hito GT
 	//protected List<String>comentarios; No hace falta para este hito - Leo
-	protected SitioWeb web;
+	
 	private Inmueble inmuebleSeleccionado; //para visualizar o reservar
 	private List<Inmueble> inmueblesAlquilados;
 	private Reserva reserva;
 
 
-	public Usuario(String nombre, String apellido, String email, Integer telefono, SitioWeb web) {
+	public Usuario(String nombre, String apellido, String email, Integer telefono) {
 
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.telefono = telefono;
-		
-		this.registrarse(web);
+		this.registrarse(SitioWeb.web);
 		//this.fechaDeCreacion = LocalDate.now(); // todavia no para este hito GT
 		//this.comentarios = new ArrayList<String>(); // No hace falta para este hito - L
 	}
@@ -75,12 +74,12 @@ public class Usuario {
 	}
 
 	public void registrarse(SitioWeb sitioweb) {
-		this.web = sitioweb;
-		web.registrarUsuario(this);
+		
+		SitioWeb.web.registrarUsuario(this);
 	}
 	
 	public List<Inmueble> buscarInmueble(String ciudad, LocalTime fechaEntrada, LocalTime fechaSalida){ // revisar GT
-		List<Inmueble> inmuebles = web.getInmuebles();
+		List<Inmueble> inmuebles = SitioWeb.web.getInmuebles();
 		inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList());
 		inmuebles = inmuebles.stream().filter(x-> x.getHoraCheckIn().isBefore(fechaEntrada) && x.getHoraCheckOut().isAfter(fechaSalida)).collect(Collectors.toList());
 		
@@ -106,7 +105,7 @@ public class Usuario {
 	
 	public void reservarInmueble() {
 		this.reserva = new Reserva(inmuebleSeleccionado, this); //No estoy seguro.
-		this.web.agregarReservaPendiente(reserva); //ustedes que dicen?
+		SitioWeb.web.agregarReservaPendiente(reserva); //ustedes que dicen?
 	}
 	
 	public void concretarReserva() {

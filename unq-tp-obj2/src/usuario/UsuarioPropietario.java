@@ -15,8 +15,8 @@ public class UsuarioPropietario extends Usuario {
 	private List<Inmueble> inmuebles;
 	private Reserva reservaPendiente;
 	
-	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono,SitioWeb web) {
-		super(nombre, apellido, email, telefono,web);
+	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono) {
+		super(nombre, apellido, email, telefono);
 		this.inmuebles = new ArrayList<Inmueble>();
 	}
 
@@ -27,10 +27,10 @@ public class UsuarioPropietario extends Usuario {
 			String horaCheckOut, Double precio
 			) throws UsuarioNoRegistradoException, InmuebleInvalidoException {
 		
-		if(web.getUsuariosRegistrados().contains(this)) {
+		if(SitioWeb.web.getUsuariosRegistrados().contains(this)) {
 			this._publicarInmueble(tipo, ciudad, pais, direccion, 
 					servicios, capacidad, horaCheckIn, horaCheckOut, precio);
-		} else web.avisoUsuarioNoRegistrado();
+		} else SitioWeb.web.avisoUsuarioNoRegistrado();
 	}
 	
 	
@@ -41,7 +41,7 @@ public class UsuarioPropietario extends Usuario {
 			String horaCheckOut, Double precio
 			) throws InmuebleInvalidoException {
 		
-		if(web.esUnInmuebleValido(tipo, servicios)) {
+		if(SitioWeb.web.esUnInmuebleValido(tipo, servicios)) {
 		
 		Inmueble i = new Inmueble(
 				this, tipo, ciudad, pais, direccion, servicios,
@@ -53,16 +53,16 @@ public class UsuarioPropietario extends Usuario {
 				//this.web);
 		
 		//web.registrarUsuario(userP); ya deberia estar registrado, para ello lo hace desde el contructor de usuario. GT
-		web.ponerEnAlquiler(i);
+		SitioWeb.web.ponerEnAlquiler(i);
 		
 		//web.darDeBajaUsuario(this); // ?? GT
 		
-		} else web.avisoInmuebleInvalido();
+		} else SitioWeb.web.avisoInmuebleInvalido();
 	}
 
 	public void aceptarReserva(Reserva reservaPendiente) {
-		this.web.eliminarReservaPendiente(reservaPendiente);
-		this.web.agregarReservaConcretada(reservaPendiente);
+		SitioWeb.web.eliminarReservaPendiente(reservaPendiente);
+		SitioWeb.web.agregarReservaConcretada(reservaPendiente);
 	}
 	
 }

@@ -2,41 +2,42 @@ package clases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import clases.Administrador;
-import clases.SitioWeb;
-
-public class AdministradorTest {
+class TestAdministrador {
 
 	// "Dar de alta" siginifca agregar nuevos
 	
-	// Tests dan Null y no se por que, arreglar - Leo
-	
-	Administrador admin = new Administrador();
-	SitioWeb web = new SitioWeb();
-	
-	@Before
-	public void setup() {
+		// Tests dan Null y no se por que, arreglar - Leo
+		
+		Administrador admin = new Administrador();
+		SitioWeb web = new SitioWeb();
+		
+	@BeforeEach
+	void setUp() throws Exception {
 		admin.setSitioWeb(web);
 	}
-	
+
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
 	
 	@Test
 	public void administradorConoceAlSitioWeb() {
-		this.setup();
+		
 		
 		assertNotNull(admin.getSitioWeb());
 	}
 	
 	@Test
 	public void darDeAltaCategoriasUtilizadasParaRankearPropietarios() {
-		this.setup();
+		
 
 		admin.crearCategoriaDeRankingPropietario("Disponibilidad");
 		
@@ -54,7 +55,7 @@ public class AdministradorTest {
 	
 	@Test
 	public void darDeAltaCategoriasUtilizadasParaRankearInquilinos() {
-		this.setup();
+		
 		
 		admin.crearCategoriaDeRankingInquilino("Cordialidad");
 		
@@ -75,7 +76,7 @@ public class AdministradorTest {
 	
 	@Test
 	public void darDeAltaCategoriasUtilizadasParaRankearInmuebles() {
-		this.setup();
+		
 		
 		admin.crearCategoriaDeRankingInmueble("Ubicación");
 		
@@ -92,7 +93,7 @@ public class AdministradorTest {
 	
 	@Test
 	public void darDeAltaTipoDeInmuebles() {
-		this.setup();
+		
 		
 		admin.darDeAltaTipoDeInmueble("Quincho");
 		
@@ -110,7 +111,7 @@ public class AdministradorTest {
 	
 	@Test
 	public void darDeAltaServiciosDeInmuebles() {
-		this.setup();
+		
 		
 		admin.darDeAltaServiciosDeInmuebles("Wifi");
 		
@@ -126,4 +127,5 @@ public class AdministradorTest {
 		assertEquals(4, web.getServiciosInmuebles().size());
 		
 	}
+
 }
