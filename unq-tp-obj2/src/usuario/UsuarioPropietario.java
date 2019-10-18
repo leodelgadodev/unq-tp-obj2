@@ -23,13 +23,13 @@ public class UsuarioPropietario extends Usuario {
 	public void publicarInmueble(
 			String tipo, String ciudad, String pais, 
 			String direccion, Set<String> servicios, 
-			Integer capacidad, String horaCheckIn, 
+			Integer capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, 
 			String horaCheckOut, Double precio
 			) throws UsuarioNoRegistradoException, InmuebleInvalidoException {
 		
 		if(web.getUsuariosRegistrados().contains(this)) {
 			this._publicarInmueble(tipo, ciudad, pais, direccion, 
-					servicios, capacidad, horaCheckIn, horaCheckOut, precio);
+					servicios, capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
 		} else web.avisoUsuarioNoRegistrado();
 	}
 	
@@ -37,7 +37,7 @@ public class UsuarioPropietario extends Usuario {
 	public void _publicarInmueble(
 			String tipo, String ciudad, String pais, 
 			String direccion, Set<String> servicios, 
-			Integer capacidad, String horaCheckIn, 
+			Integer capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, 
 			String horaCheckOut, Double precio
 			) throws InmuebleInvalidoException {
 		
@@ -45,7 +45,7 @@ public class UsuarioPropietario extends Usuario {
 		
 		Inmueble i = new Inmueble(
 				this, tipo, ciudad, pais, direccion, servicios,
-				capacidad, horaCheckIn, horaCheckOut, precio);
+				capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
 		
 		//Usuario userP = new UsuarioPropietario(  // no seria necesario ya que al crear el inmueble le estas pasando el propietario. GT
 			//	this.getNombre(), this.getApellido(),

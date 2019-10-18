@@ -23,9 +23,9 @@ class TestUsuario {
 	
 	Usuario inquilino1 = new Usuario(web,"Alguien3", "Lopez", "al@gmail.com", 42245225);
 	
-	Inmueble casa1 = new Inmueble(prop1, "casa1", "BsAs", "Argentina","calle 123" , null, 5, "08:30", "17:00", 2500.0);
-	Inmueble casa2 = new Inmueble(prop2, "casa2", "Cordoba", "Argentina","calle 123" , null, 5, "09:30", "19:00", 3500.0);
-	Inmueble casa3 = new Inmueble(prop3, "casa3", "BsAs", "Argentina","calle 123" , null, 5, "10:30", "18:00", 4000.0);
+	Inmueble casa1 = new Inmueble(prop1, "casa1", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "08:30", "17:00", 2500.0);
+	Inmueble casa2 = new Inmueble(prop2, "casa2", "Cordoba", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "09:30", "19:00", 3500.0);
+	Inmueble casa3 = new Inmueble(prop3, "casa3", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "10:30", "18:00", 4000.0);
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -41,7 +41,7 @@ class TestUsuario {
 		test.add(casa1);
 		test.add(casa3);
 		
-		assertEquals(test, inquilino1.buscarInmueble("BsAs","08:30","18:00"));
+		assertEquals(test, inquilino1.buscarInmuebles("BsAs","2019-10-17","2019-10-25"));
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ class TestUsuario {
 		List<Inmueble> test = new ArrayList<Inmueble>();
 		test.add(casa2);
 		
-		assertEquals(test, inquilino1.buscarInmueble("Cordoba","09:30","19:00"));
+		assertEquals(test, inquilino1.buscarInmuebles("Cordoba","2019-10-17","2019-10-25"));
 	}
 	
 	/*

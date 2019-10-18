@@ -1,5 +1,6 @@
 package usuario;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,27 +81,28 @@ public class Usuario {
 		web.registrarUsuario(this);
 	}
 	
-	public List<Inmueble> buscarInmueble(String ciudad, String fechaEntrada, String fechaSalida){ // revisar static o este metodo. GT
+	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
 		List<Inmueble> inmuebles = web.getInmuebles();
-		LocalTime horaEntrada = conversorDeStringEnHoras(fechaEntrada);
-		LocalTime horaSalida = conversorDeStringEnHoras(fechaSalida);
+		LocalDate fEntrada = conversorDeStringEnFechas(fechaEntrada);
+		LocalDate fSalida = conversorDeStringEnFechas(fechaSalida);
 		
 		//OP 1
 		inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList());
-		inmuebles = inmuebles.stream().filter(x-> (x.getHoraCheckIn().isAfter(horaEntrada) || x.getHoraCheckIn().equals(horaEntrada))  && (x.getHoraCheckOut().isBefore(horaSalida) || x.getHoraCheckOut().equals(horaSalida))).collect(Collectors.toList());
-		
+		inmuebles = inmuebles.stream().filter(x -> (x.getFechaDeInicio().isAfter(fEntrada) || x.getFechaDeInicio().equals(fEntrada))  && (x.getFechaFinal().isBefore(fSalida) || x.getFechaFinal().equals(fSalida))).collect(Collectors.toList());
+
 		return inmuebles;
 	}
 	
 	
-	private LocalTime conversorDeStringEnHoras(String hora) {
-		String[] parts = hora.split(":");
+	private LocalDate conversorDeStringEnFechas(String hora) {
+		String[] parts = hora.split("-");
 		String part1 = parts[0]; 
 		String part2 = parts[1];
+		String part3 = parts[2];
 		
-		LocalTime hsConvertida = LocalTime.of(Integer.parseInt(part1), Integer.parseInt(part2));
+		LocalDate fecha = LocalDate.of(Integer.parseInt(part1), Integer.parseInt(part2), Integer.parseInt(part3));
 		
-		return  hsConvertida;
+		return  fecha;
 	}
 	
 	public Inmueble seleccionarInmueble(ArrayList<Inmueble> listaInmuebles, int index) { // podria ser asi? GT

@@ -1,5 +1,6 @@
 package clases;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 //import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,37 +22,52 @@ public class Inmueble {
 	private String ciudad;
 	private String pais;
 	private String direccion;
-	private Set<String> servicios; // tal vez deberia ser una clase. GT
-	//Debe ser un Set, porque sino despues al hacer los tests trata de comparar
-	//listas en un orden especifico, o puede pasar que se le agregue "Agua"
-	//dos veces a un inmueble y no corresponde - Leo
-	private Integer capacidad; //cantidad de personas
-	private LocalTime horaCheckIn; //Creo que deberiamos usar LocalDateTime.
+	private Set<String> servicios; 
+	private Integer capacidad; 
+	private LocalDate fechaDeInicio; // disponibilidad del inmueble
+	private LocalDate fechaFinal; 
+	private LocalTime horaCheckIn; 
 	private LocalTime horaCheckOut;
-	private double precio; //Por dia
-	//private List<String> comentarios; // todavia no para este hito GT 
+	private double precio; 
+	//private List<String> comentarios;
 
 	public Inmueble(Usuario prop, String tipo, String ciudad, 
 			String pais, String direccion, Set<String> servicios, 
-			Integer capacidad, String horaCheckIn, String horaCheckOut,
+			Integer capacidad,String fechaInicio,String FechaFinal, String horaCheckIn, String horaCheckOut,
 			Double precio) {
 		this.setPropietario(prop);
 		this.setTipoDeInmueble(tipo);
 		this.setCiudad(ciudad);
 		this.setPais(pais);
 		this.setDireccion(direccion);
-		this.servicios = new HashSet<String>(); // tal vez deberia ser una clase. GT
+		this.servicios = new HashSet<String>(); 
 		this.setCapacidad(capacidad);
 		this.setHoraCheckIn(horaCheckIn);
 		this.setHoraCheckOut(horaCheckOut);
 		this.setPrecio(precio);
-		
+		this.setFechaDeInicio(fechaDeInicio);
+		this.setFechaFinal(fechaFinal);
 		//this.comentarios = new ArrayList<String>(); //  todavia no para este hito GT
-		// Mejor acá, inicializarlo pero al crearlo no tiene comentarios. Despues los
-		// inquilinos le van a ir agregando comentarios - Leo
+		
 	}
+
 	
-	
+	public LocalDate getFechaDeInicio() {
+		return fechaDeInicio;
+	}
+
+	public void setFechaDeInicio(LocalDate fechaDeInicio) {
+		this.fechaDeInicio = fechaDeInicio;
+	}
+
+	public LocalDate getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(LocalDate fechaFinal) {
+		this.fechaFinal = fechaFinal;
+	}
+
 	public int getCapacidad() {
 		return capacidad;
 	}
@@ -122,15 +138,9 @@ public class Inmueble {
 		return horaCheckIn;
 	}
 	
-	public void setHoraCheckIn(String horaCheckIn2) {
+	public void setHoraCheckIn(String horaCheckIn) {
 		
-		String[] parts = horaCheckIn2.split(":");
-		String part1 = parts[0]; 
-		String part2 = parts[1];
-		
-		this.horaCheckIn = LocalTime.of(
-				Integer.parseInt(part1), 
-				Integer.parseInt(part2));
+		this.horaCheckIn = this.conversorDeStringEnHoras(horaCheckIn);
 	}
 	
 	public LocalTime getHoraCheckOut() {
@@ -138,19 +148,31 @@ public class Inmueble {
 	}
 
 
-	public void setHoraCheckOut(String horaCheckOut2) {
+	public void setHoraCheckOut(String horaCheckOut) {
+	
+		this.horaCheckOut = this.conversorDeStringEnHoras(horaCheckOut);
 		
-		String[] parts = horaCheckOut2.split(":");
+	}
+	
+	private LocalTime conversorDeStringEnHoras(String horaCheck) {
+		String[] parts = horaCheck.split(":");
 		String part1 = parts[0]; 
 		String part2 = parts[1];
 		
-		this.horaCheckOut = LocalTime.of(
-				Integer.parseInt(part1), 
-				Integer.parseInt(part2));
+		LocalTime hora = LocalTime.of(Integer.parseInt(part1),Integer.parseInt(part2));
 		
-		// aqui tambien deberian ir los metodos pertinentes a ranking tal vez? GT
-		// NO. Setters solo setean valores. Cualquier otro comportamiento va en otros
-		// metodos - Leo
+		return  hora;
+	}
+	
+	private LocalDate conversorDeStringEnFechas(String hora) {
+		String[] parts = hora.split("-");
+		String part1 = parts[0]; 
+		String part2 = parts[1];
+		String part3 = parts[2];
+		
+		LocalDate fecha = LocalDate.of(Integer.parseInt(part1), Integer.parseInt(part2), Integer.parseInt(part3));
+		
+		return  fecha;
 	}
 
 	public double getPrecio() {
