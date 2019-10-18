@@ -22,8 +22,7 @@ class TestUsuario {
 		
 		Usuario prop1 = new UsuarioPropietario("Alguien1", "Diaz", "as@gmail.com", 25);
 		Usuario prop2 = new UsuarioPropietario("Alguien2", "Gomez", "ag@gmail.com", 28);
-		
-		Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 18);
+
 		Usuario inquilino2 = new Usuario("Alguien4", "Perez", "ap@gmail.com", 15);
 		
 		Inmueble casa1 = new Inmueble(null, null, null, null, null, null, null, null, null, null);
@@ -56,6 +55,30 @@ class TestUsuario {
 		user1.registrarse(web);
 		//Falta...
 		assertTrue(false);
+	}
+	
+	@Test
+	public void testGetNombre() {
+		Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
+		assertEquals("Alguien3", inquilino1.getNombre());
+	}
+	
+	@Test
+	public void testGetApellido() {
+		Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
+		assertEquals("Lopez", inquilino1.getApellido());
+	}
+	
+	@Test
+	public void testGetEmail() {
+		Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
+		assertEquals("al@gmail.com", inquilino1.getEmail());
+	}
+	
+	@Test
+	public void testGetEdad() {
+		Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
+		assertEquals(18, inquilino1.getTelefono());
 	}
 	
 	@Test
