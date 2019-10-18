@@ -63,6 +63,7 @@ public class UsuarioPropietario extends Usuario {
 	public void aceptarReserva(Reserva reservaPendiente) {
 		SitioWeb.web.eliminarReservaPendiente(reservaPendiente);
 		SitioWeb.web.agregarReservaConcretada(reservaPendiente);
+		this.enviarMailA(reservaPendiente.getUsuario());
 	}
 	
 }

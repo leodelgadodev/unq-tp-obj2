@@ -14,6 +14,7 @@ public class Usuario {
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
+	protected boolean mailRecibido;
 	//protected LocalDate fechaDeCreacion; // para que??? - Leo // se necesitara para conocer hace cuanto que es usuario del sitio.Todavia no para este hito GT
 	//protected List<String>comentarios; No hace falta para este hito - Leo
 	
@@ -106,10 +107,11 @@ public class Usuario {
 	public void reservarInmueble() {
 		this.reserva = new Reserva(inmuebleSeleccionado, this); //No estoy seguro.
 		SitioWeb.web.agregarReservaPendiente(reserva); //ustedes que dicen?
+		this.enviarMailA(inmuebleSeleccionado.getPropietario());
 	}
-	
-	public void concretarReserva() {
-		
+
+	public void enviarMailA(Usuario unUsuario) {
+		inmuebleSeleccionado.getPropietario().mailRecibido = true;
 	}
 
 }

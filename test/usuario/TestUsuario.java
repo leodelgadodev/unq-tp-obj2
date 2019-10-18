@@ -20,11 +20,11 @@ class TestUsuario {
 		
 		SitioWeb web = new SitioWeb();
 		
-		Usuario prop1 = new UsuarioPropietario(null, null, null, null);
-		Usuario prop2 = new Usuario(null, null, null, null);
+		Usuario prop1 = new UsuarioPropietario("Alguien1", "Diaz", "as@gmail.com", 25);
+		Usuario prop2 = new UsuarioPropietario("Alguien2", "Gomez", "ag@gmail.com", 28);
 		
-		Usuario inquilino1 = new Usuario(null, null, null, null);
-		Usuario inquilino2 = new Usuario(null, null, null, null);
+		Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 18);
+		Usuario inquilino2 = new Usuario("Alguien4", "Perez", "ap@gmail.com", 15);
 		
 		Inmueble casa1 = new Inmueble(null, null, null, null, null, null, null, null, null, null);
 		Inmueble casa2 = new Inmueble(null, null, null, null, null, null, null, null, null, null);
@@ -48,7 +48,6 @@ class TestUsuario {
 	
 	@Test
 	public void testUsuarioNoRegistradoNoPuedeReservar() {
-		
 		assertTrue(false);
 	}
 	
