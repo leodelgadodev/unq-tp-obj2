@@ -25,9 +25,9 @@ class TestUsuarioPropietario {
 	@BeforeEach
 	void setUp() throws Exception {
 		
-		 prop1 = new UsuarioPropietario("Fer","Santacruz", "fer@email.com", 8001111);
-		 prop2 = new UsuarioPropietario("Gonza","Torrez", "gonza@email.com", 8002222);
-		 prop3 = new UsuarioPropietario("Leo","Delgado", "leo@email.com", 8003333);
+		 prop1 = new UsuarioPropietario(web,"Fer","Santacruz", "fer@email.com", 8001111);
+		 prop2 = new UsuarioPropietario(web,"Gonza","Torrez", "gonza@email.com", 8002222);
+		 prop3 = new UsuarioPropietario(web,"Leo","Delgado", "leo@email.com", 8003333);
 		
 
 		
@@ -43,7 +43,7 @@ class TestUsuarioPropietario {
 	
 	@Test
 	public void testSettersUsuarioPropietario() {
-		Usuario user = new UsuarioPropietario(null, null, null, null);
+		Usuario user = new UsuarioPropietario(null,null, null, null, null);
 		
 		user.setNombre("bbb");
 		user.setApellido("bbb");

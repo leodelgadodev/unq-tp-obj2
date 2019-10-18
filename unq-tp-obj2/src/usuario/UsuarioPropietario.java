@@ -15,8 +15,8 @@ public class UsuarioPropietario extends Usuario {
 	private List<Inmueble> inmuebles;
 	private Reserva reservaPendiente;
 	
-	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono) {
-		super(nombre, apellido, email, telefono);
+	public UsuarioPropietario(SitioWeb web,String nombre, String apellido, String email, Integer telefono) {
+		super(web, nombre, apellido, email, telefono);
 		this.inmuebles = new ArrayList<Inmueble>();
 	}
 
@@ -27,10 +27,10 @@ public class UsuarioPropietario extends Usuario {
 			String horaCheckOut, Double precio
 			) throws UsuarioNoRegistradoException, InmuebleInvalidoException {
 		
-		if(SitioWeb.web.getUsuariosRegistrados().contains(this)) {
+		if(web.getUsuariosRegistrados().contains(this)) {
 			this._publicarInmueble(tipo, ciudad, pais, direccion, 
 					servicios, capacidad, horaCheckIn, horaCheckOut, precio);
-		} else SitioWeb.web.avisoUsuarioNoRegistrado();
+		} else web.avisoUsuarioNoRegistrado();
 	}
 	
 	
@@ -41,7 +41,7 @@ public class UsuarioPropietario extends Usuario {
 			String horaCheckOut, Double precio
 			) throws InmuebleInvalidoException {
 		
-		if(SitioWeb.web.esUnInmuebleValido(tipo, servicios)) {
+		if(web.esUnInmuebleValido(tipo, servicios)) {
 		
 		Inmueble i = new Inmueble(
 				this, tipo, ciudad, pais, direccion, servicios,
@@ -53,16 +53,16 @@ public class UsuarioPropietario extends Usuario {
 				//this.web);
 		
 		//web.registrarUsuario(userP); ya deberia estar registrado, para ello lo hace desde el contructor de usuario. GT
-		SitioWeb.web.ponerEnAlquiler(i);
+		web.ponerEnAlquiler(i);
 		
 		//web.darDeBajaUsuario(this); // ?? GT
 		
-		} else SitioWeb.web.avisoInmuebleInvalido();
+		} else web.avisoInmuebleInvalido();
 	}
 
 	public void aceptarReserva(Reserva reservaPendiente) {
-		SitioWeb.web.eliminarReservaPendiente(reservaPendiente);
-		SitioWeb.web.agregarReservaConcretada(reservaPendiente);
+		web.eliminarReservaPendiente(reservaPendiente);
+		web.agregarReservaConcretada(reservaPendiente);
 		this.enviarMailA(reservaPendiente.getUsuario());
 	}
 	

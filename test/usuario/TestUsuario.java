@@ -15,13 +15,13 @@ import clases.SitioWeb;
 
 class TestUsuario {
 
-	//private SitioWeb web = new SitioWeb(); 
+	SitioWeb web = new SitioWeb(); 
 	
-	Usuario prop1 = new Usuario("Fer","Santacruz", "fer@email.com", 8001111);
-	Usuario prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 8002222);
-	Usuario prop3 = new Usuario("Leo","Delgado", "leo@email.com", 8003333);
+	Usuario prop1 = new Usuario(web,"Fer","Santacruz", "fer@email.com", 8001111);
+	Usuario prop2 = new Usuario(web,"Gonza","Torrez", "gonza@email.com", 8002222);
+	Usuario prop3 = new Usuario(web,"Leo","Delgado", "leo@email.com", 8003333);
 	
-	Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
+	Usuario inquilino1 = new Usuario(web,"Alguien3", "Lopez", "al@gmail.com", 42245225);
 	
 	Inmueble casa1 = new Inmueble(prop1, "casa1", "BsAs", "Argentina","calle 123" , null, 5, "08:30", "17:00", 2500.0);
 	Inmueble casa2 = new Inmueble(prop2, "casa2", "Cordoba", "Argentina","calle 123" , null, 5, "09:30", "19:00", 3500.0);
@@ -30,9 +30,9 @@ class TestUsuario {
 	@BeforeEach
 	void setUp() throws Exception {
 		
-		SitioWeb.web.ponerEnAlquiler(casa1);
-		SitioWeb.web.ponerEnAlquiler(casa2);
-		SitioWeb.web.ponerEnAlquiler(casa3);
+		web.ponerEnAlquiler(casa1);
+		web.ponerEnAlquiler(casa2);
+		web.ponerEnAlquiler(casa3);
 	}
 
 	@Test

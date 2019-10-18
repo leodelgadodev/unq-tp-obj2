@@ -10,6 +10,7 @@ import clases.SitioWeb;
 import reserva.Reserva;
 
 public class Usuario {
+	protected SitioWeb web;
 	protected String nombre;
 	protected String apellido;
 	protected String email;
@@ -23,13 +24,13 @@ public class Usuario {
 	private Reserva reserva;
 
 
-	public Usuario(String nombre, String apellido, String email, Integer telefono) {
-
+	public Usuario(SitioWeb web, String nombre, String apellido, String email, Integer telefono) {
+		this.web = web;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.telefono = telefono;
-		this.registrarse(SitioWeb.web);
+		this.registrarse(web);
 		//this.fechaDeCreacion = LocalDate.now(); // todavia no para este hito GT
 		//this.comentarios = new ArrayList<String>(); // No hace falta para este hito - L
 	}
@@ -76,20 +77,18 @@ public class Usuario {
 
 	public void registrarse(SitioWeb sitioweb) {
 		
-		SitioWeb.web.registrarUsuario(this);
+		web.registrarUsuario(this);
 	}
 	
 	public List<Inmueble> buscarInmueble(String ciudad, String fechaEntrada, String fechaSalida){ // revisar static o este metodo. GT
-		List<Inmueble> inmuebles = SitioWeb.web.getInmuebles();
+		List<Inmueble> inmuebles = web.getInmuebles();
 		LocalTime horaEntrada = conversorDeStringEnHoras(fechaEntrada);
 		LocalTime horaSalida = conversorDeStringEnHoras(fechaSalida);
 		
 		//OP 1
-		//inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList());
-		//inmuebles = inmuebles.stream().filter(x-> (x.getHoraCheckIn().isAfter(horaEntrada) || x.getHoraCheckIn().equals(horaEntrada))  && (x.getHoraCheckOut().isBefore(horaSalida) || x.getHoraCheckOut().equals(horaSalida))).collect(Collectors.toList());
-		inmuebles = inmuebles.stream().filter(x-> (x.getCiudad() == ciudad) && 
-				(x.getHoraCheckIn().isAfter(horaEntrada) || x.getHoraCheckIn().equals(horaEntrada))  
-				&& (x.getHoraCheckOut().isBefore(horaSalida) || x.getHoraCheckOut().equals(horaSalida))).collect(Collectors.toList());
+		inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList());
+		inmuebles = inmuebles.stream().filter(x-> (x.getHoraCheckIn().isAfter(horaEntrada) || x.getHoraCheckIn().equals(horaEntrada))  && (x.getHoraCheckOut().isBefore(horaSalida) || x.getHoraCheckOut().equals(horaSalida))).collect(Collectors.toList());
+		
 		return inmuebles;
 	}
 	
@@ -123,7 +122,7 @@ public class Usuario {
 	
 	public void reservarInmueble() {
 		this.reserva = new Reserva(inmuebleSeleccionado, this); //No estoy seguro.
-		SitioWeb.web.agregarReservaPendiente(reserva); //ustedes que dicen?
+		web.agregarReservaPendiente(reserva); //ustedes que dicen?
 		this.enviarMailA(inmuebleSeleccionado.getPropietario());
 	}
 
