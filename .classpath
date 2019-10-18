@@ -4,5 +4,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="src" path="unq-tp-obj2/src"/>
 	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="/home/leo/Desktop/mockito-all-2.0.2-beta.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
