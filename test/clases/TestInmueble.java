@@ -27,6 +27,8 @@ class TestInmueble {
 			"Roque Sáenz Peña 352",
 			servicios,
 			4,
+			"",
+			"",
 			"08:00",
 			"22:00",
 			7000.00

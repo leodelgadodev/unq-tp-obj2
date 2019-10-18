@@ -116,14 +116,6 @@ public class Inmueble {
 		this.direccion = direccion;
 	}
 
-	//public List<String> getComentarios() { // todavia no para este hito GT
-	//	return comentarios;
-	//}
-
-	//public void setComentarios(List<String> comentarios) { // todavia no para este hito GT
-	//	this.comentarios = comentarios;
-	//}
-
 	public Set<String> getServicios(){
 		return servicios;
 	}
@@ -164,15 +156,15 @@ public class Inmueble {
 		return  hora;
 	}
 	
-	private LocalDate conversorDeStringEnFechas(String hora) {
-		String[] parts = hora.split("-");
+	protected LocalDate conversorDeStringEnFechas(String fecha) {
+		String[] parts = fecha.split("/");
 		String part1 = parts[0]; 
 		String part2 = parts[1];
 		String part3 = parts[2];
 		
-		LocalDate fecha = LocalDate.of(Integer.parseInt(part1), Integer.parseInt(part2), Integer.parseInt(part3));
+		LocalDate ret = LocalDate.of(Integer.parseInt(part3), Integer.parseInt(part2), Integer.parseInt(part1));
 		
-		return  fecha;
+		return  ret;
 	}
 
 	public double getPrecio() {

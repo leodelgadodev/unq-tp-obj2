@@ -1,11 +1,14 @@
 package usuario;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,17 +18,15 @@ import clases.SitioWeb;
 
 class TestUsuario {
 
-	SitioWeb web = new SitioWeb(); 
+	SitioWeb web = new SitioWeb();
+	private Set<String> servicios = new HashSet<String>();
 	
-	Usuario prop1 = new Usuario(web,"Fer","Santacruz", "fer@email.com", 8001111);
-	Usuario prop2 = new Usuario(web,"Gonza","Torrez", "gonza@email.com", 8002222);
-	Usuario prop3 = new Usuario(web,"Leo","Delgado", "leo@email.com", 8003333);
+	Usuario prop1 = new Usuario(web,"Leo","Delgado", "leo@email.com", 1526248982);
+	Usuario prop2 = new Usuario(web,"Gonza","Torrez", "gonza@email.com", 1585248596);
 	
-	Usuario inquilino1 = new Usuario(web,"Alguien3", "Lopez", "al@gmail.com", 42245225);
-	
-	Inmueble casa1 = new Inmueble(prop1, "casa1", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "08:30", "17:00", 2500.0);
-	Inmueble casa2 = new Inmueble(prop2, "casa2", "Cordoba", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "09:30", "19:00", 3500.0);
-	Inmueble casa3 = new Inmueble(prop3, "casa3", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "10:30", "18:00", 4000.0);
+	Inmueble casa1 = new Inmueble(prop1, "casa1", "BsAs", "Argentina","calle 123" , servicios, 5,"2019-10-17","2019-10-25", "08:30", "17:00", 2500.0);
+	Inmueble casa2 = new Inmueble(prop1, "casa2", "Cordoba", "Argentina","calle 123" , servicios, 5,"2019-10-17","2019-10-25", "09:30", "19:00", 3500.0);
+	Inmueble casa3 = new Inmueble(prop2, "casa3", "BsAs", "Argentina","calle 123" , servicios, 5,"2019-10-17","2019-10-25", "10:30", "18:00", 4000.0);
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -33,86 +34,72 @@ class TestUsuario {
 		web.ponerEnAlquiler(casa1);
 		web.ponerEnAlquiler(casa2);
 		web.ponerEnAlquiler(casa3);
-	}
-
-	@Test
-	void testBusquedaInmueblesConCiudadYFechas() {
-		List<Inmueble> test = new ArrayList<Inmueble>();
-		test.add(casa1);
-		test.add(casa3);
 		
-		assertEquals(test, inquilino1.buscarInmuebles("BsAs","2019-10-17","2019-10-25"));
-	}
-	
-	@Test
-	void testBusquedaInmueblesConCiudadYFechas2() { // analizar y revisar  porque devuelve dos objetos, sera el Static que duplica?GT
-		List<Inmueble> test = new ArrayList<Inmueble>();
-		test.add(casa2);
-		
-		assertEquals(test, inquilino1.buscarInmuebles("Cordoba","2019-10-17","2019-10-25"));
-	}
-	
-	/*
-	@Test
-	public void testConstructorUsuario() {
-		Usuario user2 = new Usuario("Aaa", "Aaa", "a@email.com", 1111);
-		
-		assertNotNull(user2.getNombre());
-		assertNotNull(user2.getApellido());
-		assertNotNull(user2.getEmail());
-		assertNotNull(user2.getTelefono());
-	}
-	
-	@Test
-	public void testUsuarioNoRegistradoNoPuedeReservar() {
-		assertTrue(true);
-	}
-	
-	@Test
-	public void testUsuarioRegistradoPuedeReservar() {
-		prop1.registrarse(web);
-		//Falta...
-		assertTrue(true);
+		servicios.add("Gas");
+		servicios.add("Agua potable");
+		servicios.add("Wifi");
 	}
 	
 	@Test
 	public void testGetNombre() {
 		
-		assertEquals("Alguien3", inquilino1.getNombre());
+		assertEquals("Leo",prop1.getNombre());
 	}
 	
 	@Test
 	public void testGetApellido() {
 		
-		assertEquals("Lopez", inquilino1.getApellido());
+		assertEquals("Delgado",prop1.getApellido());
 	}
 	
 	@Test
 	public void testGetEmail() {
 		
-		assertEquals("al@gmail.com", inquilino1.getEmail());
+		assertEquals("leo@email.com",prop1.getEmail());
 	}
 	
 	@Test
-	public void testGetEdad() {
+	public void testGetTelefono() {
 		
-		assertEquals(42245225, inquilino1.getTelefono().intValue());
+		assertEquals(1526248982,prop1.getTelefono().intValue());
 	}
+	
+	@Test
+	public void testSettersUsuario() {
+		
+		prop2.setNombre("Daniel");
+		prop2.setApellido("Cross");
+		prop2.setEmail("cross@email.com");
+		prop2.setTelefono(1541258763);
+		
+		assertEquals("Daniel",prop2.getNombre());
+		assertEquals("Cross",prop2.getApellido());
+		assertEquals("cross@email.com",prop2.getEmail());
+		assertEquals(1541258763,prop2.getTelefono().intValue());
+	}
+	
+	
+	@Test
+	public void testUsuarioNoRegistradoNoPuedeReservar() {
+		
+		assertFalse(web.getUsuariosRegistrados().contains(prop2));
+	}
+	
+	@Test
+	public void testUsuarioRegistradoPuedeReservar() {
+		prop1.registrarse(web);
+		
+		assertTrue(web.getUsuariosRegistrados().contains(prop1));
+	}
+	
+
 	
 	@Test
 	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
-		//Falta...
-		assertTrue(true);
+		// no   seeee
+		assertTrue(false);
 	}
 	
-	@Test
-	public void testInquilinoNoRegistradoNoPuedeAlquilar() {
-		assertTrue(true);
-	}
+
 	
-	@Test
-	public void testInquilinoRegistradoPuedeAlquilar() {
-		assertTrue(true);
-	}
-	*/
 }

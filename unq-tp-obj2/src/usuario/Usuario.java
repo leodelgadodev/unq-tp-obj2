@@ -11,15 +11,14 @@ import clases.SitioWeb;
 import reserva.Reserva;
 
 public class Usuario {
+	
 	protected SitioWeb web;
 	protected String nombre;
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
 	protected boolean mailRecibido;
-	//protected LocalDate fechaDeCreacion; // para que??? - Leo // se necesitara para conocer hace cuanto que es usuario del sitio.Todavia no para este hito GT
 	protected List<String>comentarios;
-	
 	private Inmueble inmuebleSeleccionado; //para visualizar o reservar
 	private List<Inmueble> inmueblesAlquilados;
 	private Reserva reserva;
@@ -31,18 +30,8 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.telefono = telefono;
-		this.registrarse(web);
-		//this.fechaDeCreacion = LocalDate.now(); // todavia no para este hito GT
-		//this.comentarios = new ArrayList<String>(); // No hace falta para este hito - L
 	}
 
-	//public LocalDate getFechaDeCreacion() { // todavia no para este hito GT
-	//	return fechaDeCreacion;
-	//}
-
-	//public List<String> getComentarios() {
-		//return comentarios; // No hace falta para este hito - L
-	//}
 
 	public void setTelefono(Integer telefono) {
 		this.telefono = telefono;
@@ -94,37 +83,36 @@ public class Usuario {
 	}
 	
 	
-	private LocalDate conversorDeStringEnFechas(String hora) {
-		String[] parts = hora.split("-");
+	protected LocalDate conversorDeStringEnFechas(String fecha) {
+		String[] parts = fecha.split("/");
 		String part1 = parts[0]; 
 		String part2 = parts[1];
 		String part3 = parts[2];
 		
-		LocalDate fecha = LocalDate.of(Integer.parseInt(part1), Integer.parseInt(part2), Integer.parseInt(part3));
+		LocalDate ret = LocalDate.of(Integer.parseInt(part3), Integer.parseInt(part2), Integer.parseInt(part1));
 		
-		return  fecha;
+		return  ret;
 	}
 	
-	public Inmueble seleccionarInmueble(ArrayList<Inmueble> listaInmuebles, int index) { // podria ser asi? GT
-		
+	public Inmueble seleccionarInmueble(ArrayList<Inmueble> listaInmuebles, int index) {
 		
 		return listaInmuebles.get(index);
 	}
 	
 	public Inmueble visualizarInmueble(Inmueble i) {
-		//System.out.println(inmuebleSeleccionado); //Esto esta bien asi? // digo que no. GT
-		return i; // algo asi veo que seria. GT
+		
+		return i;
 	}
 	
 	public Usuario visualizarPropietario(Inmueble i) {
-		//System.out.println(inmuebleSeleccionado.getPropietario()); //Esto esta bien asi? // digo que no. GT
-		return i.getPropietario(); // algo asi veo que seria. GT
+		
+		return i.getPropietario(); 
 	}
 	
 	
 	public void reservarInmueble() {
-		this.reserva = new Reserva(inmuebleSeleccionado, this); //No estoy seguro.
-		web.agregarReservaPendiente(reserva); //ustedes que dicen?
+		this.reserva = new Reserva(inmuebleSeleccionado, this);
+		web.agregarReservaPendiente(reserva); 
 		this.enviarMailA(inmuebleSeleccionado.getPropietario());
 	}
 

@@ -128,7 +128,7 @@ public class SitioWeb {
 	}
 	
 	public ArrayList<String> getCategoriasRankingInmueble() {
-		return this.catRankInmu;
+		return this.catRankInmu; 
 	}
 
 	public void agregarCategoriaDeRankingInnmueble(String categoria) {
