@@ -79,12 +79,29 @@ public class Usuario {
 		SitioWeb.web.registrarUsuario(this);
 	}
 	
-	public List<Inmueble> buscarInmueble(String ciudad, LocalTime fechaEntrada, LocalTime fechaSalida){ // revisar GT
+	public List<Inmueble> buscarInmueble(String ciudad, String fechaEntrada, String fechaSalida){ // revisar static o este metodo. GT
 		List<Inmueble> inmuebles = SitioWeb.web.getInmuebles();
-		inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList());
-		inmuebles = inmuebles.stream().filter(x-> x.getHoraCheckIn().isBefore(fechaEntrada) && x.getHoraCheckOut().isAfter(fechaSalida)).collect(Collectors.toList());
+		LocalTime horaEntrada = conversorDeStringEnHoras(fechaEntrada);
+		LocalTime horaSalida = conversorDeStringEnHoras(fechaSalida);
 		
+		//OP 1
+		//inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList());
+		//inmuebles = inmuebles.stream().filter(x-> (x.getHoraCheckIn().isAfter(horaEntrada) || x.getHoraCheckIn().equals(horaEntrada))  && (x.getHoraCheckOut().isBefore(horaSalida) || x.getHoraCheckOut().equals(horaSalida))).collect(Collectors.toList());
+		inmuebles = inmuebles.stream().filter(x-> (x.getCiudad() == ciudad) && 
+				(x.getHoraCheckIn().isAfter(horaEntrada) || x.getHoraCheckIn().equals(horaEntrada))  
+				&& (x.getHoraCheckOut().isBefore(horaSalida) || x.getHoraCheckOut().equals(horaSalida))).collect(Collectors.toList());
 		return inmuebles;
+	}
+	
+	
+	private LocalTime conversorDeStringEnHoras(String hora) {
+		String[] parts = hora.split(":");
+		String part1 = parts[0]; 
+		String part2 = parts[1];
+		
+		LocalTime hsConvertida = LocalTime.of(Integer.parseInt(part1), Integer.parseInt(part2));
+		
+		return  hsConvertida;
 	}
 	
 	public Inmueble seleccionarInmueble(ArrayList<Inmueble> listaInmuebles, int index) { // podria ser asi? GT
