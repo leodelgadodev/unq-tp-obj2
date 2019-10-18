@@ -11,7 +11,6 @@ import usuario.Usuario;
 
 public class SitioWeb {
 	//Esto deberia ser un Singleton - Leo
-	//public static SitioWeb web = new SitioWeb();
 	
 	private List<Usuario> usuariosRegistrados;
 	private List<Inmueble> inmuebles;
@@ -108,7 +107,7 @@ public class SitioWeb {
 
 	// ---------------------------------------------
 	
-	// CATEGORIAS DE RANKINGS
+	// CATEGORIAS DE RANKINGS - No entra para este hito
 	
 	// ---------------------------------------------
 	

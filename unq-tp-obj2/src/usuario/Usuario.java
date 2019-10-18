@@ -17,7 +17,7 @@ public class Usuario {
 	protected Integer telefono;
 	protected boolean mailRecibido;
 	//protected LocalDate fechaDeCreacion; // para que??? - Leo // se necesitara para conocer hace cuanto que es usuario del sitio.Todavia no para este hito GT
-	//protected List<String>comentarios; No hace falta para este hito - Leo
+	protected List<String>comentarios;
 	
 	private Inmueble inmuebleSeleccionado; //para visualizar o reservar
 	private List<Inmueble> inmueblesAlquilados;
