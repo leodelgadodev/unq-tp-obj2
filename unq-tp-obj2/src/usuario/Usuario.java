@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import clases.Inmueble;
@@ -19,9 +20,11 @@ public class Usuario {
 	protected Integer telefono;
 	protected boolean mailRecibido;
 	protected List<String>comentarios;
-	private Inmueble inmuebleSeleccionado; //para visualizar o reservar
-	private List<Inmueble> inmueblesAlquilados;
-	private Reserva reserva;
+	private Inmueble inmuebleSeleccionado; //para visualizar o reservar //No entra para este hito - Leo
+	private List<Inmueble> inmueblesAlquilados; //para que? si es usuario, solo alquila uno a la vez.
+	// si es propietario con muchos inmuebles, esto deberia estar en propietario y no en Usuario.
+	private List<Reserva> reservasConcretadas; //Quizas esta de mas para este hito, dice
+	// para concretar una reserva (aunque en el futuro deberia ser concretar varias)
 
 
 	public Usuario(SitioWeb web, String nombre, String apellido, String email, Integer telefono) {
@@ -109,15 +112,65 @@ public class Usuario {
 		return i.getPropietario(); 
 	}
 	
-	
+	/* ver inmuebleSeleccionado - Leo
 	public void reservarInmueble() {
 		this.reserva = new Reserva(inmuebleSeleccionado, this);
 		web.agregarReservaPendiente(reserva); 
 		this.enviarMailA(inmuebleSeleccionado.getPropietario());
+	}*/
+	
+	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {
+		Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
+		i.getPropietario().addReserva(r);
 	}
+
+
+	
+
 
 	public void enviarMailA(Usuario unUsuario) {
 		inmuebleSeleccionado.getPropietario().mailRecibido = true;
+	} //No es necesario para este hito
+
+
+	public List<Reserva> getReservasPendientesDeAprobacion() {
+		// Overwrited por el UsuarioPropietario
+		// Deberia tirar excepcion? onda no tiene permiso de hacer esto, es un metodo de
+		// UsuarioPropietario
+		// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo
+		return null;
 	}
+	
+	private void addReserva(Reserva r) {
+		// Overwrited por el UsuarioPropietario
+		// Deberia tirar excepcion? onda no tiene permiso de hacer esto, es un metodo de
+		// UsuarioPropietario
+		// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo
+		
+	}
+
+
+	public void reservarInmueble(Inmueble i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void aceptarReservaDe(Usuario user) {
+		// Overwrited por el UsuarioPropietario
+				// Deberia tirar excepcion? onda no tiene permiso de hacer esto, es un metodo de
+				// UsuarioPropietario
+				// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo
+		
+	}
+
+
+	public List<Reserva> getReservasConcretadas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 
 }

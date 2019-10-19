@@ -2,6 +2,7 @@ package reserva;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
@@ -84,10 +85,10 @@ class TestReserva {
 	@Test
 	void testUsuarioIniciaReserva() {
 		
-		user.buscarInmueble("BsAs","1/1/2020","1/30/2020");
+		user.buscarInmuebles("BsAs","1/1/2020","1/30/2020");
 		user.reservarInmueble(i);
 		
-		assertEquals(1, i.getPropietario().getReservasPendientes().size());
+		assertEquals(1, i.getPropietario().getReservasPendientesDeAprobacion().size());
 		
 		
 	}
@@ -95,16 +96,16 @@ class TestReserva {
 	@Test
 	void testPropietarioAceptaReserva() {
 		
-		assertEquals(1, propietario.getReservasPendientes().size());
+		assertEquals(1, propietario.getReservasPendientesDeAprobacion().size());
 		assertFalse(i.estaReservado());
 		
 		propietario.aceptarReservaDe(user);
 		
 		assertTrue(r.getEstatus());
-		assertTrue(1, user.getReservasConcretadas().size());
-		assertTrue(1, web.getReservasConcretadas().size());
+		assertEquals(1, user.getReservasConcretadas().size());
+		assertEquals(1, web.getReservasConcretadas().size());
 		
-		assertEquals(0, propietario.getReservasPendientes().size());
+		assertEquals(0, propietario.getReservasPendientesDeAprobacion().size());
 		
 		assertTrue(i.estaReservado());
 	}
@@ -135,8 +136,6 @@ class TestReserva {
 		
 		
 		propietario.aceptarReservaDe(user);
-		
-		"1/1/2020"
 		
 	}
 

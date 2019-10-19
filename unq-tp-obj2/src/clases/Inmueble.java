@@ -179,5 +179,13 @@ public class Inmueble {
 	public void agregarServicio(String servicio) {
 		this.servicios.add(servicio);
 	}
+
+
+	public boolean estaReservado() {
+		// TODO Auto-generated method stub
+		return i.getPropietario().getReservasPendientesDeAprobacion()
+				.filter( (reserva) => reserva.getInmueble() == i ).estaReservado());
+				//Pseudo codigo, arreglar bien el Stream
+	}
 	
 }

@@ -13,7 +13,7 @@ import reserva.Reserva;
 public class UsuarioPropietario extends Usuario {
 
 	private List<Inmueble> inmuebles;
-	private Reserva reservaPendiente;
+	private List<Reserva> reservasPendientesDeAprobacion;
 	
 	public UsuarioPropietario(SitioWeb web,String nombre, String apellido, String email, Integer telefono) {
 		super(web, nombre, apellido, email, telefono);
@@ -59,11 +59,33 @@ public class UsuarioPropietario extends Usuario {
 		
 		} else web.avisoInmuebleInvalido();
 	}
+	
+	public void addReserva(Reserva r) {
+		this.reservasPendientesDeAprobacion.add(r);
+	}
+	
+	public void removeReserva(Reserva r) {
+		this.reservasPendientesDeAprobacion.remove(r);
+	}
 
 	public void aceptarReserva(Reserva reservaPendiente) {
-		web.eliminarReservaPendiente(reservaPendiente);
+		web.eliminarReservaPendiente(reservaPendiente); //Por que necesitaria la web conocer reservas pendientes?
 		web.agregarReservaConcretada(reservaPendiente);
-		this.enviarMailA(reservaPendiente.getUsuario());
+		this.enviarMailA(reservaPendiente.getUsuario()); //No aplica para este hito - Leo
+	}
+	
+	@Override
+	public List<Reserva> getReservasPendientesDeAprobacion() {
+		// TODO Auto-generated method stub
+		return this.reservasPendientesDeAprobacion;
+	}
+	
+	@Override
+	public void aceptarReservaDe(Usuario inquilino) {
+		Reserva r = this.getReservasPendientesDeAprobacion().filter( reserva => reserva.getInquilino() == inquilino );
+		// Pseudo codigo, arreglar
+		r.setEstatus(true);
+		web.agregarReservaConcretada(r);
 	}
 	
 }
