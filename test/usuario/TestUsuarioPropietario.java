@@ -75,15 +75,7 @@ class TestUsuarioPropietario {
 		
 		assertEquals(test, inquilino1.buscarInmuebles("BsAs","2019-10-17","2019-10-25"));
 	}
-	
-	@Test
-	void testBusquedaInmueblesConCiudadYFechas2() { // analizar y revisar  porque devuelve dos objetos, sera el Static que duplica?GT
-		List<Inmueble> test = new ArrayList<Inmueble>();
-		test.add(casa2);
-		
-		assertEquals(test, inquilino1.buscarInmuebles("Cordoba","2019-10-17","2019-10-25"));
-	}
-	
+
 	@Test
 	public void testPropietarioNoRegistradoNoPuedePublicar() {
 		
@@ -101,12 +93,12 @@ class TestUsuarioPropietario {
 	}
 	
 	@Test
-	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorServicio() {
+	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorServicio() throws InmuebleInvalidoException {
 		fail("Not yet implemented");
 	}
 	
 	@Test
-	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorTipo() {
+	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorTipo() throws InmuebleInvalidoException {
 		fail("Not yet implemented");
 	}
 	

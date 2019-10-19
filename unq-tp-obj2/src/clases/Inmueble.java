@@ -11,13 +11,8 @@ import java.util.Set;
 import usuario.Usuario;
 
 public class Inmueble {
-	
-	// horaCheckIn y horaCheckOut reciben Strings con el formato "hh:mm"
-	// y los convierten en LocalTime al setearlos.
-	// Ej setHoraCheckIn("14:00") -> LocalTime.of(14, 00)
-	// Ej setHoraCheckOut("08:00") -> LocalTime.of(08, 00)
-	
-	private Usuario propietario; // deberia estar para luego obtener la info del mismo a partir de los inmuebles en el sitio. GT
+
+	private Usuario propietario;
 	private String tipoDeInmueble;
 	private String ciudad;
 	private String pais;
@@ -25,11 +20,12 @@ public class Inmueble {
 	private Set<String> servicios; 
 	private Integer capacidad; 
 	private LocalDate fechaDeInicio; // disponibilidad del inmueble formato en el string "2019-10-19"
-	private LocalDate fechaFinal; 
-	private LocalTime horaCheckIn; 
-	private LocalTime horaCheckOut;
+	private LocalDate fechaFinal; // disponibilidad del inmueble formato en el string "2019-10-19"
+	private LocalTime horaCheckIn; // check-in formato en string "10:30"
+	private LocalTime horaCheckOut; // check-in formato en string "10:30"
 	private double precio; 
-	//private List<String> comentarios;
+	
+	private Boolean reservado;
 
 	public Inmueble(Usuario prop, String tipo, String ciudad, 
 			String pais, String direccion, Set<String> servicios, 
@@ -47,6 +43,7 @@ public class Inmueble {
 		this.setHoraCheckIn(horaCheckIn); // POR QUE CON ESTE SIIIII?????
 		this.setHoraCheckOut(horaCheckOut);
 		this.setPrecio(precio);
+		this.reservado = false;
 	}
 
 	
@@ -121,7 +118,10 @@ public class Inmueble {
 	public void setServicios(Set<String> servicios) {
 		
 		this.servicios = servicios;
-
+	}
+	
+	public void agregarServicio(String servicio) {
+		this.servicios.add(servicio);
 	}
 
 	public LocalTime getHoraCheckIn() {
@@ -141,7 +141,6 @@ public class Inmueble {
 	public void setHoraCheckOut(String horaCheckOut) {
 	
 		this.horaCheckOut = LocalTime.parse(horaCheckOut);
-		
 	}
 
 	public double getPrecio() {
@@ -152,18 +151,12 @@ public class Inmueble {
 		this.precio = precio;
 	}
 
-
-	public void agregarServicio(String servicio) {
-		this.servicios.add(servicio);
+	public void reservar() {
+		this.reservado = true;
 	}
-
-
-	//comentado para que no muestre error, descomentar y seguir
-	/*public boolean estaReservado() {
-		// TODO Auto-generated method stub
-		return i.getPropietario().getReservasPendientesDeAprobacion()
-				.filter( (reserva) -> reserva.getInmueble() == i ).estaReservado());
-				//Pseudo codigo, arreglar bien el Stream
-	}*/
+	
+	public Boolean estaReservado() {
+		return this.reservado;
+	}
 	
 }

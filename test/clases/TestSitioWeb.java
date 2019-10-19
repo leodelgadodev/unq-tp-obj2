@@ -4,98 +4,52 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import excepciones.InmuebleInvalidoException;
+import excepciones.UsuarioNoRegistradoException;
+import usuario.Usuario;
+
 class TestSitioWeb {
 
 	SitioWeb web = new SitioWeb();
-	String s = "StringTest"; // Debería ser un Mock y no strings así a lo bruto, cambiar - Leo
-	
+	Administrador adm = new Administrador();
 	ArrayList<String> a = new ArrayList<>();
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		a.add("ArrayTest1");
-		a.add("ArrayTest2");	
+		adm.darDeAltaServicioDeInmuebles("Agua");
+		adm.darDeAltaTipoDeInmueble("Casa");
 	}
 
 	@Test
 	public void registrarUsuario() {
-		assertEquals(1,1);
+		web.registrarUsuario(mock(Usuario.class));
+		web.registrarUsuario(mock(Usuario.class));
+		assertEquals(2,web.getUsuariosRegistrados().size());
 	}
 	
 	@Test
-	public void registrarInmueble() {
-		fail("Not yet implemented");
+	public void testPonerEnAlquiler() {
+		web.ponerEnAlquiler(mock(Inmueble.class));
+		web.ponerEnAlquiler(mock(Inmueble.class));
+		assertEquals(2,web.getInmuebles().size());
 	}
-	
-	/*@Test
-	public void agregarCategoriaDeRankingPropietario() {
-		
-		web.agregarCategoriaDeRankingPropietario(s);
-		assertFalse(web.getCategoriasRankingPropietario().isEmpty());
-	}
-	
-	@Test
-	public void agregarCategoriaDeRankigPropieriarioConArray() {
-		ArrayList<String> a = new ArrayList<>();
-		a.add("Puntualidad");
-		a.add("Cordialidad");
-		
-		assertTrue(web.getCategoriasRankingPropietario().isEmpty());
-		
-		web.agregarCategoriaDeRankingPropietario("Hospitalidad");
-		
-		assertFalse(web.getCategoriasRankingPropietario().isEmpty());
-		
-		for (String elem : a) {
-		web.agregarCategoriaDeRankingPropietario(elem);
-		}
-		
-		assertEquals(3,web.getCategoriasRankingPropietario().size());
-	}
-	
-	@Test
-	public void getCategoriasDeRankingPropietario() {
-		assertNotNull(web.getCategoriasRankingPropietario());
-		assertTrue(web.getCategoriasRankingPropietario().isEmpty());
-	}
-	
-	@Test
-	public void agregarCategoriaDeRankingInquilino() {
-		
-		web.agregarCategoriaDeRankingInquilino(s);
-		assertFalse(web.getCategoriasRankingInquilino().isEmpty());
-	}
-	
-	@Test
-	public void getCategoriasDeRankingInquilino() {
-		assertNotNull(web.getCategoriasRankingInquilino());
-		assertTrue(web.getCategoriasRankingInquilino().isEmpty());
-	}
-	
-	@Test
-	public void agregarCategoriaDeRankingInmueble() {
-		
-		web.agregarCategoriaDeRankingInnmueble(s);
-		assertFalse(web.getCategoriasRankingInmueble().isEmpty());
-	}
-	
-	@Test
-	public void getCategoriasDeRankingInmueble() {
-		assertNotNull(web.getCategoriasRankingInmueble());
-		assertTrue(web.getCategoriasRankingInmueble().isEmpty());
-	}
-	
+
 	@Test
 	public void agregarTipoDeInmueble() {
 		
-		web.agregarTipoDeInmueble(s);
+		web.agregarTipoDeInmueble("Casa");
 		assertFalse(web.getTiposInmueble().isEmpty());
 	}
 	
@@ -108,7 +62,7 @@ class TestSitioWeb {
 	@Test
 	public void agregarServiciosDeInmuebles() {
 		
-		web.agregarServiciosDeInmuebles(s);
+		web.agregarServiciosDeInmuebles("Agua");
 		assertFalse(web.getServiciosInmuebles().isEmpty());
 	}
 	
@@ -127,5 +81,47 @@ class TestSitioWeb {
 	public void agregarReservaPendiente() {
 		fail("Not yet implemented");
 	}
-*/
+	
+	@Test
+	public void testGetInmueblesDe() {
+		
+		Inmueble i1 = mock(Inmueble.class); 
+		Inmueble i2 = mock(Inmueble.class); 
+		when(i1.getCiudad()).thenReturn("BsAs");
+		when(i2.getCiudad()).thenReturn("BsAs");
+		
+		assertEquals("BsAs",i1.getCiudad());
+		assertEquals("BsAs",i2.getCiudad());
+		
+		web.ponerEnAlquiler(i1);
+		web.ponerEnAlquiler(i2);
+		
+		assertEquals(2,web.getInmueblesDe("BsAs").size());
+	}
+	
+	@Test
+	public void testAvisoUsuarioNoRegistradoException() {
+		assertThrows(UsuarioNoRegistradoException.class, () -> {web.avisoUsuarioNoRegistrado();});
+	}
+
+	@Test
+	public void testAvisoInmuebleInvalidoException() {
+		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();});
+	}
+
+	@Test
+	public void testInmuebleValido() {
+		Set<String> serviciosTest = new HashSet<String>();
+		serviciosTest.add("Agua");
+
+		assertTrue(web.esUnInmuebleValido("Casa", serviciosTest));
+		
+		serviciosTest.add("Spa");
+		
+		assertThrows(InmuebleInvalidoException.class, () -> {web.esUnInmuebleValido("Casa", serviciosTest);});
+	}
 }
+
+
+
+

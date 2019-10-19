@@ -1,6 +1,6 @@
-package usuario;
+ package usuario;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,12 +12,12 @@ import reserva.Reserva;
 
 public class UsuarioPropietario extends Usuario {
 
-	private List<Inmueble> inmuebles;
-	private List<Reserva> reservasPendientesDeAprobacion;
+	private Set<Inmueble> inmuebles;
+	private Set<Reserva> reservasPendientesDeAprobacion;
 	
 	public UsuarioPropietario(SitioWeb web,String nombre, String apellido, String email, Integer telefono) {
 		super(web, nombre, apellido, email, telefono);
-		this.inmuebles = new ArrayList<Inmueble>();
+		this.inmuebles = new HashSet<Inmueble>();
 	}
 
 	public void publicarInmueble(
@@ -42,15 +42,13 @@ public class UsuarioPropietario extends Usuario {
 			) throws InmuebleInvalidoException {
 		
 		if(web.esUnInmuebleValido(tipo, servicios)) {
-		
-		Inmueble i = new Inmueble(
-				this, tipo, ciudad, pais, direccion, servicios,
-				capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
-		
-		web.registrarUsuario(this);
-		web.ponerEnAlquiler(i);
-		
-		//web.darDeBajaUsuario(this); // ?? GT
+			Inmueble i = new Inmueble(
+					this, tipo, ciudad, pais, direccion, servicios,
+					capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
+			
+			web.registrarUsuario(this);
+			web.ponerEnAlquiler(i);
+			//web.darDeBajaUsuario(this); // ?? GT
 		
 		} else web.avisoInmuebleInvalido();
 	}

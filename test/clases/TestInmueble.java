@@ -1,9 +1,14 @@
 package clases;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.mock;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,8 +32,8 @@ class TestInmueble {
 			"Roque Sáenz Peña 352",
 			servicios,
 			4,
-			"",
-			"",
+			"2020-01-01",
+			"2020-01-30",
 			"08:00",
 			"22:00",
 			7000.00
@@ -41,105 +46,70 @@ class TestInmueble {
 		servicios.add("Wifi");
 		
 		serviciosTest.add("Agua");
-		serviciosTest.add("Gas");
-		serviciosTest.add("Wifi");
+
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+	public void testGettersInmueble() {
 
-	@Test
-	public void inmuebleConstructor() {
-
-		assertNotNull(i);
+		assertEquals(prop,i.getPropietario());
+		assertNotNull(i.getTipoDeInmueble());
+		assertNotNull(i.getCiudad());
+		assertNotNull(i.getPais());
+		assertNotNull(i.getDireccion());
+		assertNotNull(i.getServicios());
+		assertNotNull(i.getCapacidad());
+		assertNotNull(i.getFechaDeInicio());
+		assertNotNull(i.getFechaFinal());
+		assertNotNull(i.getHoraCheckIn());
+		assertNotNull(i.getHoraCheckOut());
+		assertNotNull(i.getPrecio());
 	}
 	
 	@Test
-	public void setPropietario() {
-		i.setPropietario(null);
-		assertEquals(null, i.getPropietario());
-	}
-	
-	@Test
-	public void setTipoDeInmueble() {
-		// Que pasa si trato de setear un tipo de inmueble que no fue
-		// dado de alta por el admin? - Leo
-		i.setTipoDeInmueble("Quincho");
-		assertEquals("Quincho", i.getTipoDeInmueble());
-	}
-	
-	@Test
-	public void setCiudad() {
-		i.setCiudad("Bernal");
-		assertEquals("Bernal",i.getCiudad());
-	}
-	
-	@Test
-	public void setPais() {
-		i.setPais("Uruguay");
-		assertEquals("Uruguay",i.getPais());
-	}
-	
-	@Test
-	public void setDireccion() {
-		i.setDireccion("calle falsa");
-		assertEquals("calle falsa", i.getDireccion());
-	}
-	
-	@Test
-	public void setServicios() {
-		// Que pasa al intentar setear un servicio
-		// que no fue dado de alta por el admin?
+	public void testSettersInmueble() {
 		
+		i.setPropietario(mock(UsuarioPropietario.class));
+		i.setTipoDeInmueble("Habitacion");
+		i.setCiudad("Santiago");
+		i.setPais("Chile");
+		i.setDireccion("Grove Street");
 		i.setServicios(serviciosTest);
-		assertEquals(serviciosTest,i.getServicios());
-	}
-	
-	@Test
-	public void agregarServicio() {
-		i.agregarServicio("Desayuno");
-		serviciosTest.add("Desayuno");
-		assertEquals(serviciosTest,i.getServicios());
-	}
-	
-	@Test
-	public void setCapacidad() {
-		i.setCapacidad(3);
-		assertEquals(3, i.getCapacidad());
-	}
-	
-	
-	
-	@Test
-	public void setHorarioCheckIn() {
+		i.setCapacidad(80);
+		i.setFechaDeInicio("2020-02-01");
+		i.setFechaFinal("2020-02-02");
+		i.setHoraCheckIn("06:00");
+		i.setHoraCheckOut("21:00");
+		i.setPrecio(2000.00);
 		
-		i.setHoraCheckIn("00:00");
-		assertEquals(LocalTime.of(00, 00),i.getHoraCheckIn());
+		assertNotEquals(prop, i.getPropietario());
+		assertEquals( "Habitacion", i.getTipoDeInmueble());
+		assertEquals( "Santiago", i.getCiudad());
+		assertEquals( "Chile", i.getPais());
+		assertEquals( "Grove Street", i.getDireccion());
+		assertEquals(1, i.getServicios().size());
+		assertEquals( 80, i.getCapacidad());
+		assertEquals( LocalDate.of(2020, 02, 01), i.getFechaDeInicio());
+		assertEquals( LocalDate.of(2020, 02, 02), i.getFechaFinal());
+		assertEquals( LocalTime.of(06, 00), i.getHoraCheckIn());
+		assertEquals( LocalTime.of(21, 00), i.getHoraCheckOut());
+		assertEquals( 2000.00, i.getPrecio(), 0);
 	}
 	
 	@Test
-	public void setHorarioCheckOut() {
-		
-		i.setHoraCheckOut("23:59");
-		assertEquals(LocalTime.of(23, 59),i.getHoraCheckOut());
+	public void testAgregarServicio() {
+		i.agregarServicio("Gas");
+		i.agregarServicio("Wifi");
+		i.agregarServicio("Agua");
+		assertEquals(servicios,i.getServicios());
 	}
 	
 	@Test
-	public void setPrecio() {
-		i.setPrecio(6500.00);
-		assertEquals(6500.00, i.getPrecio(),0);
-	}
-	
-	/*@Test
-	public void setComentarios() {
-		List<String> c = new ArrayList<>();
-		c.add("Es bellísimo.");
+	public void testReservar() {
+		assertFalse(i.estaReservado());
 		
-		assertTrue(i.getComentarios().isEmpty());
-		i.setComentarios(c);
-		assertEquals(c,i.getComentarios());
-	}*/
-	
+		i.reservar();
+		assertTrue(i.estaReservado());
+	}
+
 }

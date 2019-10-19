@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,43 +27,32 @@ class TestUsuario {
 	Usuario inquilino = new Usuario(web,"Daniel", "Cross","cross@gmail.com",1553986574);
 	
 	Inmueble casa1 = new Inmueble(prop1, "Casa", "BsAs", "Argentina","calle 123" , 
-			servicios, 5,"2019-03-03","2019-03-15", "08:30", "17:00", 2500.0);
+			servicios, 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
 	
 	Inmueble casa2 = new Inmueble(prop1, "Casa", "Cordoba", "Argentina","calle 53" , 
 			servicios, 10,"2019-06-01","2019-06-20", "09:30", "19:00", 3500.0);
 	
 	Inmueble casa3 = new Inmueble(prop2, "Casa", "BsAs", "Argentina","calle 18" , 
-			servicios, 3,"2019-04-03","2019-04-25", "10:30", "18:00", 4000.0);
+			servicios, 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		
+		casa1.agregarServicio("Desayuno");
+		casa2.agregarServicio("Wifi");
+		casa3.agregarServicio("Agua");
+		
 		web.ponerEnAlquiler(casa1);
 		web.ponerEnAlquiler(casa2);
-		web.ponerEnAlquiler(casa3);
+		
 	}
 	
 	@Test
-	public void testGetNombre() {
+	public void testGettersUsuario() {
 		
 		assertEquals("Leo",prop1.getNombre());
-	}
-	
-	@Test
-	public void testGetApellido() {
-		
 		assertEquals("Delgado",prop1.getApellido());
-	}
-	
-	@Test
-	public void testGetEmail() {
-		
 		assertEquals("leo@email.com",prop1.getEmail());
-	}
-	
-	@Test
-	public void testGetTelefono() {
-		
 		assertEquals(1526248982,prop1.getTelefono().intValue());
 	}
 	
@@ -97,31 +88,34 @@ class TestUsuario {
 	@Test
 	public void testBuscarInmuebles() { 
 		
-		Set<Inmueble> resultante = new HashSet<Inmueble>();
-		resultante.add(casa1);
-		//resultante.add(casa2);
-		resultante.add(casa3);
+		assertEquals(1,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
 		
-		web.ponerEnAlquiler(casa1);
-		web.ponerEnAlquiler(casa2);
 		web.ponerEnAlquiler(casa3);
+		assertEquals(2,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
 		
-		assertEquals(resultante,inquilino.buscarInmuebles("BsAs","2019-03-04", "2019-03-14"));
+		assertEquals(1,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
 	}
 	
-	@Test // borralo despues de verlo.
-	public void testConversor() { // somos idiotas! don java ya tenia metodos conversores 
-		LocalDate l = LocalDate.parse("2017-03-03");
-		LocalTime h = LocalTime.parse("18:30");
-		assertEquals(LocalTime.of(18, 30),h);
-		assertEquals(LocalDate.of(2017, 03, 03),l);
+	@Test
+	public void testSeleccionarInmueble() {
+		inquilino.buscarInmuebles("BsAs", "2019-03-04", "2019-03-14");
+		
+		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-03-04", "2019-03-14", 0);
+		assertEquals(prop1, inmuebleSeleccionado.getPropietario());
 	}
 	
-//	@Test
-//	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
-		// no   seeee
-//		assertTrue(false);
-//	}
+	@Test
+	public void testReservarInmueble() {
+		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-03-04", "2019-03-14", 0);
+		
+		inquilino.reservarInmueble(inmuebleSeleccionado);
+		assertTrue(false);
+	}
+	
+	@Test
+	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
+		assertTrue(false);
+	}
 	
 
 	

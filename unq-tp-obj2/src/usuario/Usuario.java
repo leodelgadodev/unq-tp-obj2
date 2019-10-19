@@ -19,13 +19,6 @@ public class Usuario {
 	protected String email;
 	protected Integer telefono;
 	protected boolean mailRecibido;
-	protected List<String>comentarios;
-	private Inmueble inmuebleSeleccionado; //para visualizar o reservar //No entra para este hito - Leo
-	private List<Inmueble> inmueblesAlquilados; //para que? si es usuario, solo alquila uno a la vez. // si no va borrarlo GT
-	// si es propietario con muchos inmuebles, esto deberia estar en propietario y no en Usuario.
-	private List<Reserva> reservasConcretadas; //Quizas esta de mas para este hito, dice  // si no va borrarlo GT
-	// para concretar una reserva (aunque en el futuro deberia ser concretar varias)
-
 
 	public Usuario(SitioWeb web, String nombre, String apellido, String email, Integer telefono) {
 		this.web = web;
@@ -41,11 +34,11 @@ public class Usuario {
 	}
 
 	public Integer getTelefono() {
-		return telefono;
+		return this.telefono;
 	}
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -53,7 +46,7 @@ public class Usuario {
 	}
 	
 	public String getApellido() {
-		return apellido;
+		return this.apellido;
 	}
 
 	public void setApellido(String apellido) {
@@ -61,7 +54,7 @@ public class Usuario {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -74,60 +67,27 @@ public class Usuario {
 	}
 	
 	
-	public Set<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
-	//public List<Inmueble> buscarInmuebles(String ciudad){ // solo para probar por partes, borrar luego de que funcione todo
-	//public List<Inmueble> buscarInmuebles(String fechaEntrada, String fechaSalida){  // solo para probar por partes, borrar luego de que funcione todo
-		Set<Inmueble> inmuebles = web.getInmuebles();
+	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
+		List<Inmueble> inmuebles = web.getInmueblesDe(ciudad);
 		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
 		LocalDate fSalida = LocalDate.parse(fechaSalida);
-		
-		
-		// los de abajo dan nullPointerException, porque?
-		//inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList()); // este funciona
-		//inmuebles = inmuebles.stream().filter(x -> x.getFechaDeInicio().isAfter(fEntrada) && x.getFechaFinal().isBefore(fSalida)).collect(Collectors.toList()); // solo para probar por partes, borrar luego de que funcione todo
-		inmuebles = inmuebles.stream().filter(x -> (x.getFechaDeInicio().isAfter(fEntrada) || x.getFechaDeInicio().equals(fEntrada))  && (x.getFechaFinal().isBefore(fSalida) || x.getFechaFinal().equals(fSalida))).collect(Collectors.toList());
 
-		return inmuebles;
+		return inmuebles.stream()
+		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
+				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal())))
+		.collect(Collectors.toList());
 	}
 	
 	
-	public Inmueble seleccionarInmueble(ArrayList<Inmueble> listaInmuebles, int index) {
+	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
 		
-		return listaInmuebles.get(index);
+		return this.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index);
 	}
-	
-	public Inmueble visualizarInmueble(Inmueble i) {
-		
-		return i;
-	}
-	
-	public Usuario visualizarPropietario(Inmueble i) {
-		
-		return i.getPropietario(); 
-	}
-	
-	
-	// comentado para que no de error, descomentar y seguir
-	/* ver inmuebleSeleccionado - Leo
-	public void reservarInmueble() {
-		this.reserva = new Reserva(inmuebleSeleccionado, this);
-		web.agregarReservaPendiente(reserva); 
-		this.enviarMailA(inmuebleSeleccionado.getPropietario());
-	}*/
 	
 	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {
 		Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
 		i.getPropietario().addReserva(r);
 	}
-
-
-	
-
-
-	public void enviarMailA(Usuario unUsuario) {
-		inmuebleSeleccionado.getPropietario().mailRecibido = true;
-	} //No es necesario para este hito
-
 
 	public List<Reserva> getReservasPendientesDeAprobacion() {
 		// Overwrited por el UsuarioPropietario
