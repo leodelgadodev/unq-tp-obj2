@@ -64,7 +64,7 @@ class TestUsuarioPropietario {
 		assertEquals("Fer",prop1.getNombre());
 		assertEquals("Santacruz",prop1.getApellido());
 		assertEquals("fer@email.com",prop1.getEmail());
-		assertEquals(8001111,prop1.getTelefono());
+		assertEquals(8001111,prop1.getTelefono().intValue());
 	}
 	
 	@Test

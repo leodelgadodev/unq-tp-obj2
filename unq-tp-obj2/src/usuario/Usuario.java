@@ -21,9 +21,9 @@ public class Usuario {
 	protected boolean mailRecibido;
 	protected List<String>comentarios;
 	private Inmueble inmuebleSeleccionado; //para visualizar o reservar //No entra para este hito - Leo
-	private List<Inmueble> inmueblesAlquilados; //para que? si es usuario, solo alquila uno a la vez.
+	private List<Inmueble> inmueblesAlquilados; //para que? si es usuario, solo alquila uno a la vez. // si no va borrarlo GT
 	// si es propietario con muchos inmuebles, esto deberia estar en propietario y no en Usuario.
-	private List<Reserva> reservasConcretadas; //Quizas esta de mas para este hito, dice
+	private List<Reserva> reservasConcretadas; //Quizas esta de mas para este hito, dice  // si no va borrarlo GT
 	// para concretar una reserva (aunque en el futuro deberia ser concretar varias)
 
 
@@ -73,29 +73,23 @@ public class Usuario {
 		web.registrarUsuario(this);
 	}
 	
+	
 	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
+	//public List<Inmueble> buscarInmuebles(String ciudad){ // solo para probar por partes, borrar luego de que funcione todo
+	//public List<Inmueble> buscarInmuebles(String fechaEntrada, String fechaSalida){  // solo para probar por partes, borrar luego de que funcione todo
 		List<Inmueble> inmuebles = web.getInmuebles();
-		LocalDate fEntrada = conversorDeStringEnFechas(fechaEntrada);
-		LocalDate fSalida = conversorDeStringEnFechas(fechaSalida);
+		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
+		LocalDate fSalida = LocalDate.parse(fechaSalida);
 		
-		//OP 1
-		inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList());
+		
+		// los de abajo dan nullPointerException, porque?
+		//inmuebles = inmuebles.stream().filter(x -> x.getCiudad() == ciudad).collect(Collectors.toList()); // este funciona
+		//inmuebles = inmuebles.stream().filter(x -> x.getFechaDeInicio().isAfter(fEntrada) && x.getFechaFinal().isBefore(fSalida)).collect(Collectors.toList()); // solo para probar por partes, borrar luego de que funcione todo
 		inmuebles = inmuebles.stream().filter(x -> (x.getFechaDeInicio().isAfter(fEntrada) || x.getFechaDeInicio().equals(fEntrada))  && (x.getFechaFinal().isBefore(fSalida) || x.getFechaFinal().equals(fSalida))).collect(Collectors.toList());
 
 		return inmuebles;
 	}
 	
-	
-	protected LocalDate conversorDeStringEnFechas(String fecha) {
-		String[] parts = fecha.split("/");
-		String part1 = parts[0]; 
-		String part2 = parts[1];
-		String part3 = parts[2];
-		
-		LocalDate ret = LocalDate.of(Integer.parseInt(part3), Integer.parseInt(part2), Integer.parseInt(part1));
-		
-		return  ret;
-	}
 	
 	public Inmueble seleccionarInmueble(ArrayList<Inmueble> listaInmuebles, int index) {
 		
@@ -112,6 +106,8 @@ public class Usuario {
 		return i.getPropietario(); 
 	}
 	
+	
+	// comentado para que no de error, descomentar y seguir
 	/* ver inmuebleSeleccionado - Leo
 	public void reservarInmueble() {
 		this.reserva = new Reserva(inmuebleSeleccionado, this);
@@ -145,7 +141,7 @@ public class Usuario {
 		// Overwrited por el UsuarioPropietario
 		// Deberia tirar excepcion? onda no tiene permiso de hacer esto, es un metodo de
 		// UsuarioPropietario
-		// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo
+		// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo // claro se estaria rompiendo el primer principio SOLID
 		
 	}
 

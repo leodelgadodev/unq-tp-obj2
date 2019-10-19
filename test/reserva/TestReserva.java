@@ -62,8 +62,8 @@ class TestReserva {
 		Usuario u_ = mock(Usuario.class);
 		Usuario p_ = mock(Usuario.class);
 		Inmueble i_ = mock(Inmueble.class);
-		String inicio = "2/1/2020";
-		String fin = "15/1/2020";
+		String inicio = "2020-01-02";
+		String fin = "2020-01-15";
 		
 		r.setInquilino(u_);
 		assertEquals(u_, r.getInquilino());
@@ -85,7 +85,7 @@ class TestReserva {
 	@Test
 	void testUsuarioIniciaReserva() {
 		
-		user.buscarInmuebles("BsAs","1/1/2020","1/30/2020");
+		user.buscarInmuebles("BsAs","2020-01-01","2020-30-01");
 		user.reservarInmueble(i);
 		
 		assertEquals(1, i.getPropietario().getReservasPendientesDeAprobacion().size());

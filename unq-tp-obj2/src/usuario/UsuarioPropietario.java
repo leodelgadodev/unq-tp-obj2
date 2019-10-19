@@ -47,12 +47,7 @@ public class UsuarioPropietario extends Usuario {
 				this, tipo, ciudad, pais, direccion, servicios,
 				capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
 		
-		//Usuario userP = new UsuarioPropietario(  // no seria necesario ya que al crear el inmueble le estas pasando el propietario. GT
-			//	this.getNombre(), this.getApellido(),
-				//this.getEmail(), this.getTelefono(),
-				//this.web);
-		
-		//web.registrarUsuario(userP); ya deberia estar registrado, para ello lo hace desde el contructor de usuario. GT
+		web.registrarUsuario(this);
 		web.ponerEnAlquiler(i);
 		
 		//web.darDeBajaUsuario(this); // ?? GT
@@ -82,7 +77,7 @@ public class UsuarioPropietario extends Usuario {
 	
 	@Override
 	public void aceptarReservaDe(Usuario inquilino) {
-		Reserva r = this.getReservasPendientesDeAprobacion().filter( reserva => reserva.getInquilino() == inquilino );
+		Reserva r = this.getReservasPendientesDeAprobacion().filter( reserva -> reserva.getInquilino() == inquilino );
 		// Pseudo codigo, arreglar
 		r.setEstatus(true);
 		web.agregarReservaConcretada(r);

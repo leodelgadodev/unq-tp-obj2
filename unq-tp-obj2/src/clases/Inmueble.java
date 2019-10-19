@@ -12,7 +12,7 @@ import usuario.Usuario;
 
 public class Inmueble {
 	
-	// horaCheckIn y horaCheckOut reciben Strings con el formato "nn:nn"
+	// horaCheckIn y horaCheckOut reciben Strings con el formato "hh:mm"
 	// y los convierten en LocalTime al setearlos.
 	// Ej setHoraCheckIn("14:00") -> LocalTime.of(14, 00)
 	// Ej setHoraCheckOut("08:00") -> LocalTime.of(08, 00)
@@ -24,7 +24,7 @@ public class Inmueble {
 	private String direccion;
 	private Set<String> servicios; 
 	private Integer capacidad; 
-	private LocalDate fechaDeInicio; // disponibilidad del inmueble
+	private LocalDate fechaDeInicio; // disponibilidad del inmueble formato en el string "2019-10-19"
 	private LocalDate fechaFinal; 
 	private LocalTime horaCheckIn; 
 	private LocalTime horaCheckOut;
@@ -42,13 +42,11 @@ public class Inmueble {
 		this.setDireccion(direccion);
 		this.servicios = new HashSet<String>(); 
 		this.setCapacidad(capacidad);
-		this.setHoraCheckIn(horaCheckIn);
+		this.setHoraCheckIn(horaCheckIn); // POR QUE CON ESTE SIIIII?????
 		this.setHoraCheckOut(horaCheckOut);
 		this.setPrecio(precio);
-		this.setFechaDeInicio(fechaDeInicio);
+		this.setFechaDeInicio(fechaDeInicio); // POR QUEEEEE NO FUNCIONAAA!!!???? ESTE ERROR PROVOCA EL NULL POINTER EXCEPTION EN USUARIO???
 		this.setFechaFinal(fechaFinal);
-		//this.comentarios = new ArrayList<String>(); //  todavia no para este hito GT
-		
 	}
 
 	
@@ -56,16 +54,16 @@ public class Inmueble {
 		return fechaDeInicio;
 	}
 
-	public void setFechaDeInicio(LocalDate fechaDeInicio) {
-		this.fechaDeInicio = fechaDeInicio;
+	public void setFechaDeInicio(String fechaDeInicio) {
+		this.fechaDeInicio = LocalDate.parse(fechaDeInicio);
 	}
 
 	public LocalDate getFechaFinal() {
 		return fechaFinal;
 	}
 
-	public void setFechaFinal(LocalDate fechaFinal) {
-		this.fechaFinal = fechaFinal;
+	public void setFechaFinal(String fechaFinal) {
+		this.fechaFinal = LocalDate.parse(fechaFinal);
 	}
 
 	public int getCapacidad() {
@@ -132,7 +130,7 @@ public class Inmueble {
 	
 	public void setHoraCheckIn(String horaCheckIn) {
 		
-		this.horaCheckIn = this.conversorDeStringEnHoras(horaCheckIn);
+		this.horaCheckIn = LocalTime.parse(horaCheckIn);
 	}
 	
 	public LocalTime getHoraCheckOut() {
@@ -142,29 +140,8 @@ public class Inmueble {
 
 	public void setHoraCheckOut(String horaCheckOut) {
 	
-		this.horaCheckOut = this.conversorDeStringEnHoras(horaCheckOut);
+		this.horaCheckOut = LocalTime.parse(horaCheckOut);
 		
-	}
-	
-	private LocalTime conversorDeStringEnHoras(String horaCheck) {
-		String[] parts = horaCheck.split(":");
-		String part1 = parts[0]; 
-		String part2 = parts[1];
-		
-		LocalTime hora = LocalTime.of(Integer.parseInt(part1),Integer.parseInt(part2));
-		
-		return  hora;
-	}
-	
-	protected LocalDate conversorDeStringEnFechas(String fecha) {
-		String[] parts = fecha.split("/");
-		String part1 = parts[0]; 
-		String part2 = parts[1];
-		String part3 = parts[2];
-		
-		LocalDate ret = LocalDate.of(Integer.parseInt(part3), Integer.parseInt(part2), Integer.parseInt(part1));
-		
-		return  ret;
 	}
 
 	public double getPrecio() {
@@ -181,11 +158,12 @@ public class Inmueble {
 	}
 
 
-	public boolean estaReservado() {
+	//comentado para que no muestre error, descomentar y seguir
+	/*public boolean estaReservado() {
 		// TODO Auto-generated method stub
 		return i.getPropietario().getReservasPendientesDeAprobacion()
-				.filter( (reserva) => reserva.getInmueble() == i ).estaReservado());
+				.filter( (reserva) -> reserva.getInmueble() == i ).estaReservado());
 				//Pseudo codigo, arreglar bien el Stream
-	}
+	}*/
 	
 }
