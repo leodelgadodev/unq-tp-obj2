@@ -74,10 +74,10 @@ public class Usuario {
 	}
 	
 	
-	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
+	public Set<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
 	//public List<Inmueble> buscarInmuebles(String ciudad){ // solo para probar por partes, borrar luego de que funcione todo
 	//public List<Inmueble> buscarInmuebles(String fechaEntrada, String fechaSalida){  // solo para probar por partes, borrar luego de que funcione todo
-		List<Inmueble> inmuebles = web.getInmuebles();
+		Set<Inmueble> inmuebles = web.getInmuebles();
 		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
 		LocalDate fSalida = LocalDate.parse(fechaSalida);
 		

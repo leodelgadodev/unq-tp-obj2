@@ -33,7 +33,7 @@ public class Inmueble {
 
 	public Inmueble(Usuario prop, String tipo, String ciudad, 
 			String pais, String direccion, Set<String> servicios, 
-			Integer capacidad,String fechaInicio,String FechaFinal, String horaCheckIn, String horaCheckOut,
+			Integer capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, String horaCheckOut,
 			Double precio) {
 		this.setPropietario(prop);
 		this.setTipoDeInmueble(tipo);
@@ -42,11 +42,11 @@ public class Inmueble {
 		this.setDireccion(direccion);
 		this.servicios = new HashSet<String>(); 
 		this.setCapacidad(capacidad);
+		this.setFechaDeInicio(fechaInicio); // POR QUEEEEE NO FUNCIONAAA!!!???? ESTE ERROR PROVOCA EL NULL POINTER EXCEPTION EN USUARIO???
+		this.setFechaFinal(fechaFinal);
 		this.setHoraCheckIn(horaCheckIn); // POR QUE CON ESTE SIIIII?????
 		this.setHoraCheckOut(horaCheckOut);
 		this.setPrecio(precio);
-		this.setFechaDeInicio(fechaDeInicio); // POR QUEEEEE NO FUNCIONAAA!!!???? ESTE ERROR PROVOCA EL NULL POINTER EXCEPTION EN USUARIO???
-		this.setFechaFinal(fechaFinal);
 	}
 
 	

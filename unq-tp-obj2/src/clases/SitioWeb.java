@@ -1,6 +1,7 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class SitioWeb {
 	//Esto deberia ser un Singleton - Leo
 	
 	private List<Usuario> usuariosRegistrados;
-	private List<Inmueble> inmuebles;
+	private Set<Inmueble> inmuebles;
 	private List<Reserva> reservasPendientes; //No hace falta para este hito - L
 	private List<Reserva> reservasConcretadas; // No hace falta para este hito - L
 	
@@ -27,7 +28,7 @@ public class SitioWeb {
 	public SitioWeb() {
 		
 		this.usuariosRegistrados = new ArrayList<Usuario>();
-		this.inmuebles = new ArrayList<Inmueble>();
+		this.inmuebles = new HashSet<Inmueble>();
 		
 		this.catRankInmu = new ArrayList<String>();
 		this.catRankInqui = new ArrayList<String>();
@@ -45,37 +46,37 @@ public class SitioWeb {
 	}*/
 	
 	public List<Reserva> getReservasPendientes() {
-		return reservasPendientes;
+		return this.reservasPendientes;
 	}
 
 	public List<Reserva> getReservasConcretadas() {
-		return reservasConcretadas;
+		return this.reservasConcretadas;
 	}
 
 	public ArrayList<String> getCatRankProp() {
-		return catRankProp;
+		return this.catRankProp;
 	}
 
 	public ArrayList<String> getCatRankInqui() {
-		return catRankInqui;
+		return this.catRankInqui;
 	}
 
 	public ArrayList<String> getCatRankInmu() {
-		return catRankInmu;
+		return this.catRankInmu;
 	}
 	
 
 
 	public List<Usuario> getUsuariosRegistrados() {
-		return usuariosRegistrados;
+		return this.usuariosRegistrados;
 	}
 
 	public void registrarUsuario(Usuario usuario) {
 		this.usuariosRegistrados.add(usuario);
 	}
 
-	public List<Inmueble> getInmuebles() {
-		return inmuebles;
+	public Set<Inmueble> getInmuebles() {
+		return this.inmuebles;
 	}
 
 	public void ponerEnAlquiler(Inmueble nvoInmueble) { 
