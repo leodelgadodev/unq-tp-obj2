@@ -67,22 +67,23 @@ public class Usuario {
 	}
 	
 	
-	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
+	public Set<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
 		List<Inmueble> inmuebles = web.getInmueblesDe(ciudad);
 		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
 		LocalDate fSalida = LocalDate.parse(fechaSalida);
 
 		return inmuebles.stream()
 		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
-				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal())))
-		.collect(Collectors.toList());
+				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal()))
+				&& x.getCiudad() == ciudad) // agregado esta linea que faltaba, testear
+		.collect(Collectors.toSet());
 	}
 	
 	
-	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
+	/*public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
 		
 		return this.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index);
-	}
+	}*/
 	
 	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {
 		Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);

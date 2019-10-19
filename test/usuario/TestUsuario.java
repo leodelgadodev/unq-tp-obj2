@@ -44,6 +44,7 @@ class TestUsuario {
 		
 		web.ponerEnAlquiler(casa1);
 		web.ponerEnAlquiler(casa2);
+		web.ponerEnAlquiler(casa3);
 		
 	}
 	
@@ -86,7 +87,29 @@ class TestUsuario {
 	
 
 	@Test
-	public void testBuscarInmuebles() { 
+	public void testBuscarInmuebles() {
+		
+		Set<Inmueble> resultado = new HashSet<Inmueble>();
+		
+		resultado.add(casa2);
+		
+		assertEquals(resultado,inquilino.buscarInmuebles("Cordoba", "2019-06-01", "2019-06-20"));
+	}
+	
+	@Test
+	public void testBuscarInmuebles2() {
+		
+		Set<Inmueble> resultado = new HashSet<Inmueble>();
+		resultado.add(casa1);
+		resultado.add(casa3);
+		
+		assertEquals(resultado,inquilino.buscarInmuebles("BsAs", "2019-01-01", "2019-01-20"));
+	}
+	
+	
+	@Test
+	//public void testBuscarInmuebles() { // test cantidad inmuebles ?
+	public void testCantidadInmuebles() {
 		
 		assertEquals(1,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
 		
@@ -96,7 +119,7 @@ class TestUsuario {
 		assertEquals(1,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
 	}
 	
-	@Test
+	/*@Test
 	public void testSeleccionarInmueble() {
 		inquilino.buscarInmuebles("BsAs", "2019-03-04", "2019-03-14");
 		
@@ -115,7 +138,7 @@ class TestUsuario {
 	@Test
 	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
 		assertTrue(false);
-	}
+	}*/
 	
 
 	
