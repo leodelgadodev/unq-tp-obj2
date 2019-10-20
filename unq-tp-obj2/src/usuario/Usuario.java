@@ -61,24 +61,7 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public void registrarse(SitioWeb sitioweb) {
-		
-		web.registrarUsuario(this);
-	}
-	
-	
-	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
-		List<Inmueble> inmuebles = web.getInmueblesDe(ciudad);
-		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
-		LocalDate fSalida = LocalDate.parse(fechaSalida);
-
-		return inmuebles.stream()
-		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
-				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal())))
-		.collect(Collectors.toList());
-	}
-
-	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {
+	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) throws ForbiddenException {
 		Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
 		i.getPropietario().addReserva(r);
 	}
@@ -105,7 +88,7 @@ public class Usuario {
 
 	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
 
-		return this.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
+		return web.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
 	}
 
 	

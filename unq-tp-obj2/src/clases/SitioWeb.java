@@ -1,5 +1,6 @@
 package clases;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -99,5 +100,29 @@ public class SitioWeb {
 	public List<Inmueble> getInmueblesDe(String ciudad) {
 		return this.inmuebles.stream().filter(i -> i.getCiudad() == ciudad).collect(Collectors.toList());
 	}
+	
+	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
+		List<Inmueble> inmuebles = this.getInmueblesDe(ciudad);
+		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
+		LocalDate fSalida = LocalDate.parse(fechaSalida);
+
+		return inmuebles.stream()
+		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
+				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal())))
+		.collect(Collectors.toList());
+	}
+	
+	public Usuario registrarse(String nombre, String apellido, String mail, String tel) {
+		Usuario u = new Usuario(nombre, apellido, mail, tel);
+		this.registrarUsuario(u);
+		return u;
+	}
+	
+	public Usuario registrarseComoPropietario(String nombre, String apellido, String mail, String tel) {
+		Usuario u = new UsuarioPropietario(nombre, apellido, mail, tel);
+		this.registrarUsuario(u);
+		return u;
+	}
+	
 
 }
