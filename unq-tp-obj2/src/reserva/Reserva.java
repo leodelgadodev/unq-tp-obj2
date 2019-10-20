@@ -1,6 +1,7 @@
 package reserva;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import clases.Inmueble;
 import usuario.Usuario;
@@ -21,12 +22,6 @@ public class Reserva {
 	private Usuario propietario;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
-	
-	public Reserva(Inmueble unInmueble, Usuario unInquilino) {
-		super();
-		this.setInmueble(unInmueble);
-		this.setInquilino(unInquilino);
-	}
 
 	public Reserva(Usuario inquilino, Usuario propietario, Inmueble i, String fechaInicio, String fechaFin) {
 		this.setInquilino(inquilino);
@@ -76,12 +71,12 @@ public class Reserva {
 
 	public void setFechaInicio(String inicio) {
 		// TODO Auto-generated method stub
-		this.fechaInicio = inicio;
+		this.fechaInicio = LocalDate.parse(inicio);
 	}
 	
 	public void setFechaFin(String fin) {
 		// TODO Auto-generated method stub
-		this.fechaInicio = conversorDeStringEnFechas(fin);
-	
+		this.fechaFin = LocalDate.parse(fin);
+	}
 	
 }

@@ -28,21 +28,27 @@ public class UsuarioPropietario extends Usuario {
 			String horaCheckOut, double precio
 			) throws UsuarioNoRegistradoException, InmuebleInvalidoException {
 		
-		if(web.getUsuariosRegistrados().contains(this)) {
+		if(web != null && web.getUsuariosRegistrados().contains(this)) {
 			this._publicarInmueble(tipo, ciudad, pais, direccion, 
 					servicios, capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
-		} else web.avisoUsuarioNoRegistrado();
+		} else throw new UsuarioNoRegistradoException();
 	}
-	
-	public void publicarInmueble(Inmueble i) throws UsuarioNoRegistradoException, InmuebleInvalidoException {
-		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("HH:mm");
-		
-		this.publicarInmueble(i.getTipoDeInmueble(), i.getCiudad(), i.getPais(), i.getDireccion(), 
-					i.getServicios(), i.getCapacidad(), i.getFechaDeInicio().format(formatDate), i.getFechaFinal().format(formatDate), i.getHoraCheckIn().format(formatTime), i.getHoraCheckOut().format(formatTime), i.getPrecio());
-	}
-	
-	
+
+	/**
+	 * Implementación parcial de publicarInmueble().
+	 * @param tipo
+	 * @param ciudad
+	 * @param pais
+	 * @param direccion
+	 * @param servicios
+	 * @param capacidad
+	 * @param fechaInicio
+	 * @param fechaFinal
+	 * @param horaCheckIn
+	 * @param horaCheckOut
+	 * @param precio
+	 * @throws InmuebleInvalidoException
+	 */
 	public void _publicarInmueble(
 			String tipo, String ciudad, String pais, 
 			String direccion, Set<String> servicios, 
@@ -55,9 +61,7 @@ public class UsuarioPropietario extends Usuario {
 					this, tipo, ciudad, pais, direccion, servicios,
 					capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
 			
-			web.darDeAlta(this);
 			web.ponerEnAlquiler(i);
-			//web.darDeBajaUsuario(this); // ?? GT
 		
 		} else web.avisoInmuebleInvalido();
 	}
@@ -65,28 +69,19 @@ public class UsuarioPropietario extends Usuario {
 	public void addReserva(Reserva r) {
 		this.reservasPendientesDeAprobacion.add(r);
 	}
-	
-	public void removeReserva(Reserva r) {
-		this.reservasPendientesDeAprobacion.remove(r);
-	}
 
 	public void aceptarReserva(Reserva reservaPendiente) {
-		web.eliminarReservaPendiente(reservaPendiente); //Por que necesitaria la web conocer reservas pendientes?
 		web.agregarReservaConcretada(reservaPendiente);
-		this.enviarMailA(reservaPendiente.getUsuario()); //No aplica para este hito - Leo
+		this.enviarMailA(reservaPendiente.getInquilino()); //No aplica para este hito - Leo
 	}
 	
+	public void enviarMailA(Usuario inquilino) {
+		inquilino.setMailRecibido(true);
+	}
+
 	@Override
 	public List<Reserva> getReservasPendientesDeAprobacion() { 
 		return this.reservasPendientesDeAprobacion;
-	}
-	
-	@Override
-	public void aceptarReservaDe(Usuario inquilino) {
-		Reserva r = this.getReservasPendientesDeAprobacion().filter( reserva -> reserva.getInquilino() == inquilino );
-		// Pseudo codigo, arreglar
-		r.setEstatus(true);
-		web.agregarReservaConcretada(r);
 	}
 	
 }
