@@ -5,32 +5,23 @@ import java.util.Set;
 
 import clases.Administrador;
 import clases.SitioWeb;
+import usuario.Usuario;
 
 public class Main {
 	
 	public static void main(String args[]) {
 		
+		// --- CONFIG
+		
 		SitioWeb web = new SitioWeb();
 		Administrador admin = new Administrador();
 		
-		ArrayList<String> cRankProp = new ArrayList<>();
-		ArrayList<String> cRankInmueble = new ArrayList<>();
-		ArrayList<String> cRankInquilino = new ArrayList<>();
+		Usuario u = new Usuario(web, "raul", "castillo", "rcasti@gmail", 88889999);
+		Usuario prop = new UsuarioPropietario(web, "raula", "castilla", "rcasta@mail", 99998888);
+
 		ArrayList<String> servicios = new ArrayList<>();
 		ArrayList<String> tipoInmueble = new ArrayList<>();
-		
-		cRankProp.add("Disponibilidad");
-		cRankProp.add("Cordialidad");
-		cRankProp.add("Honestidad");
-		
-		cRankInmueble.add("Ubicacion");
-		cRankInmueble.add("Servicios");
-		cRankInmueble.add("Limpieza");
-		
-		cRankInquilino.add("Higiene");
-		cRankInquilino.add("Cordialidad");
-		cRankInquilino.add("Puntualidad");
-		
+
 		servicios.add("Agua potable");
 		servicios.add("Gas");
 		servicios.add("Wifi");
@@ -45,14 +36,28 @@ public class Main {
 		tipoInmueble.add("Departamento");
 		tipoInmueble.add("Camping");
 		tipoInmueble.add("Hostel");
+	
+		for(String s : servicios) {
+			admin.darDeAltaServicioDeInmuebles(s);
+		}
 		
-		admin.crearCategoriaDeRankingPropietario(cRankProp);
-		admin.crearCategoriaDeRankingInmueble(cRankInmueble);
-		admin.crearCategoriaDeRankingInquilino(cRankInquilino);
+		for(String t : tipoInmueble) {
+			admin.darDeAltaTipoDeInmueble(t);
+		}
 		
-		admin.darDeAltaServiciosDeInmuebles(servicios);
-		admin.darDeAltaTipoDeInmueble(tipoInmueble);
+		// -- CREAR Y PUBLICAR PROPIEDADES
 		
+		prop.publicarInmueble();
+		prop.publicarInmueble();
+		
+		// -- LISTAR PROPIEDADES DISPONIBLES ENTRE DOS FECHAS
+		
+		u.buscarInmuebles("BsAs", "2020-01-01", "202-01-20");
+		
+		// -- CONCRETAR UNA RESERVA
+		
+		u.reservarInmueble(i);
+		prop.aceptarReserva(u,i);
 	}
 	
 }
