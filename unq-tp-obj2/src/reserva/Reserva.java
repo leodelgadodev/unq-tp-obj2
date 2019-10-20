@@ -76,24 +76,12 @@ public class Reserva {
 
 	public void setFechaInicio(String inicio) {
 		// TODO Auto-generated method stub
-		this.fechaInicio = conversorDeStringEnFechas(inicio);
+		this.fechaInicio = inicio;
 	}
 	
 	public void setFechaFin(String fin) {
 		// TODO Auto-generated method stub
 		this.fechaInicio = conversorDeStringEnFechas(fin);
-	}
-
-	private LocalDate conversorDeStringEnFechas(String fecha) {
-		String[] parts = fecha.split("/");
-		String part1 = parts[0]; 
-		String part2 = parts[1];
-		String part3 = parts[2];
-		
-		LocalDate ret = LocalDate.of(Integer.parseInt(part3), Integer.parseInt(part2), Integer.parseInt(part1));
-		
-		return ret;
-	}
 	
 	
 }

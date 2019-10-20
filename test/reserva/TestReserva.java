@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import clases.Inmueble;
 import clases.SitioWeb;
 import usuario.Usuario;
+import usuario.UsuarioPropietario;
 
 class TestReserva {
 
@@ -22,10 +23,12 @@ class TestReserva {
 	private Set<String> servicios = new HashSet<String>();
 	
 	SitioWeb web = new SitioWeb();
-	Usuario user = new Usuario("u","us","u@mail",12345678);
-	Usuario propietario = new Usuario("p","pr","p@mail",87654321);
+
+	Usuario u = mock(Usuario.class);
+	Usuario prop = mock(UsuarioPropietario.class);
+	
 	Inmueble i = new Inmueble(
-			propietario,
+			prop,
 			"Casa",
 			"BsAs",
 			"Argentina",
@@ -39,7 +42,7 @@ class TestReserva {
 			7000.00
 			);
 	
-	Reserva r = new Reserva(user,propietario,i,"01/01/2020","14/01/2020");
+	Reserva r = new Reserva(u,prop,i,"01/01/2020","14/01/2020");
 	
 	
 	@BeforeEach
@@ -50,8 +53,8 @@ class TestReserva {
 	void testConstructorReserva() {
 
 		assertFalse(r.getEstatus());
-		assertEquals(user, r.getInquilino());
-		assertEquals(propietario, r.getPropietario());
+		assertEquals(u, r.getInquilino());
+		assertEquals(prop, r.getPropietario());
 		assertEquals(i, r.getInmueble());
 		assertEquals(LocalDate.of(2020, 1, 1), r.getFechaInicio());
 		assertEquals(LocalDate.of(2020, 1, 14), r.getFechaFin());
@@ -140,3 +143,91 @@ class TestReserva {
 	}
 
 }
+
+/*
+ * class TestReserva {
+
+	private Set<String> servicios = new HashSet<String>();
+	
+	SitioWeb web = new SitioWeb();
+	Usuario user = mock(Usuario.class);
+	Usuario propietario = mock(UsuarioPropietario.class);
+	Inmueble i = new Inmueble(
+			propietario,
+			"Casa",
+			"BsAs",
+			"Argentina",
+			"Roque Sáenz Peña 352",
+			servicios,
+			4,
+			"01/01/2020",
+			"30/01/2020",
+			"08:00",
+			"22:00",
+			7000.00
+			);
+	
+	Reserva r = new Reserva(user,propietario,i,"01/01/2020","14/01/2020");
+	
+	
+	@BeforeEach
+	void setUp() throws Exception {
+	}
+	
+	@Test
+	void testConstructorReserva() {
+
+		assertFalse(r.getEstatus());
+		assertEquals(user, r.getInquilino());
+		assertEquals(propietario, r.getPropietario());
+		assertEquals(i, r.getInmueble());
+		assertEquals(LocalDate.of(2020, 1, 1), r.getFechaInicio());
+		assertEquals(LocalDate.of(2020, 1, 14), r.getFechaFin());
+	}
+	
+	@Test
+	void testSettersReserva() {
+		Usuario u_ = mock(Usuario.class);
+		Usuario p_ = mock(Usuario.class);
+		Inmueble i_ = mock(Inmueble.class);
+		String inicio = "2020-01-02";
+		String fin = "2020-01-15";
+		
+		r.setInquilino(u_);
+		assertEquals(u_, r.getInquilino());
+		
+		r.setPropietario(p_);
+		assertEquals(p_, r.getPropietario());
+		
+		
+		r.setInmueble(i_);
+		assertEquals(i_, r.getInmueble());
+		
+		r.setFechaInicio(inicio);
+		assertEquals(LocalDate.of(2020, 1, 15),r.getFechaInicio());
+		
+		r.setFechaFin(fin);
+		assertEquals(LocalDate.of(2020, 1, 15), r.getFechaFin());
+	}
+	
+	/* Deberia estar en testInmueble
+	@Test
+	void testPropietarioAceptaReserva() {
+		
+		assertEquals(1, propietario.getReservasPendientesDeAprobacion().size());
+		assertFalse(i.estaReservado());
+		
+		propietario.aceptarReservaDe(user);
+		
+		assertTrue(r.getEstatus());
+		assertEquals(1, user.getReservasConcretadas().size());
+		assertEquals(1, web.getReservasConcretadas().size());
+		
+		assertEquals(0, propietario.getReservasPendientesDeAprobacion().size());
+		
+		assertTrue(i.estaReservado());
+	}
+	
+
+ 
+ */
