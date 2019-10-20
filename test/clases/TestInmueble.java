@@ -23,7 +23,7 @@ class TestInmueble {
 
 	Set<String> servicios = new HashSet<>();
 	Set<String> serviciosTest = new HashSet<>();
-	Usuario prop = new UsuarioPropietario(null,null, null, null, null);
+	Usuario prop = new UsuarioPropietario(null, null, null, null);
 	Inmueble i = new Inmueble(
 			prop,
 			"Casa",

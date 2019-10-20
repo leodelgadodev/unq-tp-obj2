@@ -17,8 +17,8 @@ public class Main {
 		SitioWeb web = new SitioWeb();
 		Administrador admin = new Administrador();
 		
-		Usuario u = new Usuario(web, "raul", "castillo", "rcasti@gmail", 88889999);
-		Usuario prop = new UsuarioPropietario(web, "raula", "castilla", "rcasta@mail", 99998888);
+		Usuario u = new Usuario("raul", "castillo", "rcasti@gmail", 88889999);
+		Usuario prop = new UsuarioPropietario("raula", "castilla", "rcasta@mail", 99998888);
 
 		ArrayList<String> servicios = new ArrayList<>();
 		ArrayList<String> tipoInmueble = new ArrayList<>();

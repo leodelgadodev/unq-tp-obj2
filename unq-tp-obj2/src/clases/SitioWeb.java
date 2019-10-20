@@ -34,7 +34,7 @@ public class SitioWeb {
 		return this.usuariosRegistrados;
 	}
 
-	public void registrarUsuario(Usuario usuario) {
+	public void darDeAlta(Usuario usuario) {
 		usuario.setSitioWeb(this);
 		this.usuariosRegistrados.add(usuario);
 	}
@@ -115,13 +115,13 @@ public class SitioWeb {
 	
 	public Usuario registrarse(String nombre, String apellido, String mail, Integer tel) {
 		Usuario u = new Usuario(nombre, apellido, mail, tel);
-		this.registrarUsuario(u);
+		this.darDeAlta(u);
 		return u;
 	}
 	
 	public Usuario registrarseComoPropietario(String nombre, String apellido, String mail, Integer tel) {
 		Usuario u = new UsuarioPropietario(nombre, apellido, mail, tel);
-		this.registrarUsuario(u);
+		this.darDeAlta(u);
 		return u;
 	}
 }

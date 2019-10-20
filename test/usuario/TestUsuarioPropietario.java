@@ -24,11 +24,11 @@ class TestUsuarioPropietario {
 	private SitioWeb web = new SitioWeb();
 	private Set<String> servicios = new HashSet<String>();
 	
-	UsuarioPropietario prop1 = new UsuarioPropietario(web,"Fer","Santacruz", "fer@email.com", 8001111);
-	UsuarioPropietario prop2 = new UsuarioPropietario(web,"Gonza","Torrez", "gonza@email.com", 8002222);
-	UsuarioPropietario prop3 = new UsuarioPropietario(web,"Leo","Delgado", "leo@email.com", 8003333);
+	UsuarioPropietario prop1 = new UsuarioPropietario("Fer","Santacruz", "fer@email.com", 8001111);
+	UsuarioPropietario prop2 = new UsuarioPropietario("Gonza","Torrez", "gonza@email.com", 8002222);
+	UsuarioPropietario prop3 = new UsuarioPropietario("Leo","Delgado", "leo@email.com", 8003333);
 	
-	Usuario inquilino1 = new Usuario(web,"Alguien3", "Lopez", "al@gmail.com", 42245225);
+	Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
 	
 	Inmueble casa1 = new Inmueble(prop1, "casa1", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "08:30", "17:00", 2500.0);
 	Inmueble casa2 = new Inmueble(prop2, "casa2", "Cordoba", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "09:30", "19:00", 3500.0);
@@ -42,9 +42,9 @@ class TestUsuarioPropietario {
 		web.ponerEnAlquiler(casa2);
 		web.ponerEnAlquiler(casa3);
 		
-		 prop1 = new UsuarioPropietario(web,"Fer","Santacruz", "fer@email.com", 8001111);
-		 prop2 = new UsuarioPropietario(web,"Gonza","Torrez", "gonza@email.com", 8002222);
-		 prop3 = new UsuarioPropietario(web,"Leo","Delgado", "leo@email.com", 8003333);
+		 prop1 = new UsuarioPropietario("Fer","Santacruz", "fer@email.com", 8001111);
+		 prop2 = new UsuarioPropietario("Gonza","Torrez", "gonza@email.com", 8002222);
+		 prop3 = new UsuarioPropietario("Leo","Delgado", "leo@email.com", 8003333);
 		
 		servicios.add("Gas");
 		servicios.add("Agua potable");
@@ -69,8 +69,8 @@ class TestUsuarioPropietario {
 	
 	@Test
 	public void testPropietarioRegistradoPuedePublicarInmuebleValido() throws UsuarioNoRegistradoException, InmuebleInvalidoException {
-
-		prop1.registrarse(web);
+		
+		web.darDeAlta(prop1);
 		prop1.publicarInmueble("Depto", "BsAs", "Argentina", "CABA 240", servicios, 3, "","","12:00", "10:00", 5000.00);
 		prop1.publicarInmueble(casa3); 
 		

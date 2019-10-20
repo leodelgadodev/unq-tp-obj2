@@ -30,9 +30,9 @@ class TestSitioWeb {
 	// hara falta?
 	private Set<String> servicios = new HashSet<String>(); 
 	
-	Usuario prop1 = new Usuario(web,"Leo","Delgado", "leo@email.com", 1526248982);
-	Usuario prop2 = new Usuario(web,"Gonza","Torrez", "gonza@email.com", 1585248596);
-	Usuario inquilino = new Usuario(web,"Daniel", "Cross","cross@gmail.com",1553986574);
+	Usuario prop1 = new Usuario("Leo","Delgado", "leo@email.com", 1526248982);
+	Usuario prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 1585248596);
+	Usuario inquilino = new Usuario("Daniel", "Cross","cross@gmail.com",1553986574);
 	
 	Inmueble casa1 = new Inmueble(prop1, "Casa", "BsAs", "Argentina","calle 123" , 
 			servicios, 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
@@ -52,8 +52,8 @@ class TestSitioWeb {
 
 	@Test
 	public void registrarUsuario() {
-		web.registrarUsuario(mock(Usuario.class));
-		web.registrarUsuario(mock(Usuario.class));
+		web.darDeAlta(mock(Usuario.class));
+		web.darDeAlta(mock(Usuario.class));
 		assertEquals(2,web.getUsuariosRegistrados().size());
 	}
 	
@@ -61,7 +61,7 @@ class TestSitioWeb {
 	public void darDeBajaUsuario() {
 		Usuario u1 = mock(Usuario.class);
 		
-		web.registrarUsuario(u1);
+		web.darDeAlta(u1);
 		web.darDeBajaUsuario(u1);
 		
 		assertEquals(0,web.getUsuariosRegistrados().size());
@@ -132,7 +132,7 @@ class TestSitioWeb {
 		
 		resultado.add(casa2);
 		
-		assertEquals(resultado,inquilino.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
+		assertEquals(resultado,web.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
 	}
 	
 	@Test 
@@ -142,7 +142,7 @@ class TestSitioWeb {
 		resultado.add(casa1);
 		resultado.add(casa3);
 		
-		assertEquals(resultado,inquilino.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
+		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
 	}
 	
 	@Test

@@ -22,8 +22,8 @@ class TestReserva {
 	private Set<String> servicios = new HashSet<String>();
 	
 	SitioWeb web = new SitioWeb();
-	Usuario user = new Usuario(web,"u","us","u@mail",12345678);
-	Usuario propietario = new Usuario(web,"p","pr","p@mail",87654321);
+	Usuario user = new Usuario("u","us","u@mail",12345678);
+	Usuario propietario = new Usuario("p","pr","p@mail",87654321);
 	Inmueble i = new Inmueble(
 			propietario,
 			"Casa",

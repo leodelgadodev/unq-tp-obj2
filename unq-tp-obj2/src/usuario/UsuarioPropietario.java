@@ -55,7 +55,7 @@ public class UsuarioPropietario extends Usuario {
 					this, tipo, ciudad, pais, direccion, servicios,
 					capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
 			
-			web.registrarUsuario(this);
+			web.darDeAlta(this);
 			web.ponerEnAlquiler(i);
 			//web.darDeBajaUsuario(this); // ?? GT
 		

@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>test</name>
+			<type>2</type>
+			<location>C:/Users/blackmail/git/unq-tp-obj2/test</location>
+		</link>
+	</linkedResources>
 </projectDescription>

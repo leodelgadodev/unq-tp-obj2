@@ -26,9 +26,9 @@ class TestUsuario {
 	SitioWeb web = new SitioWeb();
 	private Set<String> servicios = new HashSet<String>();
 	
-	Usuario prop1 = new Usuario(web,"Leo","Delgado", "leo@email.com", 1526248982);
-	Usuario prop2 = new Usuario(web,"Gonza","Torrez", "gonza@email.com", 1585248596);
-	Usuario inquilino = new Usuario(web,"Daniel", "Cross","cross@gmail.com",1553986574);
+	Usuario prop1 = new Usuario("Leo","Delgado", "leo@email.com", 1526248982);
+	Usuario prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 1585248596);
+	Usuario inquilino = new Usuario("Daniel", "Cross","cross@gmail.com",1553986574);
 	
 	Inmueble casa1 = new Inmueble(prop1, "Casa", "BsAs", "Argentina","calle 123" , 
 			servicios, 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
@@ -84,31 +84,31 @@ class TestUsuario {
 	
 	@Test
 	public void testUsuarioRegistradoPuedeReservar() {
-		prop1.registrarse(web);
 		
+		web.darDeAlta(prop1);
 		assertTrue(web.getUsuariosRegistrados().contains(prop1));
 	}
 	
 	
 	@Test
 	
-	public void testCantidadInmuebles() {
+	public void testCantidadInmuebles() { // MOVER DE ACA
 		
-		assertEquals(2,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
+		assertEquals(2,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
 	
-		assertEquals(1,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
+		assertEquals(1,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
 	}
 	
 	@Test
 	public void testSeleccionarInmueble() {
-		inquilino.buscarInmuebles("BsAs", "2019-03-04", "2019-03-14");
+		web.buscarInmuebles("BsAs", "2019-03-04", "2019-03-14");
 		
 		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-03-04", "2019-03-14", 0);
 		assertEquals(prop1, inmuebleSeleccionado.getPropietario());
 	}
 	
 	@Test
-	public void testReservarInmueble() {
+	public void testReservarInmueble() { // MOVER DE ACA
 		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-03-04", "2019-03-14", 0);
 		
 		inquilino.reservarInmueble(inmuebleSeleccionado);
