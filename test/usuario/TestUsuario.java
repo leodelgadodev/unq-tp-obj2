@@ -136,10 +136,6 @@ class TestUsuario {
 		assertTrue(false);
 	}
 	
-	@Test
-	public void testThrowsExceptionGetReservasPendientesDeAprobacion() {
-		assertThrows(ForbiddenException.class, () -> {inquilino.getReservasPendientesDeAprobacion();});
-	}
 	
 	@Test
 	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
@@ -149,8 +145,27 @@ class TestUsuario {
 	
 	@Test
 	public void testAddReserva() {
-		inquilino.addReserva(mock(Reserva.class));
+		assertThrows(ForbiddenException.class, () -> {inquilino.addReserva(mock(Reserva.class));});
 	}
+	
+	@Test
+	public void testAceptarReservaDe() {
+		assertThrows(ForbiddenException.class, () -> {inquilino.aceptarReservaDe(mock(Usuario.class));});
+	}
+	
+	@Test
+	public void testThrowsExceptionGetReservasPendientesDeAprobacion() {
+		assertThrows(ForbiddenException.class, () -> {inquilino.getReservasPendientesDeAprobacion();});
+	}
+	
+	@Test
+	public void testGetReservasConcretadas() {
+		assertThrows(ForbiddenException.class, () -> {inquilino.getReservasConcretadas();});
+	}
+	
+	
+	
+	
 
 	
 }

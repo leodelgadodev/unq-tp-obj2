@@ -3,6 +3,7 @@ package usuario;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,13 +52,6 @@ class TestUsuarioPropietario {
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
-	
-
-	
-	@Test
 	public void testUsuarioPropietarioHeredaMetodosDeUsuario() {
 
 		assertEquals("Fer",prop1.getNombre());
@@ -65,19 +59,11 @@ class TestUsuarioPropietario {
 		assertEquals("fer@email.com",prop1.getEmail());
 		assertEquals(8001111,prop1.getTelefono().intValue());
 	}
-	
-	@Test
-	void testBusquedaInmueblesConCiudadYFechas() {
-		List<Inmueble> test = new ArrayList<Inmueble>();
-		test.add(casa1);
-		test.add(casa3);
-		
-		assertEquals(test, inquilino1.buscarInmuebles("BsAs","2019-10-17","2019-10-25"));
-	}
 
 	@Test
-	public void testPropietarioNoRegistradoNoPuedePublicar() {
-		
+	public void testPropietarioNoRegistradoNoPuedePublicar() throws UsuarioNoRegistradoException, InmuebleInvalidoException {
+
+		prop1.publicarInmueble(mock(Inmueble.class)); 
 		Assert.assertEquals(0, web.getInmuebles().size());
 	}
 	
@@ -86,9 +72,9 @@ class TestUsuarioPropietario {
 
 		prop1.registrarse(web);
 		prop1.publicarInmueble("Depto", "BsAs", "Argentina", "CABA 240", servicios, 3, "","","12:00", "10:00", 5000.00);
+		prop1.publicarInmueble(casa3); 
 		
-		
-		Assert.assertEquals(1, web.getInmuebles().size());
+		Assert.assertEquals(2, web.getInmuebles().size());
 	}
 	
 	@Test
@@ -103,6 +89,16 @@ class TestUsuarioPropietario {
 	
 	@Test
 	public void testUsuarioAlPublicarUnInmuebleSeConvierteEnUsuarioPropietario() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testUsuarioPropietarioAceptaReserva() {
+		// Aceptar significa:
+		// - registrar en sitio web (agregar reserva concretada)
+		// - sitio web manda mail a usuario que se acepto la reserva
+		// - se deben borrar todas las otras reservas que se intentaron hacer para ese inmueble
+		// - propietario conoce reserva concretada de su inmueble
 		fail("Not yet implemented");
 	}
 

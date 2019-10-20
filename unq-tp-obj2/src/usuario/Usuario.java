@@ -19,7 +19,6 @@ public class Usuario {
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
-	protected boolean mailRecibido;
 
 	public Usuario(SitioWeb web, String nombre, String apellido, String email, Integer telefono) {
 		this.web = web;
@@ -75,8 +74,7 @@ public class Usuario {
 
 		return inmuebles.stream()
 		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
-				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal()))
-				&& x.getCiudad() == ciudad)
+				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal())))
 		.collect(Collectors.toList());
 	}
 
@@ -87,19 +85,21 @@ public class Usuario {
 
 	// Overwrited por UsuarioPropietario
 	public List<Reserva> getReservasPendientesDeAprobacion() throws ForbiddenException {
-
 			throw new ForbiddenException();
 	}
 	
 	// Overwrited por UsuarioPropietario
-	public void addReserva(Reserva r) { }
+	public void addReserva(Reserva r) throws ForbiddenException {
+		throw new ForbiddenException();
+	}
 
 	// Overwrited por UsuarioPropietario
-	public void aceptarReservaDe(Usuario user) { }
+	public void aceptarReservaDe(Usuario user) throws ForbiddenException { 
+		throw new ForbiddenException();
+	}
 
 	// Overwrited por UsuarioPropietario
 	public List<Reserva> getReservasConcretadas() throws ForbiddenException {
-		// TODO Auto-generated method stub
 		throw new ForbiddenException();
 	}
 

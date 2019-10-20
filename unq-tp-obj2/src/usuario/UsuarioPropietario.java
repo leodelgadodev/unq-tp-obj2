@@ -1,5 +1,6 @@
  package usuario;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +32,14 @@ public class UsuarioPropietario extends Usuario {
 			this._publicarInmueble(tipo, ciudad, pais, direccion, 
 					servicios, capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
 		} else web.avisoUsuarioNoRegistrado();
+	}
+	
+	public void publicarInmueble(Inmueble i) throws UsuarioNoRegistradoException, InmuebleInvalidoException {
+		DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("HH:mm");
+		
+		this.publicarInmueble(i.getTipoDeInmueble(), i.getCiudad(), i.getPais(), i.getDireccion(), 
+					i.getServicios(), i.getCapacidad(), i.getFechaDeInicio().format(formatDate), i.getFechaFinal().format(formatDate), i.getHoraCheckIn().format(formatTime), i.getHoraCheckOut().format(formatTime), i.getPrecio());
 	}
 	
 	
