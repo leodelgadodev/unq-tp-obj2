@@ -153,10 +153,8 @@ class TestSitioWeb {
 		
 		List<Inmueble> resultado = new ArrayList<Inmueble>();
 		resultado.add(casa4);
-		//resultado.add(casa1);
-		//resultado.add(casa3);
 		
-		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-05-13", "2019-01-25"));
+		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-05-13", "2019-05-25"));
 	}
 	
 
@@ -183,7 +181,7 @@ class TestSitioWeb {
 
 	@Test
 	public void testAvisoInmuebleInvalidoException() {
-		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();});
+		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();}); // da amarillo en coverage dando 98.7%
 	}
 }
 

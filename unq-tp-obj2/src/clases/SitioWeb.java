@@ -107,18 +107,18 @@ public class SitioWeb {
 		LocalDate fSalida = LocalDate.parse(fechaSalida);
 
 		return inmuebles.stream()
-		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
-				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal())))
+		.filter(x -> ( fEntrada.equals(x.getFechaDeInicio()) || fEntrada.isAfter(x.getFechaDeInicio()))  
+				&& (fSalida.equals(x.getFechaFinal()) || fSalida.isBefore(x.getFechaFinal()))) 
 		.collect(Collectors.toList());
 	}
 	
-	public Usuario registrarse(String nombre, String apellido, String mail, Integer tel) {
+	public Usuario registrarse(String nombre, String apellido, String mail, Integer tel) { // falta testear esto o eliminar esto
 		Usuario u = new Usuario(nombre, apellido, mail, tel);
 		this.darDeAlta(u);
 		return u;
 	}
 	
-	public Usuario registrarseComoPropietario(String nombre, String apellido, String mail, Integer tel) {
+	public Usuario registrarseComoPropietario(String nombre, String apellido, String mail, Integer tel) { // falta testear esto o eliminar esto
 		Usuario u = new UsuarioPropietario(nombre, apellido, mail, tel);
 		this.darDeAlta(u);
 		return u;
