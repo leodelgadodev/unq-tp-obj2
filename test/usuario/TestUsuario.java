@@ -100,7 +100,7 @@ class TestUsuario {
 		assertEquals(resultado,inquilino.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
 	}
 	
-	@Test
+	@Test 
 	public void testBuscarInmueblesPorCiudadYFechas2() {
 		
 		Set<Inmueble> resultado = new HashSet<Inmueble>();

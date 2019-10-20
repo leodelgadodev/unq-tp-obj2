@@ -6,6 +6,7 @@ import java.util.Set;
 import clases.Administrador;
 import clases.SitioWeb;
 import usuario.Usuario;
+import usuario.UsuarioPropietario;
 
 public class Main {
 	

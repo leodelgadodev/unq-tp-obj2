@@ -24,8 +24,8 @@ public class UsuarioPropietario extends Usuario {
 	public void publicarInmueble(
 			String tipo, String ciudad, String pais, 
 			String direccion, Set<String> servicios, 
-			Integer capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, 
-			String horaCheckOut, Double precio
+			int capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, 
+			String horaCheckOut, double precio
 			) throws UsuarioNoRegistradoException, InmuebleInvalidoException {
 		
 		if(web.getUsuariosRegistrados().contains(this)) {
@@ -46,8 +46,8 @@ public class UsuarioPropietario extends Usuario {
 	public void _publicarInmueble(
 			String tipo, String ciudad, String pais, 
 			String direccion, Set<String> servicios, 
-			Integer capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, 
-			String horaCheckOut, Double precio
+			int capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, 
+			String horaCheckOut, double precio
 			) throws InmuebleInvalidoException {
 		
 		if(web.esUnInmuebleValido(tipo, servicios)) {
