@@ -28,6 +28,7 @@ class TestSitioWeb {
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		adm.setSitioWeb(web);
 		adm.darDeAltaServicioDeInmuebles("Agua");
 		adm.darDeAltaTipoDeInmueble("Casa");
 	}

@@ -58,9 +58,8 @@ class TestUsuarioPropietario {
 
 	
 	@Test
-	public void testDatosUsuarioPropietario() {
-	
-		
+	public void testUsuarioPropietarioHeredaMetodosDeUsuario() {
+
 		assertEquals("Fer",prop1.getNombre());
 		assertEquals("Santacruz",prop1.getApellido());
 		assertEquals("fer@email.com",prop1.getEmail());

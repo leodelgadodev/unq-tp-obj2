@@ -3,6 +3,8 @@ package usuario;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import clases.Inmueble;
 import clases.SitioWeb;
+import excepciones.ForbiddenException;
+import reserva.Reserva;
 
 class TestUsuario {
 
@@ -133,10 +137,19 @@ class TestUsuario {
 	}
 	
 	@Test
-	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
-		assertTrue(false);
+	public void testThrowsExceptionGetReservasPendientesDeAprobacion() {
+		assertThrows(ForbiddenException.class, () -> {inquilino.getReservasPendientesDeAprobacion();});
 	}
 	
+	@Test
+	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
+		inquilino.
+	}
+	
+	@Test
+	public void testAddReserva() {
+		inquilino.addReserva(mock(Reserva.class));
+	}
 
 	
 }

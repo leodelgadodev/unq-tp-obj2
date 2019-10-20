@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import clases.Inmueble;
 import clases.SitioWeb;
+import excepciones.ForbiddenException;
 import reserva.Reserva;
 
 public class Usuario {
@@ -67,7 +68,7 @@ public class Usuario {
 	}
 	
 	
-	public Set<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
+	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
 		List<Inmueble> inmuebles = web.getInmueblesDe(ciudad);
 		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
 		LocalDate fSalida = LocalDate.parse(fechaSalida);
@@ -76,57 +77,36 @@ public class Usuario {
 		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
 				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal()))
 				&& x.getCiudad() == ciudad)
-		.collect(Collectors.toSet());
+		.collect(Collectors.toList());
 	}
-	
-	
-	/*public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
-		
-		return this.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
-	}*/
-	
+
 	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {
 		Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
 		i.getPropietario().addReserva(r);
 	}
 
-	public List<Reserva> getReservasPendientesDeAprobacion() {
-		// Overwrited por el UsuarioPropietario
-		// Deberia tirar excepcion? onda no tiene permiso de hacer esto, es un metodo de
-		// UsuarioPropietario
-		// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo
-		return null;
+	// Overwrited por UsuarioPropietario
+	public List<Reserva> getReservasPendientesDeAprobacion() throws ForbiddenException {
+
+			throw new ForbiddenException();
 	}
 	
-	private void addReserva(Reserva r) {
-		// Overwrited por el UsuarioPropietario
-		// Deberia tirar excepcion? onda no tiene permiso de hacer esto, es un metodo de
-		// UsuarioPropietario
-		// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo // claro se estaria rompiendo el primer principio SOLID
-		
-	}
+	// Overwrited por UsuarioPropietario
+	public void addReserva(Reserva r) { }
 
+	// Overwrited por UsuarioPropietario
+	public void aceptarReservaDe(Usuario user) { }
 
-	public void reservarInmueble(Inmueble i) {
+	// Overwrited por UsuarioPropietario
+	public List<Reserva> getReservasConcretadas() throws ForbiddenException {
 		// TODO Auto-generated method stub
-		
+		throw new ForbiddenException();
 	}
 
+	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
 
-	public void aceptarReservaDe(Usuario user) {
-		// Overwrited por el UsuarioPropietario
-				// Deberia tirar excepcion? onda no tiene permiso de hacer esto, es un metodo de
-				// UsuarioPropietario
-				// Igual este ya podria ser un motivo para implementar UsuarioInquilino - Leo
-		
+		return this.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
 	}
-
-
-	public List<Reserva> getReservasConcretadas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	
 
