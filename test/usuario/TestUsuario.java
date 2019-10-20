@@ -89,27 +89,6 @@ class TestUsuario {
 		assertTrue(web.getUsuariosRegistrados().contains(prop1));
 	}
 	
-
-	@Test
-	public void testBuscarInmueblesPorCiudadYFechas() {
-		
-		Set<Inmueble> resultado = new HashSet<Inmueble>();
-		
-		resultado.add(casa2);
-		
-		assertEquals(resultado,inquilino.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
-	}
-	
-	@Test 
-	public void testBuscarInmueblesPorCiudadYFechas2() {
-		
-		Set<Inmueble> resultado = new HashSet<Inmueble>();
-		resultado.add(casa1);
-		resultado.add(casa3);
-		
-		assertEquals(resultado,inquilino.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
-	}
-	
 	
 	@Test
 	

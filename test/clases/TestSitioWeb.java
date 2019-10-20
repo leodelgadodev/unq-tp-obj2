@@ -26,6 +26,23 @@ class TestSitioWeb {
 	Administrador adm = new Administrador();
 	ArrayList<String> a = new ArrayList<>();
 	
+	
+	// hara falta?
+	private Set<String> servicios = new HashSet<String>(); 
+	
+	Usuario prop1 = new Usuario(web,"Leo","Delgado", "leo@email.com", 1526248982);
+	Usuario prop2 = new Usuario(web,"Gonza","Torrez", "gonza@email.com", 1585248596);
+	Usuario inquilino = new Usuario(web,"Daniel", "Cross","cross@gmail.com",1553986574);
+	
+	Inmueble casa1 = new Inmueble(prop1, "Casa", "BsAs", "Argentina","calle 123" , 
+			servicios, 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
+	
+	Inmueble casa2 = new Inmueble(prop1, "Casa", "Cordoba", "Argentina","calle 53" , 
+			servicios, 10,"2019-06-01","2019-06-20", "09:30", "19:00", 3500.0);
+	
+	Inmueble casa3 = new Inmueble(prop2, "Casa", "BsAs", "Argentina","calle 18" , 
+			servicios, 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		adm.setSitioWeb(web);
@@ -108,6 +125,26 @@ class TestSitioWeb {
 		assertEquals(2,web.getInmueblesDe("BsAs").size());
 	}
 	 
+	@Test
+	public void testBuscarInmueblesPorCiudadYFechas() {
+		
+		Set<Inmueble> resultado = new HashSet<Inmueble>();
+		
+		resultado.add(casa2);
+		
+		assertEquals(resultado,inquilino.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
+	}
+	
+	@Test 
+	public void testBuscarInmueblesPorCiudadYFechas2() {
+		
+		Set<Inmueble> resultado = new HashSet<Inmueble>();
+		resultado.add(casa1);
+		resultado.add(casa3);
+		
+		assertEquals(resultado,inquilino.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
+	}
+	
 	@Test
 	public void testAvisoUsuarioNoRegistradoException() {
 		assertThrows(UsuarioNoRegistradoException.class, () -> {web.avisoUsuarioNoRegistrado();});

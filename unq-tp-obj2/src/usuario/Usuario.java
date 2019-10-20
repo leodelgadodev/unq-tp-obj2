@@ -20,8 +20,7 @@ public class Usuario {
 	protected String email;
 	protected Integer telefono;
 
-	public Usuario(SitioWeb web, String nombre, String apellido, String email, Integer telefono) {
-		this.web = web;
+	public Usuario(String nombre, String apellido, String email, Integer telefono) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
@@ -29,6 +28,10 @@ public class Usuario {
 	}
 
 
+	public void setSitioWeb(SitioWeb w) {
+		this.web = w;
+	}
+	
 	public void setTelefono(Integer telefono) {
 		this.telefono = telefono;
 	}

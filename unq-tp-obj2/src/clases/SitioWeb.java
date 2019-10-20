@@ -13,7 +13,6 @@ import reserva.Reserva;
 import usuario.Usuario;
 
 public class SitioWeb {
-	// Esto deberia ser un Singleton - Leo
 
 	private Set<Usuario> usuariosRegistrados;
 	private Set<Inmueble> inmuebles;
@@ -35,6 +34,7 @@ public class SitioWeb {
 	}
 
 	public void registrarUsuario(Usuario usuario) {
+		usuario.setSitioWeb(this);
 		this.usuariosRegistrados.add(usuario);
 	}
 
@@ -72,7 +72,7 @@ public class SitioWeb {
 
 	/**
 	 * Es llamado por el Usuario al intentar publicar un inmueble. Un inmueble es
-	 * válido si su tipo y la lista de servicios ofrecidos coincide con los datos
+	 * valido si su tipo y la lista de servicios ofrecidos coincide con los datos
 	 * dados de alta por el administrador en el sitio web.
 	 * 
 	 * @param tipo      - String representando un tipo de inmueble (Casa, Quincho,
