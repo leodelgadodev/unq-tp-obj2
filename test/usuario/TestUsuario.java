@@ -87,39 +87,36 @@ class TestUsuario {
 	
 
 	@Test
-	public void testBuscarInmuebles() {
+	public void testBuscarInmueblesPorCiudadYFechas() {
 		
 		Set<Inmueble> resultado = new HashSet<Inmueble>();
 		
 		resultado.add(casa2);
 		
-		assertEquals(resultado,inquilino.buscarInmuebles("Cordoba", "2019-06-01", "2019-06-20"));
+		assertEquals(resultado,inquilino.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
 	}
 	
 	@Test
-	public void testBuscarInmuebles2() {
+	public void testBuscarInmueblesPorCiudadYFechas2() {
 		
 		Set<Inmueble> resultado = new HashSet<Inmueble>();
 		resultado.add(casa1);
 		resultado.add(casa3);
 		
-		assertEquals(resultado,inquilino.buscarInmuebles("BsAs", "2019-01-01", "2019-01-20"));
+		assertEquals(resultado,inquilino.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
 	}
 	
 	
 	@Test
-	//public void testBuscarInmuebles() { // test cantidad inmuebles ?
+	
 	public void testCantidadInmuebles() {
 		
-		assertEquals(1,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
-		
-		web.ponerEnAlquiler(casa3);
 		assertEquals(2,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
-		
+	
 		assertEquals(1,inquilino.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
 	}
 	
-	/*@Test
+	@Test
 	public void testSeleccionarInmueble() {
 		inquilino.buscarInmuebles("BsAs", "2019-03-04", "2019-03-14");
 		
@@ -138,7 +135,7 @@ class TestUsuario {
 	@Test
 	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
 		assertTrue(false);
-	}*/
+	}
 	
 
 	

@@ -75,14 +75,14 @@ public class Usuario {
 		return inmuebles.stream()
 		.filter(x -> (fEntrada.isAfter(x.getFechaDeInicio()) || fEntrada.equals(x.getFechaDeInicio()))  
 				&& (fSalida.isBefore(x.getFechaFinal()) || fSalida.equals(x.getFechaFinal()))
-				&& x.getCiudad() == ciudad) // agregado esta linea que faltaba, testear
+				&& x.getCiudad() == ciudad)
 		.collect(Collectors.toSet());
 	}
 	
 	
 	/*public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
 		
-		return this.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index);
+		return this.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
 	}*/
 	
 	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {

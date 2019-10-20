@@ -12,7 +12,7 @@ import reserva.Reserva;
 
 public class UsuarioPropietario extends Usuario {
 
-	private Set<Inmueble> inmuebles;
+	private Set<Inmueble> inmuebles; // ???
 	private Set<Reserva> reservasPendientesDeAprobacion;
 	
 	public UsuarioPropietario(SitioWeb web,String nombre, String apellido, String email, Integer telefono) {
