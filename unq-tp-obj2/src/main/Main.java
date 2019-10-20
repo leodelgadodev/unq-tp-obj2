@@ -12,7 +12,7 @@ public class Main {
 	
 	public static void main(String args[]) {
 		
-		// --- CONFIG
+	/*	// --- CONFIG
 		
 		SitioWeb web = new SitioWeb();
 		Administrador admin = new Administrador();
@@ -59,6 +59,6 @@ public class Main {
 		
 		u.reservarInmueble(i);
 		prop.aceptarReserva(u,i);
-	}
+	*/}
 	
 }
