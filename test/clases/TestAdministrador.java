@@ -32,10 +32,11 @@ class TestAdministrador {
 		admin.setSitioWeb(mock(SitioWeb.class));
 		assertNotEquals(web, admin.getSitioWeb());
 	}
-
+	
+	@Test
 	public void darDeAltaTipoDeInmuebles() {
 		Set<String> esperado = new HashSet<String>();
-		esperado.add("ncho");
+		esperado.add("Quincho");
 		admin.darDeAltaTipoDeInmueble("Quincho");
 		assertEquals(esperado, web.getTiposInmueble());
 	}
