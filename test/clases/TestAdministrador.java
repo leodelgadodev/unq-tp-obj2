@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,8 +34,10 @@ class TestAdministrador {
 	}
 
 	public void darDeAltaTipoDeInmuebles() {
+		Set<String> esperado = new HashSet<String>();
+		esperado.add("ncho");
 		admin.darDeAltaTipoDeInmueble("Quincho");
-		assertEquals(1, web.getTiposInmueble().size());
+		assertEquals(esperado, web.getTiposInmueble());
 	}
 	
 	@Test
