@@ -143,7 +143,8 @@ class TestUsuario {
 	
 	@Test
 	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
-		inquilino.
+		//inquilino.
+		assertTrue(false);
 	}
 	
 	@Test

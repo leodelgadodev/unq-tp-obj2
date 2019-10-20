@@ -68,8 +68,7 @@ public class UsuarioPropietario extends Usuario {
 	}
 	
 	@Override
-	public List<Reserva> getReservasPendientesDeAprobacion() {
-		// TODO Auto-generated method stub
+	public List<Reserva> getReservasPendientesDeAprobacion() { 
 		return this.reservasPendientesDeAprobacion;
 	}
 	
