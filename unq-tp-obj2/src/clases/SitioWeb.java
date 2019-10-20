@@ -14,22 +14,22 @@ import usuario.Usuario;
 public class SitioWeb {
 	// Esto deberia ser un Singleton - Leo
 
-	private List<Usuario> usuariosRegistrados;
+	private Set<Usuario> usuariosRegistrados;
 	private Set<Inmueble> inmuebles;
 
-	private ArrayList<String> tiposInmueble;
-	private ArrayList<String> serviciosInmuebles;
+	private Set<String> tiposInmueble;
+	private Set<String> serviciosInmuebles;
 
 	public SitioWeb() {
 
-		this.usuariosRegistrados = new ArrayList<Usuario>();
+		this.usuariosRegistrados = new HashSet<Usuario>();
 		this.inmuebles = new HashSet<Inmueble>();
 
-		this.tiposInmueble = new ArrayList<String>();
-		this.serviciosInmuebles = new ArrayList<String>();
+		this.tiposInmueble = new HashSet<String>();
+		this.serviciosInmuebles = new HashSet<String>();
 	}
 
-	public List<Usuario> getUsuariosRegistrados() {
+	public Set<Usuario> getUsuariosRegistrados() {
 		return this.usuariosRegistrados;
 	}
 
@@ -61,11 +61,11 @@ public class SitioWeb {
 		this.serviciosInmuebles.add(servicio);
 	}
 
-	public ArrayList<String> getTiposInmueble() {
+	public Set<String> getTiposInmueble() {
 		return this.tiposInmueble;
 	}
 
-	public ArrayList<String> getServiciosInmuebles() {
+	public Set<String> getServiciosInmuebles() {
 		return this.serviciosInmuebles;
 	}
 
@@ -97,7 +97,6 @@ public class SitioWeb {
 	}
 
 	public List<Inmueble> getInmueblesDe(String ciudad) {
-		// TODO Auto-generated method stub
 		return this.inmuebles.stream().filter(i -> i.getCiudad() == ciudad).collect(Collectors.toList());
 	}
 
