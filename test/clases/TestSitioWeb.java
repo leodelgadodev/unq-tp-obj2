@@ -41,6 +41,16 @@ class TestSitioWeb {
 	}
 	
 	@Test
+	public void darDeBajaUsuario() {
+		Usuario u1 = mock(Usuario.class);
+		
+		web.registrarUsuario(u1);
+		web.darDeBajaUsuario(u1);
+		
+		assertEquals(0,web.getUsuariosRegistrados().size());
+	}
+	
+	@Test
 	public void testPonerEnAlquiler() {
 		web.ponerEnAlquiler(mock(Inmueble.class));
 		web.ponerEnAlquiler(mock(Inmueble.class));
@@ -56,8 +66,11 @@ class TestSitioWeb {
 	
 	@Test
 	public void getTiposDeInmueble() {
-		assertNotNull(web.getTiposInmueble());
-		assertTrue(web.getTiposInmueble().isEmpty());
+		
+		Set<String> inmueblesEsperados = new HashSet<String>();
+		inmueblesEsperados.add("Casa");
+		
+		assertEquals(inmueblesEsperados,web.getTiposInmueble());
 	}
 	
 	@Test
@@ -69,19 +82,14 @@ class TestSitioWeb {
 	
 	@Test
 	public void getServiciosDeInmueble() {
-		assertNotNull(web.getServiciosInmuebles());
-		assertTrue(web.getServiciosInmuebles().isEmpty());
+		adm.darDeAltaServicioDeInmuebles("Luz");
+		Set<String> serviciosEsperados = new HashSet<String>();
+		serviciosEsperados.add("Agua");
+		serviciosEsperados.add("Luz");
+		
+		assertEquals(serviciosEsperados,web.getServiciosInmuebles());
 	}
 	
-	@Test
-	public void agregarReservaConcretada() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void agregarReservaPendiente() {
-		fail("Not yet implemented");
-	}
 	
 	@Test
 	public void testGetInmueblesDe() {
@@ -99,7 +107,7 @@ class TestSitioWeb {
 		
 		assertEquals(2,web.getInmueblesDe("BsAs").size());
 	}
-	
+	 
 	@Test
 	public void testAvisoUsuarioNoRegistradoException() {
 		assertThrows(UsuarioNoRegistradoException.class, () -> {web.avisoUsuarioNoRegistrado();});
@@ -116,10 +124,18 @@ class TestSitioWeb {
 		serviciosTest.add("Agua");
 
 		assertTrue(web.esUnInmuebleValido("Casa", serviciosTest));
+	}
+	
+	@Test
+	public void testInmuebleInvalido() {
+		Set<String> serviciosTest = new HashSet<String>();
+		serviciosTest.add("Agua");
+
+		assertTrue(web.esUnInmuebleValido("Casa", serviciosTest));
 		
 		serviciosTest.add("Spa");
 		
-		assertThrows(InmuebleInvalidoException.class, () -> {web.esUnInmuebleValido("Casa", serviciosTest);});
+		assertFalse(web.esUnInmuebleValido("Casa", serviciosTest));
 	}
 }
 
