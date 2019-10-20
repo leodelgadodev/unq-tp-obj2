@@ -16,8 +16,8 @@ public class UsuarioPropietario extends Usuario {
 	private Set<Inmueble> inmuebles; // ???
 	private Set<Reserva> reservasPendientesDeAprobacion;
 	
-	public UsuarioPropietario(SitioWeb web,String nombre, String apellido, String email, Integer telefono) {
-		super(web, nombre, apellido, email, telefono);
+	public UsuarioPropietario(String nombre, String apellido, String email, Integer telefono) {
+		super(nombre, apellido, email, telefono);
 		this.inmuebles = new HashSet<Inmueble>();
 	}
 

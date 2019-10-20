@@ -11,6 +11,7 @@ import excepciones.InmuebleInvalidoException;
 import excepciones.UsuarioNoRegistradoException;
 import reserva.Reserva;
 import usuario.Usuario;
+import usuario.UsuarioPropietario;
 
 public class SitioWeb {
 
@@ -112,17 +113,15 @@ public class SitioWeb {
 		.collect(Collectors.toList());
 	}
 	
-	public Usuario registrarse(String nombre, String apellido, String mail, String tel) {
+	public Usuario registrarse(String nombre, String apellido, String mail, Integer tel) {
 		Usuario u = new Usuario(nombre, apellido, mail, tel);
 		this.registrarUsuario(u);
 		return u;
 	}
 	
-	public Usuario registrarseComoPropietario(String nombre, String apellido, String mail, String tel) {
+	public Usuario registrarseComoPropietario(String nombre, String apellido, String mail, Integer tel) {
 		Usuario u = new UsuarioPropietario(nombre, apellido, mail, tel);
 		this.registrarUsuario(u);
 		return u;
 	}
-	
-
 }
