@@ -37,6 +37,9 @@ class TestSitioWeb {
 	Inmueble casa3 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 18" , 
 			servicios, 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
 	
+	Inmueble casa4 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 18" , 
+			servicios, 3,"2019-05-13","2019-05-25", "10:30", "18:00", 4000.0);
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		adm.setSitioWeb(web);
@@ -46,6 +49,7 @@ class TestSitioWeb {
 		web.ponerEnAlquiler(casa1);
 		web.ponerEnAlquiler(casa2);
 		web.ponerEnAlquiler(casa3);
+		web.ponerEnAlquiler(casa4);
 	}
 
 	@Test
@@ -68,7 +72,7 @@ class TestSitioWeb {
 	@Test
 	public void testCantidadDeInmueblesEnAlquiler() {
 	
-		assertEquals(3,web.getInmuebles().size());
+		assertEquals(4,web.getInmuebles().size());
 	}
 
 	@Test
@@ -121,7 +125,7 @@ class TestSitioWeb {
 	@Test
 	public void testGetInmueblesDe() {
 		
-		assertEquals(2,web.getInmueblesDe("BsAs").size());
+		assertEquals(3,web.getInmueblesDe("BsAs").size());
 	}
 	 
 	@Test
@@ -144,15 +148,17 @@ class TestSitioWeb {
 		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
 	}
 	
-	@Test
-	public void testAvisoUsuarioNoRegistradoException() {
-		assertThrows(UsuarioNoRegistradoException.class, () -> {web.avisoUsuarioNoRegistrado();});
+	@Test 
+	public void testBuscarInmueblesPorCiudadYFechas3() {
+		
+		List<Inmueble> resultado = new ArrayList<Inmueble>();
+		resultado.add(casa4);
+		//resultado.add(casa1);
+		//resultado.add(casa3);
+		
+		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-05-13", "2019-01-25"));
 	}
-
-	@Test
-	public void testAvisoInmuebleInvalidoException() {
-		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();});
-	}
+	
 
 	@Test
 	public void testInmuebleValido() {
@@ -172,6 +178,12 @@ class TestSitioWeb {
 		serviciosTest.add("Spa");
 		
 		assertFalse(web.esUnInmuebleValido("Casa", serviciosTest));
+	}
+	
+
+	@Test
+	public void testAvisoInmuebleInvalidoException() {
+		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();});
 	}
 }
 

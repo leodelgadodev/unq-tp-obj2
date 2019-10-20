@@ -89,7 +89,7 @@ public class SitioWeb {
 		usuariosRegistrados.remove(u);
 	}
 
-	public Exception avisoUsuarioNoRegistrado() throws UsuarioNoRegistradoException {
+	public Exception avisoUsuarioNoRegistrado() throws UsuarioNoRegistradoException { // borrar despues?
 		throw new UsuarioNoRegistradoException();
 	}
 
