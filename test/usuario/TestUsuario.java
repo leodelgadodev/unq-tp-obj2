@@ -91,15 +91,6 @@ class TestUsuario {
 	
 	
 	@Test
-	
-	public void testCantidadInmuebles() { // MOVER DE ACA
-		
-		assertEquals(2,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
-	
-		assertEquals(1,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
-	}
-	
-	@Test
 	public void testSeleccionarInmueble() {
 		web.buscarInmuebles("BsAs", "2019-03-04", "2019-03-14");
 		

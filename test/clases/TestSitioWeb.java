@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,10 +26,7 @@ class TestSitioWeb {
 	SitioWeb web = new SitioWeb();
 	Administrador adm = new Administrador();
 	ArrayList<String> a = new ArrayList<>();
-	
-	
-	// hara falta?
-	private Set<String> servicios = new HashSet<String>(); 
+	Set<String> servicios = new HashSet<String>(); 
 	
 	Usuario prop1 = new Usuario("Leo","Delgado", "leo@email.com", 1526248982);
 	Usuario prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 1585248596);
@@ -48,6 +46,10 @@ class TestSitioWeb {
 		adm.setSitioWeb(web);
 		adm.darDeAltaServicioDeInmuebles("Agua");
 		adm.darDeAltaTipoDeInmueble("Casa");
+		
+		web.ponerEnAlquiler(casa1);
+		web.ponerEnAlquiler(casa2);
+		web.ponerEnAlquiler(casa3);
 	}
 
 	@Test
@@ -68,10 +70,9 @@ class TestSitioWeb {
 	}
 	
 	@Test
-	public void testPonerEnAlquiler() {
-		web.ponerEnAlquiler(mock(Inmueble.class));
-		web.ponerEnAlquiler(mock(Inmueble.class));
-		assertEquals(2,web.getInmuebles().size());
+	public void testCantidadDeInmueblesEnAlquiler() {
+	
+		assertEquals(3,web.getInmuebles().size());
 	}
 
 	@Test
@@ -107,20 +108,22 @@ class TestSitioWeb {
 		assertEquals(serviciosEsperados,web.getServiciosInmuebles());
 	}
 	
+	@Test
+	public void testCantidadInmuebles() { 
+		
+		assertEquals(2,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
+	
+		assertEquals(1,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
+	}
+	
+	@Test
+	public void testCiudadDeInmueble() {
+		
+		assertEquals("Cordoba",casa2.getCiudad());
+	}
 	
 	@Test
 	public void testGetInmueblesDe() {
-		
-		Inmueble i1 = mock(Inmueble.class); 
-		Inmueble i2 = mock(Inmueble.class); 
-		when(i1.getCiudad()).thenReturn("BsAs");
-		when(i2.getCiudad()).thenReturn("BsAs");
-		
-		assertEquals("BsAs",i1.getCiudad());
-		assertEquals("BsAs",i2.getCiudad());
-		
-		web.ponerEnAlquiler(i1);
-		web.ponerEnAlquiler(i2);
 		
 		assertEquals(2,web.getInmueblesDe("BsAs").size());
 	}
@@ -128,7 +131,7 @@ class TestSitioWeb {
 	@Test
 	public void testBuscarInmueblesPorCiudadYFechas() {
 		
-		Set<Inmueble> resultado = new HashSet<Inmueble>();
+		List<Inmueble> resultado = new ArrayList<Inmueble>();
 		
 		resultado.add(casa2);
 		
@@ -138,7 +141,7 @@ class TestSitioWeb {
 	@Test 
 	public void testBuscarInmueblesPorCiudadYFechas2() {
 		
-		Set<Inmueble> resultado = new HashSet<Inmueble>();
+		List<Inmueble> resultado = new ArrayList<Inmueble>();
 		resultado.add(casa1);
 		resultado.add(casa3);
 		
