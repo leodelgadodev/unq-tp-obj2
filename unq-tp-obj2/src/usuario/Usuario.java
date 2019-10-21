@@ -92,7 +92,7 @@ public class Usuario {
 		return web.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
 	}
 	
-	public Boolean mailRecibido() {
+	public boolean mailRecibido() {
 		return this.mailRecibido;
 	}
 
