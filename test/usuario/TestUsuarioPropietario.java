@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import clases.Administrador;
 import clases.Inmueble;
 import clases.SitioWeb;
+import excepciones.ForbiddenException;
 import excepciones.InmuebleInvalidoException;
 import excepciones.UsuarioNoRegistradoException;
 import reserva.Reserva;
@@ -116,13 +117,28 @@ class TestUsuarioPropietario {
 	}
 
 	@Test
-	public void testUsuarioPropietarioAceptaReserva() {
+	public void testUsuarioPropietarioAceptaReserva() throws UsuarioNoRegistradoException, InmuebleInvalidoException, ForbiddenException {
 		// Aceptar significa:
 		// - registrar en sitio web (agregar reserva concretada)
 		// - sitio web manda mail a usuario que se acepto la reserva
 		// - se deben borrar todas las otras reservas que se intentaron hacer para ese inmueble
 		// - propietario conoce reserva concretada de su inmueble
 		web.darDeAlta(prop1);
+		web.darDeAlta(prop2);
+		web.darDeAlta(inquilino1);
+		
+		
+		prop1.publicarInmueble("Casa", "BsAs", "Argentina", "CABA 240", servicios, 3, "2021-01-01","2021-12-31","12:00", "10:00", 5000.00);
+		Inmueble i = inquilino1.seleccionarInmueble("BsAs", "2021-01-01", "2021-01-14",0);
+		
+		inquilino1.reservarInmueble(i , "2021-01-01", "2021-01-14");
+		prop2.reservarInmueble(i, "2021-01-01", "2021-01-15");
+		
+		Reserva r = prop1.getReservasPendientesDeAprobacion().get(0);
+		prop1.aceptarReserva(r);
+		
+		assertEquals(0,prop1.getReservasPendientesDeAprobacion().size());
+		
 		
 	}
 	

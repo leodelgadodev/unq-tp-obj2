@@ -80,6 +80,7 @@ public class UsuarioPropietario extends Usuario {
 		this.enviarMailA(reservaPendiente.getInquilino());
 		this.removeReserva(reservaPendiente);
 		this.eliminarReservasDeInmuebleReservado(reservaPendiente);
+		reservaPendiente.getInmueble().reservar();
 	}
 	
 	public void eliminarReservasDeInmuebleReservado(Reserva reserva) {
@@ -87,8 +88,7 @@ public class UsuarioPropietario extends Usuario {
 		
 		for(Reserva r : reservas) {
 			
-			if( aca compara reservas, si el inmueble de la reserva coincide con el inmueble de la reserva r que
-					estoy iterando, la tengo que sacar) {
+			if( r.getInmueble() == reserva.getInmueble()) {
 				this.reservasPendientesDeAprobacion.remove(r);
 			}
 		}
@@ -105,11 +105,6 @@ public class UsuarioPropietario extends Usuario {
 	
 	public void removeReserva(Reserva r) {
 		this.reservasPendientesDeAprobacion.remove(r);
-	}
-	
-	@Override
-	public void aceptarReservaDe(Usuario user) throws ForbiddenException { 
-		
 	}
 	
 }
