@@ -12,6 +12,7 @@ class TestExcepciones {
 	Exception inmuebleInvalido = new InmuebleInvalidoException();
 	Exception noRegistrado = new UsuarioNoRegistradoException();
 	Exception error403 = new ForbiddenException();
+	Exception yaReservado = new InmuebleReservadoException();
 
 	@Test
 	void testInmuebleInvalidoE() {
@@ -26,6 +27,11 @@ class TestExcepciones {
 	@Test
 	void testForbiddenE() {
 		assertThrows(ForbiddenException.class, () -> {throw error403;});
+	}
+	
+	@Test
+	void testReservadoE() {
+		assertThrows(InmuebleReservadoException.class, () -> {throw yaReservado;});
 	}
 
 }
