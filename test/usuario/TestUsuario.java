@@ -105,10 +105,11 @@ class TestUsuario {
 		List<Inmueble> busqueda = web.buscarInmuebles("BsAs", "2019-01-04", "2019-01-14");
 		
 		assertEquals(2, busqueda.size());
+		web.darDeAlta(inquilino);
 		
 		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-01-04", "2019-01-14", 0);
 		assertNotNull(inmuebleSeleccionado);
-		assertEquals(prop1, inmuebleSeleccionado.getPropietario());
+		assertEquals(prop2, inmuebleSeleccionado.getPropietario());
 	}
 	
 	@Test

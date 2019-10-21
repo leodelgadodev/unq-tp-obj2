@@ -26,6 +26,7 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.telefono = telefono;
+		this.mailRecibido = false;
 	}
 
 
@@ -67,7 +68,7 @@ public class Usuario {
 
 	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) throws ForbiddenException, InmuebleReservadoException {
 		
-		if( !i.estaReservado() ) {
+		if( this.web.getUsuariosRegistrados().contains(this) && !i.estaReservado() ) {
 			Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
 			i.getPropietario().addReserva(r);
 		} else throw new InmuebleReservadoException();
