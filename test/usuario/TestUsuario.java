@@ -81,7 +81,7 @@ class TestUsuario {
 	@Test
 	public void testUsuarioNoRegistradoNoPuedeReservar() {
 		
-		//assertFalse(web.getUsuariosRegistrados().contains(prop2));
+		assertFalse(web.getUsuariosRegistrados().contains(prop2));
 		
 		assertThrows(UsuarioNoRegistradoException.class, () -> {
 			prop2.reservarInmueble(casa3, "2020-01-01", "2020-01-02");
