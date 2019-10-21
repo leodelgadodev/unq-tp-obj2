@@ -20,6 +20,8 @@ public class SitioWeb {
 	private Set<String> tiposInmueble;
 	private Set<String> serviciosInmuebles;
 
+	private Set<Reserva> reservasPendientes;
+	
 	public SitioWeb() {
 
 		this.usuariosRegistrados = new HashSet<Usuario>();
@@ -27,6 +29,7 @@ public class SitioWeb {
 
 		this.tiposInmueble = new HashSet<String>();
 		this.serviciosInmuebles = new HashSet<String>();
+		this.reservasPendientes = new HashSet<Reserva>();
 	}
 
 	public Set<Usuario> getUsuariosRegistrados() {
@@ -89,10 +92,6 @@ public class SitioWeb {
 		usuariosRegistrados.remove(u);
 	}
 
-	public Exception avisoUsuarioNoRegistrado() throws UsuarioNoRegistradoException { // borrar despues?
-		throw new UsuarioNoRegistradoException();
-	}
-
 	public Exception avisoInmuebleInvalido() throws InmuebleInvalidoException {
 		throw new InmuebleInvalidoException();
 	}
@@ -122,5 +121,13 @@ public class SitioWeb {
 		Usuario u = new UsuarioPropietario(nombre, apellido, mail, tel);
 		this.darDeAlta(u);
 		return u;
+	}
+
+	public void agregarReservaConcretada(Reserva reservaPendiente) {
+		this.reservasPendientes.add(reservaPendiente);
+	}
+
+	public Set<Reserva> getReservasConcretadas() {
+		return this.reservasPendientes;
 	}
 }

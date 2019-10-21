@@ -19,7 +19,8 @@ public class Usuario {
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
-
+	protected Boolean mailRecibido;
+	
 	public Usuario(String nombre, String apellido, String email, Integer telefono) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -84,14 +85,17 @@ public class Usuario {
 		throw new ForbiddenException();
 	}
 
-	// Overwrited por UsuarioPropietario
-	public List<Reserva> getReservasConcretadas() throws ForbiddenException {
-		throw new ForbiddenException();
+	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
+		return web.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
+	}
+	
+	public Boolean mailRecibido() {
+		return this.mailRecibido;
 	}
 
-	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
 
-		return web.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
+	public void setMailRecibido(boolean b) {
+		this.mailRecibido = b;
 	}
 
 	

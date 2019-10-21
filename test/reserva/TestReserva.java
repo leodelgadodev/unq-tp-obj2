@@ -21,7 +21,6 @@ import usuario.UsuarioPropietario;
 
 class TestReserva {
 
-	//private Set<String> servicios = mock(HashSet.class); EJEMPLO DE MOCK
 	private Set<String> servicios = new HashSet<String>();
 	
 	SitioWeb web = new SitioWeb();
@@ -49,6 +48,8 @@ class TestReserva {
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		web.darDeAlta(u);
+		web.darDeAlta(prop);
 	}
 	
 	@Test
@@ -99,8 +100,9 @@ class TestReserva {
 	}
 	
 	@Test
-	void testPropietarioAceptaReserva() {
+	void testPropietarioAceptaReserva() throws ForbiddenException {
 		
+		u.reservarInmueble(i, "2020-01-01", "2020-01-02");
 		assertEquals(1, prop.getReservasPendientesDeAprobacion().size());
 		assertFalse(i.estaReservado());
 		

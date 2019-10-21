@@ -1,6 +1,7 @@
 package usuario;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -92,25 +93,13 @@ class TestUsuario {
 	
 	@Test
 	public void testSeleccionarInmueble() {
-		web.buscarInmuebles("BsAs", "2019-03-04", "2019-03-14");
+		List<Inmueble> busqueda = web.buscarInmuebles("BsAs", "2019-01-04", "2019-01-14");
 		
-		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-03-04", "2019-03-14", 0);
+		assertEquals(2, busqueda.size());
+		
+		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-01-04", "2019-01-14", 1);
+		assertNotNull(inmuebleSeleccionado);
 		assertEquals(prop1, inmuebleSeleccionado.getPropietario());
-	}
-	
-	@Test
-	public void testReservarInmueble() { // MOVER DE ACA
-		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-03-04", "2019-03-14", 0);
-		
-		inquilino.reservarInmueble(inmuebleSeleccionado);
-		assertTrue(false);
-	}
-	
-	
-	@Test
-	public void testCuandoUsuarioPublicaInmuebleSeConvierteEnPropietario() {
-		//inquilino.
-		assertTrue(false);
 	}
 	
 	@Test
