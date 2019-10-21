@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import clases.Inmueble;
 import clases.SitioWeb;
-import excepciones.ForbiddenException;
+import excepciones.*;
 import reserva.Reserva;
 
 public class Usuario {
@@ -65,7 +65,7 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) throws ForbiddenException {
+	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) throws ForbiddenException, InmuebleReservadoException {
 		
 		if( !i.estaReservado() ) {
 			Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);

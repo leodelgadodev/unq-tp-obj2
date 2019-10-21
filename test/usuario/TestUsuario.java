@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import clases.Inmueble;
 import clases.SitioWeb;
 import excepciones.ForbiddenException;
+import excepciones.InmuebleReservadoException;
 import excepciones.UsuarioNoRegistradoException;
 import reserva.Reserva;
 
@@ -39,7 +40,7 @@ class TestUsuario {
 			servicios, 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
 	
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() throws Exception { 
 		
 		casa1.agregarServicio("Desayuno");
 		casa2.agregarServicio("Wifi");
@@ -80,7 +81,7 @@ class TestUsuario {
 	@Test
 	public void testUsuarioNoRegistradoNoPuedeReservar() {
 		
-		assertFalse(web.getUsuariosRegistrados().contains(prop2));
+		//assertFalse(web.getUsuariosRegistrados().contains(prop2));
 		
 		assertThrows(UsuarioNoRegistradoException.class, () -> {
 			prop2.reservarInmueble(casa3, "2020-01-01", "2020-01-02");
@@ -88,7 +89,7 @@ class TestUsuario {
 	}
 
 	@Test
-	public void testUsuarioRegistradoPuedeReservar() throws ForbiddenException {
+	public void testUsuarioRegistradoPuedeReservar() throws ForbiddenException, InmuebleReservadoException {
 		
 		web.darDeAlta(prop1);
 		assertTrue(web.getUsuariosRegistrados().contains(prop1));
@@ -97,7 +98,7 @@ class TestUsuario {
 		
 		assertEquals(1, prop2.getReservasPendientesDeAprobacion().size());
 	}
-	
+	 
 	
 	@Test
 	public void testSeleccionarInmueble() {
@@ -105,7 +106,7 @@ class TestUsuario {
 		
 		assertEquals(2, busqueda.size());
 		
-		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-01-04", "2019-01-14", 1);
+		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-01-04", "2019-01-14", 0);
 		assertNotNull(inmuebleSeleccionado);
 		assertEquals(prop1, inmuebleSeleccionado.getPropietario());
 	}
