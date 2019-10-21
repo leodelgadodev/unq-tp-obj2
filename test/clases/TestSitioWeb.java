@@ -2,12 +2,9 @@ package clases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,8 +15,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import excepciones.InmuebleInvalidoException;
-import excepciones.UsuarioNoRegistradoException;
+import reserva.Reserva;
 import usuario.Usuario;
+import usuario.UsuarioPropietario;
 
 class TestSitioWeb {
 
@@ -182,6 +180,32 @@ class TestSitioWeb {
 	@Test
 	public void testAvisoInmuebleInvalidoException() {
 		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();}); // da amarillo en coverage dando 98.7%
+	}
+	
+	@Test
+	public void testRegistrarse() {
+		Usuario u = web.registrarse("a", "a", "a@mail", 1234);
+		
+		assertTrue(web.getUsuariosRegistrados().contains(u));
+	}
+	
+	@Test
+	public void testRegistrarseComoProp() {
+		Usuario u = web.registrarseComoPropietario("b", "b", "b@mail", 4321);
+		assertTrue(web.getUsuariosRegistrados().contains(u));
+	}
+	
+	@Test
+	public void agregarReservaConcretada() {
+		web.agregarReservaConcretada(mock(Reserva.class));
+		assertEquals(1,web.getReservasConcretadas().size());
+	}
+	
+	@Test
+	public void getReservasConcretadas() {
+		assertEquals(0,web.getReservasConcretadas().size());
+		web.agregarReservaConcretada(mock(Reserva.class));
+		assertEquals(1,web.getReservasConcretadas().size());
 	}
 }
 
