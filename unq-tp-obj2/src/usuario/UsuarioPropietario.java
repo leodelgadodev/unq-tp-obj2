@@ -85,15 +85,22 @@ public class UsuarioPropietario extends Usuario {
 	
 	public void eliminarReservasDeInmuebleReservado(Reserva reserva) {
 		List<Reserva> reservas = this.getReservasPendientesDeAprobacion();
+		List<Reserva> resultado = new ArrayList<>();
 		
 		for(Reserva r : reservas) {
 			
-			if( r.getInmueble() == reserva.getInmueble()) {
-				this.reservasPendientesDeAprobacion.remove(r);
+			if( r.getInmueble() != reserva.getInmueble()) {
+				resultado.add(r);
 			}
 		}
+		
+		this.setReservasPendientesDeAprobacion(resultado);
 	}
 	
+	public void setReservasPendientesDeAprobacion(List<Reserva> reservas) {
+		this.reservasPendientesDeAprobacion = reservas;
+	}
+
 	public void enviarMailA(Usuario inquilino) {
 		inquilino.setMailRecibido(true);
 	}

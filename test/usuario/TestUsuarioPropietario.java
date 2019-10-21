@@ -3,10 +3,11 @@ package usuario;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -18,6 +19,7 @@ import clases.Inmueble;
 import clases.SitioWeb;
 import excepciones.ForbiddenException;
 import excepciones.InmuebleInvalidoException;
+import excepciones.InmuebleReservadoException;
 import excepciones.UsuarioNoRegistradoException;
 import reserva.Reserva;
 
@@ -117,7 +119,7 @@ class TestUsuarioPropietario {
 	}
 
 	@Test
-	public void testUsuarioPropietarioAceptaReserva() throws UsuarioNoRegistradoException, InmuebleInvalidoException, ForbiddenException {
+	public void testUsuarioPropietarioAceptaReserva() throws UsuarioNoRegistradoException, InmuebleInvalidoException, ForbiddenException, InmuebleReservadoException {
 		// Aceptar significa:
 		// - registrar en sitio web (agregar reserva concretada)
 		// - sitio web manda mail a usuario que se acepto la reserva
@@ -138,8 +140,6 @@ class TestUsuarioPropietario {
 		prop1.aceptarReserva(r);
 		
 		assertEquals(0,prop1.getReservasPendientesDeAprobacion().size());
-		
-		
 	}
 	
 	@Test
@@ -164,6 +164,16 @@ class TestUsuarioPropietario {
 		
 		prop1.removeReserva(r);
 		assertEquals(0,prop1.getReservasPendientesDeAprobacion().size());
+	}
+	
+	@Test
+	public void testSetReservas() {
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		reservas.add(mock(Reserva.class));
+		
+		prop1.setReservasPendientesDeAprobacion(reservas);
+		
+		assertEquals(reservas, prop1.getReservasPendientesDeAprobacion());
 	}
 
 }

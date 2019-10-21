@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import clases.Inmueble;
 import clases.SitioWeb;
 import excepciones.ForbiddenException;
+import excepciones.InmuebleReservadoException;
 import usuario.Usuario;
 import usuario.UsuarioPropietario;
 
@@ -92,7 +93,7 @@ class TestReserva {
 	}
 	
 	@Test
-	void testUsuarioIniciaReserva() throws ForbiddenException {
+	void testUsuarioIniciaReserva() throws ForbiddenException, InmuebleReservadoException {
 		
 		web.buscarInmuebles("BsAs","2020-01-01","2020-01-30");
 		
@@ -103,13 +104,14 @@ class TestReserva {
 	}
 	
 	@Test
-	void testPropietarioAceptaReserva() throws ForbiddenException {
+	void testPropietarioAceptaReserva() throws ForbiddenException, InmuebleReservadoException {
 		
 		u.reservarInmueble(i, "2020-01-01", "2020-01-02");
 		assertEquals(1, prop.getReservasPendientesDeAprobacion().size());
 		assertFalse(i.estaReservado());
 		
-		prop.aceptarReservaDe(u);
+		
+		prop.aceptarReserva(r);
 		
 		assertTrue(r.getEstatus());
 		assertEquals(1, web.getReservasConcretadas().size());
