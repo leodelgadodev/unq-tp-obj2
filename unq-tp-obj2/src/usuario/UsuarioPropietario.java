@@ -77,7 +77,21 @@ public class UsuarioPropietario extends Usuario {
 
 	public void aceptarReserva(Reserva reservaPendiente) {
 		web.agregarReservaConcretada(reservaPendiente);
-		this.enviarMailA(reservaPendiente.getInquilino()); //No aplica para este hito - Leo
+		this.enviarMailA(reservaPendiente.getInquilino());
+		this.removeReserva(reservaPendiente);
+		this.eliminarReservasDeInmuebleReservado(reservaPendiente);
+	}
+	
+	public void eliminarReservasDeInmuebleReservado(Reserva reserva) {
+		List<Reserva> reservas = this.getReservasPendientesDeAprobacion();
+		
+		for(Reserva r : reservas) {
+			
+			if( aca compara reservas, si el inmueble de la reserva coincide con el inmueble de la reserva r que
+					estoy iterando, la tengo que sacar) {
+				this.reservasPendientesDeAprobacion.remove(r);
+			}
+		}
 	}
 	
 	public void enviarMailA(Usuario inquilino) {

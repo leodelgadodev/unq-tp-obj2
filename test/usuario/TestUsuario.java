@@ -7,12 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import clases.Inmueble;
 import clases.SitioWeb;
 import excepciones.ForbiddenException;
+import excepciones.UsuarioNoRegistradoException;
 import reserva.Reserva;
 
 class TestUsuario {
@@ -27,8 +25,8 @@ class TestUsuario {
 	SitioWeb web = new SitioWeb();
 	private Set<String> servicios = new HashSet<String>();
 	
-	Usuario prop1 = new Usuario("Leo","Delgado", "leo@email.com", 1526248982);
-	Usuario prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 1585248596);
+	Usuario prop1 = new UsuarioPropietario("Leo","Delgado", "leo@email.com", 1526248982);
+	Usuario prop2 = new UsuarioPropietario("Gonza","Torrez", "gonza@email.com", 1585248596);
 	Usuario inquilino = new Usuario("Daniel", "Cross","cross@gmail.com",1553986574);
 	
 	Inmueble casa1 = new Inmueble(prop1, "Casa", "BsAs", "Argentina","calle 123" , 
@@ -69,11 +67,13 @@ class TestUsuario {
 		prop2.setApellido("Cross");
 		prop2.setEmail("cross@email.com");
 		prop2.setTelefono(1541258763);
+		prop2.setMailRecibido(true);
 		
 		assertEquals("Daniel",prop2.getNombre());
 		assertEquals("Cross",prop2.getApellido());
 		assertEquals("cross@email.com",prop2.getEmail());
 		assertEquals(1541258763,prop2.getTelefono().intValue());
+		assertTrue(prop2.mailRecibido());
 	}
 	
 	
@@ -81,13 +81,21 @@ class TestUsuario {
 	public void testUsuarioNoRegistradoNoPuedeReservar() {
 		
 		assertFalse(web.getUsuariosRegistrados().contains(prop2));
+		
+		assertThrows(UsuarioNoRegistradoException.class, () -> {
+			prop2.reservarInmueble(casa3, "2020-01-01", "2020-01-02");
+		});
 	}
-	
+
 	@Test
-	public void testUsuarioRegistradoPuedeReservar() {
+	public void testUsuarioRegistradoPuedeReservar() throws ForbiddenException {
 		
 		web.darDeAlta(prop1);
 		assertTrue(web.getUsuariosRegistrados().contains(prop1));
+		
+		prop1.reservarInmueble(casa3, "2019-01-01", "2019-01-02");
+		
+		assertEquals(1, prop2.getReservasPendientesDeAprobacion().size());
 	}
 	
 	
@@ -118,13 +126,7 @@ class TestUsuario {
 	}
 	
 	@Test
-	public void testGetReservasConcretadas() {
-		assertThrows(ForbiddenException.class, () -> {inquilino.getReservasConcretadas();});
+	public void testMailRecibido() {
+		assertFalse(prop1.mailRecibido());
 	}
-	
-	
-	
-	
-
-	
 }

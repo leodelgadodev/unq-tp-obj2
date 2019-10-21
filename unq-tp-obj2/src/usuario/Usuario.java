@@ -66,8 +66,11 @@ public class Usuario {
 	}
 
 	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) throws ForbiddenException {
-		Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
-		i.getPropietario().addReserva(r);
+		
+		if( !i.estaReservado() ) {
+			Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
+			i.getPropietario().addReserva(r);
+		} else throw new InmuebleReservadoException();
 	}
 
 	// Overwrited por UsuarioPropietario

@@ -86,6 +86,9 @@ class TestReserva {
 		
 		r.setFechaFin(fin);
 		assertEquals(LocalDate.of(2020, 1, 15), r.getFechaFin());
+		
+		r.setEstatus(false);
+		assertFalse(r.getEstatus());
 	}
 	
 	@Test
@@ -109,7 +112,6 @@ class TestReserva {
 		prop.aceptarReservaDe(u);
 		
 		assertTrue(r.getEstatus());
-		assertEquals(1, u.getReservasConcretadas().size());
 		assertEquals(1, web.getReservasConcretadas().size());
 		
 		assertEquals(0, prop.getReservasPendientesDeAprobacion().size());

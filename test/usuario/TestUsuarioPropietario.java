@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.mock;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,7 @@ import clases.Inmueble;
 import clases.SitioWeb;
 import excepciones.InmuebleInvalidoException;
 import excepciones.UsuarioNoRegistradoException;
+import reserva.Reserva;
 
 class TestUsuarioPropietario {
 
@@ -120,7 +122,8 @@ class TestUsuarioPropietario {
 		// - sitio web manda mail a usuario que se acepto la reserva
 		// - se deben borrar todas las otras reservas que se intentaron hacer para ese inmueble
 		// - propietario conoce reserva concretada de su inmueble
-		fail("Not yet implemented");
+		web.darDeAlta(prop1);
+		
 	}
 	
 	@Test
@@ -132,9 +135,19 @@ class TestUsuarioPropietario {
 	}
 	
 	@Test
-	void testGetReservasPendientesDeAprobacion() {
+	public void testGetReservasPendientesDeAprobacion() {
 		assertEquals(0,prop1.getReservasPendientesDeAprobacion().size());
 	}
-
+	
+	@Test
+	public void testAddRemoveReserva() {
+		Reserva r = mock(Reserva.class);
+		
+		prop1.addReserva(r);
+		assertEquals(1,prop1.getReservasPendientesDeAprobacion().size());
+		
+		prop1.removeReserva(r);
+		assertEquals(0,prop1.getReservasPendientesDeAprobacion().size());
+	}
 
 }
