@@ -75,6 +75,7 @@ public class UsuarioPropietario extends Usuario {
 		this.reservasPendientesDeAprobacion.add(r);
 	}
 
+	@Override
 	public void aceptarReserva(Reserva reservaPendiente) {
 		web.agregarReservaConcretada(reservaPendiente);
 		this.enviarMailA(reservaPendiente.getInquilino());

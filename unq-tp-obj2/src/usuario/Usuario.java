@@ -83,11 +83,6 @@ public class Usuario {
 		throw new ForbiddenException();
 	}
 
-	// Overwrited por UsuarioPropietario
-	public void aceptarReservaDe(Usuario user) throws ForbiddenException { 
-		throw new ForbiddenException();
-	}
-
 	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
 		return web.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
 	}
@@ -99,6 +94,12 @@ public class Usuario {
 
 	public void setMailRecibido(boolean b) {
 		this.mailRecibido = b;
+	}
+
+	//Overrided
+	public void aceptarReserva(Reserva r) throws ForbiddenException {
+		throw new ForbiddenException();
+		
 	}
 
 	

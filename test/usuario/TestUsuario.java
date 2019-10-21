@@ -117,8 +117,8 @@ class TestUsuario {
 	}
 	
 	@Test
-	public void testAceptarReservaDe() {
-		assertThrows(ForbiddenException.class, () -> {inquilino.aceptarReservaDe(mock(Usuario.class));});
+	public void testAceptarReserva() {
+		assertThrows(ForbiddenException.class, () -> {inquilino.aceptarReserva(mock(Reserva.class));});
 	}
 	
 	@Test
