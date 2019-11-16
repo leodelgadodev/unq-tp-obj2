@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import usuario.Usuario;
 import usuario.UsuarioPropietario;
@@ -22,85 +23,61 @@ import usuario.UsuarioPropietario;
 class TestInmueble {
 
 	Set<String> servicios = new HashSet<>();
-	Set<String> serviciosTest = new HashSet<>();
-	Usuario prop = new UsuarioPropietario(null, null, null, null);
-	Inmueble i = new Inmueble(
-			prop,
-			"Casa",
-			"BsAs",
-			"Argentina",
-			"Roque SÃ¡enz PeÃ±a 352",
-			servicios,
-			4,
-			"2020-01-01",
-			"2020-01-30",
-			"08:00",
-			"22:00",
-			7000.00
-			);
+	
+	Usuario prop = mock(Usuario.class);
+	
+	Inmueble i = new Inmueble( prop,"Casa","BsAs","Argentina","Roque Saenz Peña 352", servicios, 4,"2020-01-01","2020-01-30","08:00","22:00",7000.00);
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		servicios.add("Gas");
 		servicios.add("Agua");
 		servicios.add("Wifi");
-		
-		serviciosTest.add("Agua");
-
 	}
 
+	
 	@Test
-	public void testGettersInmueble() {
-
-		assertEquals(prop,i.getPropietario());
-		assertNotNull(i.getTipoDeInmueble());
-		assertNotNull(i.getCiudad());
-		assertNotNull(i.getPais());
-		assertNotNull(i.getDireccion());
-		assertNotNull(i.getServicios());
-		assertNotNull(i.getCapacidad());
-		assertNotNull(i.getFechaDeInicio());
-		assertNotNull(i.getFechaFinal());
-		assertNotNull(i.getHoraCheckIn());
-		assertNotNull(i.getHoraCheckOut());
-		assertNotNull(i.getPrecio());
+	public void testPropietarioDelInmueble() {
+				
+		assertEquals(prop, i.getPropietario());
 	}
 	
 	@Test
-	public void testSettersInmueble() {
-		
-		i.setPropietario(mock(UsuarioPropietario.class));
-		i.setTipoDeInmueble("Habitacion");
-		i.setCiudad("Santiago");
-		i.setPais("Chile");
-		i.setDireccion("Grove Street");
-		i.setServicios(serviciosTest);
-		i.setCapacidad(80);
-		i.setFechaDeInicio("2020-02-01");
-		i.setFechaFinal("2020-02-02");
-		i.setHoraCheckIn("06:00");
-		i.setHoraCheckOut("21:00");
-		i.setPrecio(2000.00);
-		
-		assertNotEquals(prop, i.getPropietario());
-		assertEquals( "Habitacion", i.getTipoDeInmueble());
-		assertEquals( "Santiago", i.getCiudad());
-		assertEquals( "Chile", i.getPais());
-		assertEquals( "Grove Street", i.getDireccion());
-		assertEquals(1, i.getServicios().size());
-		assertEquals( 80, i.getCapacidad());
-		assertEquals( LocalDate.of(2020, 02, 01), i.getFechaDeInicio());
-		assertEquals( LocalDate.of(2020, 02, 02), i.getFechaFinal());
-		assertEquals( LocalTime.of(06, 00), i.getHoraCheckIn());
-		assertEquals( LocalTime.of(21, 00), i.getHoraCheckOut());
-		assertEquals( 2000.00, i.getPrecio(), 0);
+	public void testTipoPrecioYCapacidadDelInmueble() {
+					
+		assertEquals( "Casa", i.getTipoDeInmueble());
+		assertEquals( 4, i.getCapacidad());
+		assertEquals( 7000.00, i.getPrecio(), 0);
 	}
 	
 	@Test
-	public void testAgregarServicio() {
-		i.agregarServicio("Gas");
-		i.agregarServicio("Wifi");
-		i.agregarServicio("Agua");
+	public void testLocacionDeInmueble() {
+				
+		assertEquals( "BsAs", i.getCiudad());
+		assertEquals( "Argentina", i.getPais());
+		assertEquals( "Roque Saenz Peña 352", i.getDireccion());
+	}
+	
+	@Test
+	public void testFechasInmueble() {
+				
+		assertEquals( LocalDate.of(2020, 01, 01), i.getFechaDeInicio());
+		assertEquals( LocalDate.of(2020, 01, 30), i.getFechaFinal());
+	}
+	
+	@Test
+	public void testHorariosCheckInmueble() {
+				
+		assertEquals( LocalTime.of(8, 00), i.getHoraCheckIn());
+		assertEquals( LocalTime.of(22, 00), i.getHoraCheckOut());
+		
+	}
+	
+	@Test
+	public void testAgregarServicios() {
+		servicios.add("Gas");
+		servicios.add("Agua");
+		servicios.add("Wifi");
 		assertEquals(servicios,i.getServicios());
 	}
 	

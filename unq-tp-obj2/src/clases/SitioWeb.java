@@ -36,10 +36,6 @@ public class SitioWeb {
 		return this.usuariosRegistrados;
 	}
 
-	public void darDeAlta(Usuario usuario) {
-		usuario.setSitioWeb(this);
-		this.usuariosRegistrados.add(usuario);
-	}
 
 	public Set<Inmueble> getInmuebles() {
 		return this.inmuebles;
@@ -49,11 +45,6 @@ public class SitioWeb {
 		inmuebles.add(nvoInmueble);
 	}
 
-	// ---------------------------------------------
-
-	// TIPOS Y SERVICIOS DE INMUEBLES
-
-	// ---------------------------------------------
 
 	public void agregarTipoDeInmueble(String tipo) {
 		
@@ -73,24 +64,11 @@ public class SitioWeb {
 		return this.serviciosInmuebles;
 	}
 
-	/**
-	 * Es llamado por el Usuario al intentar publicar un inmueble. Un inmueble es
-	 * valido si su tipo y la lista de servicios ofrecidos coincide con los datos
-	 * dados de alta por el administrador en el sitio web.
-	 * 
-	 * @param tipo      - String representando un tipo de inmueble (Casa, Quincho,
-	 *                  Habitacion, etc).
-	 * @param servicios - Set<String> representando servicios ofrecidos (Agua, Gas,
-	 *                  Wifi, etc).
-	 * @return resultado booleano.
-	 */
+
 	public boolean esUnInmuebleValido(String tipo, Set<String> servicios) {
 		return this.getTiposInmueble().contains(tipo) && this.getServiciosInmuebles().containsAll(servicios);
 	}
 
-	public void darDeBajaUsuario(Usuario u) {
-		usuariosRegistrados.remove(u);
-	}
 
 	public Exception avisoInmuebleInvalido() throws InmuebleInvalidoException {
 		throw new InmuebleInvalidoException();
@@ -110,18 +88,7 @@ public class SitioWeb {
 				&& (fSalida.equals(x.getFechaFinal()) || fSalida.isBefore(x.getFechaFinal()))) 
 		.collect(Collectors.toList());
 	}
-	
-	public Usuario registrarse(String nombre, String apellido, String mail, Integer tel) { // falta testear esto o eliminar esto
-		Usuario u = new Usuario(nombre, apellido, mail, tel);
-		this.darDeAlta(u);
-		return u;
-	}
-	
-	public Usuario registrarseComoPropietario(String nombre, String apellido, String mail, Integer tel) { // falta testear esto o eliminar esto
-		Usuario u = new UsuarioPropietario(nombre, apellido, mail, tel);
-		this.darDeAlta(u);
-		return u;
-	}
+
 
 	public void agregarReservaConcretada(Reserva reservaPendiente) {
 		this.reservasPendientes.add(reservaPendiente);

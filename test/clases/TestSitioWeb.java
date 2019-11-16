@@ -50,22 +50,7 @@ class TestSitioWeb {
 		web.ponerEnAlquiler(casa4);
 	}
 
-	@Test
-	public void registrarUsuario() {
-		web.darDeAlta(mock(Usuario.class));
-		web.darDeAlta(mock(Usuario.class));
-		assertEquals(2,web.getUsuariosRegistrados().size());
-	}
-	
-	@Test
-	public void darDeBajaUsuario() {
-		Usuario u1 = mock(Usuario.class);
-		
-		web.darDeAlta(u1);
-		web.darDeBajaUsuario(u1);
-		
-		assertEquals(0,web.getUsuariosRegistrados().size());
-	}
+
 	
 	@Test
 	public void testCantidadDeInmueblesEnAlquiler() {
@@ -182,18 +167,6 @@ class TestSitioWeb {
 		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();}); // da amarillo en coverage dando 98.7%
 	}
 	
-	@Test
-	public void testRegistrarse() {
-		Usuario u = web.registrarse("a", "a", "a@mail", 1234);
-		
-		assertTrue(web.getUsuariosRegistrados().contains(u));
-	}
-	
-	@Test
-	public void testRegistrarseComoProp() {
-		Usuario u = web.registrarseComoPropietario("b", "b", "b@mail", 4321);
-		assertTrue(web.getUsuariosRegistrados().contains(u));
-	}
 	
 	@Test
 	public void agregarReservaConcretada() {

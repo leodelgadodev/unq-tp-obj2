@@ -16,9 +16,9 @@ public class Inmueble {
 	private String direccion;
 	private Set<String> servicios; 
 	private int capacidad; 
-	private LocalDate fechaDeInicio; // disponibilidad del inmueble formato en el string "2019-10-19"
+	private LocalDate fechaDeInicio; 
 	private LocalDate fechaFinal; 
-	private LocalTime horaCheckIn; // check-in formato en string "10:30"
+	private LocalTime horaCheckIn; 
 	private LocalTime horaCheckOut; 
 	private double precio; 
 	private Boolean reservado;
@@ -27,18 +27,18 @@ public class Inmueble {
 			String pais, String direccion, Set<String> servicios, 
 			int capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, String horaCheckOut,
 			Double precio) {
-		this.setPropietario(prop);
-		this.setTipoDeInmueble(tipo);
-		this.setCiudad(ciudad);
-		this.setPais(pais);
-		this.setDireccion(direccion);
+		this.propietario = prop;
+		this.tipoDeInmueble = tipo;
+		this.ciudad = ciudad;
+		this.pais = pais;
+		this.direccion = direccion;
+		this.precio = precio;
 		this.servicios = new HashSet<String>(); 
-		this.setCapacidad(capacidad);
+		this.capacidad = capacidad;
 		this.setFechaDeInicio(fechaInicio);
 		this.setFechaFinal(fechaFinal);
 		this.setHoraCheckIn(horaCheckIn); 
 		this.setHoraCheckOut(horaCheckOut);
-		this.setPrecio(precio);
 		this.reservado = false;
 	}
 
@@ -63,58 +63,40 @@ public class Inmueble {
 		return capacidad;
 	}
 	
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
-	}
 	
 	public Usuario getPropietario() {
 		return propietario;
 	}
 
-	public void setPropietario(Usuario propietario) {
-		this.propietario = propietario;
-	}
 
 	public String getTipoDeInmueble() {
 		return tipoDeInmueble;
 	}
 
-	public void setTipoDeInmueble(String tipoDeInmueble) {
-		this.tipoDeInmueble = tipoDeInmueble;
-	}
 
 	public String getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
 
 	public String getPais() {
 		return pais;
 	}
 
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
 
 	public String getDireccion() {
 		return direccion;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
 
 	public Set<String> getServicios(){
 		return servicios;
 	}
 	
-	public void setServicios(Set<String> servicios) {
+	/*public void setServicios(Set<String> servicios) {
 		
 		this.servicios = servicios;
-	}
+	}*/
 	
 	public void agregarServicio(String servicio) {
 		this.servicios.add(servicio);
@@ -143,10 +125,6 @@ public class Inmueble {
 		return precio;
 	}
 	
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
 	public void reservar() {
 		this.reservado = true;
 	}

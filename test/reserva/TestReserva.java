@@ -49,8 +49,7 @@ class TestReserva {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		web.darDeAlta(u);
-		web.darDeAlta(prop);
+		
 	}
 	
 	@Test
@@ -97,10 +96,10 @@ class TestReserva {
 		
 		web.buscarInmuebles("BsAs","2020-01-01","2020-01-30");
 		
-		//assertNotNull(i.getPropietario());
+		assertNotNull(i.getPropietario());
 		u.reservarInmueble(i, "2020-01-01", "2020-01-25");
 		
-		//assertEquals(1, i.getPropietario().getReservasPendientesDeAprobacion().size());	
+		assertEquals(1, i.getPropietario().getReservasPendientesDeAprobacion().size());	
 	}
 	
 	@Test
