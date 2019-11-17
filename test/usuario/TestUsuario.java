@@ -29,13 +29,13 @@ class TestUsuario {
 	Usuario prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 1585248596);
 	Usuario inquilino = new Usuario("Daniel", "Cross","cross@gmail.com",1553986574);
 	
-	Inmueble casa1 = new Inmueble(prop1, "Casa", "BsAs", "Argentina","calle 123" , 
+	Inmueble casa1 = new Inmueble( "Casa", "BsAs", "Argentina","calle 123" , 
 			 servicios, 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
 	
-	Inmueble casa2 = new Inmueble(prop1, "Casa", "Cordoba", "Argentina","calle 53" , 
+	Inmueble casa2 = new Inmueble( "Casa", "Cordoba", "Argentina","calle 53" , 
 			servicios, 10,"2019-06-01","2019-06-20", "09:30", "19:00", 3500.0);
 	
-	Inmueble casa3 = new Inmueble(prop2, "Casa", "BsAs", "Argentina","calle 18" , 
+	Inmueble casa3 = new Inmueble( "Casa", "BsAs", "Argentina","calle 18" , 
 			 servicios, 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
 	
 	@BeforeEach
@@ -83,7 +83,7 @@ class TestUsuario {
 	
 	@Test
 	public void testAddReserva() {
-		assertThrows(ForbiddenException.class, () -> {inquilino.addReserva(mock(Reserva.class));});
+		assertThrows(ForbiddenException.class, () -> {inquilino.addReservasPendientes(mock(Reserva.class));});
 	}
 	
 	@Test
@@ -96,8 +96,4 @@ class TestUsuario {
 		assertThrows(ForbiddenException.class, () -> {inquilino.getReservasPendientesDeAprobacion();});
 	}
 	
-	@Test
-	public void testMailRecibido() {
-		assertFalse(prop1.mailRecibido());
-	}
 }

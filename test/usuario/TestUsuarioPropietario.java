@@ -34,9 +34,9 @@ class TestUsuarioPropietario {
 	
 	Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
 	
-	Inmueble casa1 = new Inmueble(prop1, "Casa", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "08:30", "17:00", 2500.0);
-	Inmueble casa2 = new Inmueble(prop2, "Casa", "Cordoba", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "09:30", "19:00", 3500.0);
-	Inmueble casa3 = new Inmueble(prop3, "Casa", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "10:30", "18:00", 4000.0);
+	Inmueble casa1 = new Inmueble( "Casa", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "08:30", "17:00", 2500.0);
+	Inmueble casa2 = new Inmueble( "Casa", "Cordoba", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "09:30", "19:00", 3500.0);
+	Inmueble casa3 = new Inmueble("Casa", "BsAs", "Argentina","calle 123" , null, 5,"2019-10-17","2019-10-25", "10:30", "18:00", 4000.0);
 	
 	
 	@BeforeEach

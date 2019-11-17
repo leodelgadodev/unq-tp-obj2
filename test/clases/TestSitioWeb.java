@@ -36,18 +36,6 @@ class TestSitioWeb {
 	
 	Inmueble quincho = mock(Inmueble.class);
 	
-	/*Inmueble casa1 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 123" , 
-			 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
-	
-	Inmueble casa2 = new Inmueble(mock(Usuario.class), "Casa", "Cordoba", "Argentina","calle 53" , 
-			 10,"2019-06-01","2019-06-20", "09:30", "19:00", 3500.0);
-	
-	Inmueble casa3 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 18" , 
-			 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
-	
-	Inmueble casa4 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 18" , 
-			 3,"2019-05-13","2019-05-25", "10:30", "18:00", 4000.0);
-	*/
 	@BeforeEach
 	void setUp() throws Exception {
 		
@@ -56,7 +44,7 @@ class TestSitioWeb {
 		web.ponerEnAlquiler(quincho);
 		
 		when(casa.getCiudad()).thenReturn("BsAs");
-
+		when(departamento.getCiudad()).thenReturn("BsAs");
 		when(quincho.getCiudad()).thenReturn("Cordoba");
 		
 		when(casa.getFechaDeInicio()).thenReturn(LocalDate.parse("2019-01-01"));
@@ -64,10 +52,17 @@ class TestSitioWeb {
 		when(casa.getHoraCheckIn()).thenReturn(LocalTime.parse("08:30"));
 		when(casa.getHoraCheckOut()).thenReturn(LocalTime.parse("17:00"));
 		
+		when(departamento.getFechaDeInicio()).thenReturn(LocalDate.parse("2019-01-01"));
+		when(departamento.getFechaFinal()).thenReturn(LocalDate.parse("2019-01-20"));
+		when(departamento.getHoraCheckIn()).thenReturn(LocalTime.parse("10:30"));
+		when(departamento.getHoraCheckOut()).thenReturn(LocalTime.parse("18:00"));
+		
 		when(quincho.getFechaDeInicio()).thenReturn(LocalDate.parse("2019-06-01"));
 		when(quincho.getFechaFinal()).thenReturn(LocalDate.parse("2019-06-20"));
 		when(quincho.getHoraCheckIn()).thenReturn(LocalTime.parse("09:30"));
 		when(quincho.getHoraCheckOut()).thenReturn(LocalTime.parse("19:00"));
+		
+		when(casa.getTipoDeInmueble()).thenReturn("Casa");
 		
 	}
 
@@ -78,18 +73,14 @@ class TestSitioWeb {
 		assertEquals(3,web.getInmuebles().size());
 	}
 
-	@Test
-	public void agregarTipoDeInmueble() {
-		
-		web.agregarTipoDeInmueble("Casa");
-		assertFalse(web.getTiposInmueble().isEmpty());
-	}
 	
 	@Test
 	public void getTiposDeInmueble() {
 		
 		Set<String> inmueblesEsperados = new HashSet<String>();
 		inmueblesEsperados.add("Casa");
+		
+		web.agregarTipoDeInmueble("Casa");
 		
 		assertEquals(inmueblesEsperados,web.getTiposInmueble());
 	}
@@ -100,12 +91,15 @@ class TestSitioWeb {
 		web.agregarServiciosDeInmuebles("Agua");
 		assertFalse(web.getServiciosInmuebles().isEmpty());
 	}
-	/*
+	
 	@Test
 	public void getServiciosDeInmueble() {
 		Set<String> serviciosEsperados = new HashSet<String>();
 		serviciosEsperados.add("Agua");
 		serviciosEsperados.add("Luz");
+		
+		web.agregarServiciosDeInmuebles("Agua");
+		web.agregarServiciosDeInmuebles("Luz");
 		
 		assertEquals(serviciosEsperados,web.getServiciosInmuebles());
 	}
@@ -133,19 +127,18 @@ class TestSitioWeb {
 		resultado.add(quincho);
 		
 		assertEquals(resultado,web.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
-	}*/
+	}
 	
-	/*@Test 
+	@Test 
 	public void testBuscarInmueblesPorCiudadYFechas2() {
 		
 		List<Inmueble> resultado = new ArrayList<Inmueble>();
-		resultado.add(casa3);
+		resultado.add(departamento);
 		resultado.add(casa);
 		
 		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
-	}*/
-	
-	
+	}
+
 	
 	@Test
 	public void agregarReservaConcretada() { ////

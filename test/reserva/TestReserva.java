@@ -29,7 +29,7 @@ class TestReserva {
 	Usuario prop = new Usuario("b","b","b@mail",22222222);
 	
 	Inmueble i = new Inmueble(
-			prop,
+			
 			"Casa",
 			"BsAs",
 			"Argentina",
@@ -43,7 +43,7 @@ class TestReserva {
 			7000.00
 			);
 	
-	Reserva r = new Reserva(u,prop,i,"2020-01-01","2020-01-14");
+	Reserva r = new Reserva(u,i,"2020-01-01","2020-01-14");
 	
 	
 	@BeforeEach
@@ -55,11 +55,9 @@ class TestReserva {
 	void testConstructorReserva() {
 
 		assertFalse(r.getEstatus());
-		assertEquals(u, r.getInquilino());
-		assertEquals(prop, r.getPropietario());
+		assertEquals(u, r.getSolicitante());
 		assertEquals(i, r.getInmueble());
-		assertEquals(LocalDate.of(2020, 1, 1), r.getFechaInicio());
-		assertEquals(LocalDate.of(2020, 1, 14), r.getFechaFin());
+		
 	}
 	
 	@Test

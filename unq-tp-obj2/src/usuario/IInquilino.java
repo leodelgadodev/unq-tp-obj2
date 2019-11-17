@@ -4,6 +4,6 @@ import clases.Inmueble;
 
 public interface IInquilino {
 
+	public void reservarInmueble(Inmueble i,Usuario solicitante,Usuario propietario);
 	
-	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin);
 }

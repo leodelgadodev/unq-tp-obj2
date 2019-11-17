@@ -17,7 +17,6 @@ public class Usuario implements IPropietario, IInquilino{
 	protected String email;
 	protected Integer telefono;
 	protected Boolean mailRecibido;
-	
 	private Set<Inmueble> inmuebles;
 	private List<Reserva> reservasPendientes;
 	
@@ -46,10 +45,10 @@ public class Usuario implements IPropietario, IInquilino{
 		return this.email;
 	}
 
-	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {
+	public void reservarInmueble(Inmueble i,Usuario solicitante,Usuario propietario) {
 		
-		Reserva r = new Reserva(this, i, fechaInicio, fechaFin);
-		this.reservasPendientes.add(r);
+		Reserva r = new Reserva(solicitante, i); ///
+		propietario.addReservasPendientes(r); //
 	}
 
 	public void setMailRecibido(boolean b) { 
@@ -80,7 +79,7 @@ public class Usuario implements IPropietario, IInquilino{
 	}
 	
 	public void eliminarReservasDeInmuebleReservado(Reserva reserva) {
-		List<Reserva> reservas = this.getReservasPendientesDeAprobacion();
+		List<Reserva> reservas = this.getReservasPendientes();
 		List<Reserva> resultado = new ArrayList<>();
 		
 		for(Reserva r : reservas) {
@@ -99,7 +98,7 @@ public class Usuario implements IPropietario, IInquilino{
 		inquilino.setMailRecibido(true);
 	}
 
-	public List<Reserva> getReservasPendientesDeAprobacion() { 
+	public List<Reserva> getReservasPendientes() { 
 		return this.reservasPendientes;
 	}
 	
