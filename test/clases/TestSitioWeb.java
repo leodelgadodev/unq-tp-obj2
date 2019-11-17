@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,49 +15,67 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import excepciones.InmuebleInvalidoException;
 import reserva.Reserva;
 import usuario.Usuario;
-import usuario.UsuarioPropietario;
+
+import static org.mockito.Mockito.*;
 
 class TestSitioWeb {
 
 	SitioWeb web = new SitioWeb();
-	Administrador adm = new Administrador(web);
+	
 	ArrayList<String> a = new ArrayList<>();
 	Set<String> servicios = new HashSet<String>(); 
 	
-	Inmueble casa1 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 123" , 
-			servicios, 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
+	Inmueble casa = mock(Inmueble.class);
+	
+	Inmueble departamento = mock(Inmueble.class);
+	
+	Inmueble quincho = mock(Inmueble.class);
+	
+	/*Inmueble casa1 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 123" , 
+			 5,"2019-01-01","2019-01-30", "08:30", "17:00", 2500.0);
 	
 	Inmueble casa2 = new Inmueble(mock(Usuario.class), "Casa", "Cordoba", "Argentina","calle 53" , 
-			servicios, 10,"2019-06-01","2019-06-20", "09:30", "19:00", 3500.0);
+			 10,"2019-06-01","2019-06-20", "09:30", "19:00", 3500.0);
 	
 	Inmueble casa3 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 18" , 
-			servicios, 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
+			 3,"2019-01-01","2019-01-20", "10:30", "18:00", 4000.0);
 	
 	Inmueble casa4 = new Inmueble(mock(Usuario.class), "Casa", "BsAs", "Argentina","calle 18" , 
-			servicios, 3,"2019-05-13","2019-05-25", "10:30", "18:00", 4000.0);
-	
+			 3,"2019-05-13","2019-05-25", "10:30", "18:00", 4000.0);
+	*/
 	@BeforeEach
 	void setUp() throws Exception {
 		
-		adm.darDeAltaServicioDeInmuebles("Agua");
-		adm.darDeAltaTipoDeInmueble("Casa");
+		web.ponerEnAlquiler(casa);
+		web.ponerEnAlquiler(departamento);
+		web.ponerEnAlquiler(quincho);
 		
-		web.ponerEnAlquiler(casa1);
-		web.ponerEnAlquiler(casa2);
-		web.ponerEnAlquiler(casa3);
-		web.ponerEnAlquiler(casa4);
+		when(casa.getCiudad()).thenReturn("BsAs");
+
+		when(quincho.getCiudad()).thenReturn("Cordoba");
+		
+		when(casa.getFechaDeInicio()).thenReturn(LocalDate.parse("2019-01-01"));
+		when(casa.getFechaFinal()).thenReturn(LocalDate.parse("2019-01-30"));
+		when(casa.getHoraCheckIn()).thenReturn(LocalTime.parse("08:30"));
+		when(casa.getHoraCheckOut()).thenReturn(LocalTime.parse("17:00"));
+		
+		when(quincho.getFechaDeInicio()).thenReturn(LocalDate.parse("2019-06-01"));
+		when(quincho.getFechaFinal()).thenReturn(LocalDate.parse("2019-06-20"));
+		when(quincho.getHoraCheckIn()).thenReturn(LocalTime.parse("09:30"));
+		when(quincho.getHoraCheckOut()).thenReturn(LocalTime.parse("19:00"));
+		
 	}
 
 
-	
 	@Test
 	public void testCantidadDeInmueblesEnAlquiler() {
 	
-		assertEquals(4,web.getInmuebles().size());
+		assertEquals(3,web.getInmuebles().size());
 	}
 
 	@Test
@@ -75,15 +95,14 @@ class TestSitioWeb {
 	}
 	
 	@Test
-	public void agregarServiciosDeInmuebles() {
+	public void agregarServiciosDeInmuebles() {//
 		
 		web.agregarServiciosDeInmuebles("Agua");
 		assertFalse(web.getServiciosInmuebles().isEmpty());
 	}
-	
+	/*
 	@Test
 	public void getServiciosDeInmueble() {
-		adm.darDeAltaServicioDeInmuebles("Luz");
 		Set<String> serviciosEsperados = new HashSet<String>();
 		serviciosEsperados.add("Agua");
 		serviciosEsperados.add("Luz");
@@ -99,16 +118,11 @@ class TestSitioWeb {
 		assertEquals(1,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
 	}
 	
-	@Test
-	public void testCiudadDeInmueble() {
-		
-		assertEquals("Cordoba",casa2.getCiudad());
-	}
 	
 	@Test
 	public void testGetInmueblesDe() {
-		
-		assertEquals(3,web.getInmueblesDe("BsAs").size());
+		when(departamento.getCiudad()).thenReturn("BsAs");
+		assertEquals(2,web.getInmueblesDe("BsAs").size());
 	}
 	 
 	@Test
@@ -116,69 +130,34 @@ class TestSitioWeb {
 		
 		List<Inmueble> resultado = new ArrayList<Inmueble>();
 		
-		resultado.add(casa2);
+		resultado.add(quincho);
 		
 		assertEquals(resultado,web.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
-	}
+	}*/
 	
-	@Test 
+	/*@Test 
 	public void testBuscarInmueblesPorCiudadYFechas2() {
 		
 		List<Inmueble> resultado = new ArrayList<Inmueble>();
 		resultado.add(casa3);
-		resultado.add(casa1);
+		resultado.add(casa);
 		
 		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
-	}
+	}*/
 	
-	@Test 
-	public void testBuscarInmueblesPorCiudadYFechas3() {
-		
-		List<Inmueble> resultado = new ArrayList<Inmueble>();
-		resultado.add(casa4);
-		
-		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-05-13", "2019-05-25"));
-	}
-	
-
-	@Test
-	public void testInmuebleValido() {
-		Set<String> serviciosTest = new HashSet<String>();
-		serviciosTest.add("Agua");
-
-		assertTrue(web.esUnInmuebleValido("Casa", serviciosTest));
-	}
-	
-	@Test
-	public void testInmuebleInvalido() {
-		Set<String> serviciosTest = new HashSet<String>();
-		serviciosTest.add("Agua");
-
-		assertTrue(web.esUnInmuebleValido("Casa", serviciosTest));
-		
-		serviciosTest.add("Spa");
-		
-		assertFalse(web.esUnInmuebleValido("Casa", serviciosTest));
-	}
-	
-
-	@Test
-	public void testAvisoInmuebleInvalidoException() {
-		assertThrows(InmuebleInvalidoException.class, () -> {web.avisoInmuebleInvalido();}); // da amarillo en coverage dando 98.7%
-	}
 	
 	
 	@Test
-	public void agregarReservaConcretada() {
-		web.agregarReservaConcretada(mock(Reserva.class));
-		assertEquals(1,web.getReservasConcretadas().size());
+	public void agregarReservaConcretada() { ////
+		web.agregarReserva(mock(Reserva.class));
+		assertEquals(1,web.getReservas().size());
 	}
 	
 	@Test
-	public void getReservasConcretadas() {
-		assertEquals(0,web.getReservasConcretadas().size());
-		web.agregarReservaConcretada(mock(Reserva.class));
-		assertEquals(1,web.getReservasConcretadas().size());
+	public void getReservasConcretadas() { /////
+		assertEquals(0,web.getReservas().size());
+		web.agregarReserva(mock(Reserva.class));
+		assertEquals(1,web.getReservas().size());
 	}
 }
 

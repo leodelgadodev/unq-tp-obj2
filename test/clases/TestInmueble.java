@@ -1,12 +1,6 @@
 package clases;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,30 +9,21 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import usuario.Usuario;
-import usuario.UsuarioPropietario;
 
 class TestInmueble {
 
-	public Set<String> servicios = new HashSet<>();
+ 
+	Set<String> servicios = new HashSet<>();
 	
-	Usuario prop = mock(Usuario.class);
-	
-	Inmueble i = new Inmueble( prop,"Casa","BsAs","Argentina","Roque Saenz Peña 352", servicios, 4,"2020-01-01","2020-01-30","08:00","22:00",7000.00);
+	Inmueble i = new Inmueble("Casa","BsAs","Argentina","Roque Saenz Peña 352", servicios, 4,"2020-01-01","2020-01-30","08:00","22:00",7000.00);
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		i.agregarServicio("Wifi");
-		i.agregarServicio("Agua");
-	}
-
-	
-	@Test
-	public void testPropietarioDelInmueble() {
-				
-		assertEquals(prop, i.getPropietario());
+		
+		servicios.add("Wifi");
+		servicios.add("Agua");
+		i.setServicios(servicios);
 	}
 	
 	@Test
@@ -74,24 +59,10 @@ class TestInmueble {
 	
 	@Test
 	public void testAgregarServicios() {
+		Set<String> serviciosEsperados = new HashSet<>();
+		serviciosEsperados.add("Wifi");
+		serviciosEsperados.add("Agua");
 		
-		servicios.add("Wifi");
-		servicios.add("Agua");
-		
-		assertEquals(servicios,i.getServicios());
+		assertEquals(serviciosEsperados,i.getServicios());
 	}
-	
-	@Test
-	public void testNoReservado() {
-		
-		assertFalse(i.estaReservado());
-	}
-	
-	@Test
-	public void testReservado() {
-		
-		i.reservar();
-		assertTrue(i.estaReservado());
-	}
-
 }

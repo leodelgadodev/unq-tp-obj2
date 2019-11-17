@@ -1,18 +1,15 @@
 package usuario;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import clases.Inmueble;
 import clases.SitioWeb;
-import excepciones.*;
 import reserva.Reserva;
 
-public class Usuario {
+public class Usuario implements IPropietario, IInquilino{
 	
 	protected SitioWeb web;
 	protected String nombre;
@@ -20,6 +17,10 @@ public class Usuario {
 	protected String email;
 	protected Integer telefono;
 	protected Boolean mailRecibido;
+	
+	private Set<Inmueble> inmuebles;
+	private List<Reserva> reservasPendientes;
+	
 	
 	public Usuario(String nombre, String apellido, String email, Integer telefono) {
 		this.nombre = nombre;
@@ -29,15 +30,6 @@ public class Usuario {
 		this.mailRecibido = false;
 	}
 
-
-	public void setSitioWeb(SitioWeb w) {
-		this.web = w;
-	}
-	
-	public void setTelefono(Integer telefono) {
-		this.telefono = telefono;
-	}
-
 	public Integer getTelefono() {
 		return this.telefono;
 	}
@@ -45,64 +37,73 @@ public class Usuario {
 	public String getNombre() {
 		return this.nombre;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 	
 	public String getApellido() {
 		return this.apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
 	}
 
 	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) throws ForbiddenException, InmuebleReservadoException {
+	public void reservarInmueble(Inmueble i, String fechaInicio, String fechaFin) {
 		
-		if( this.web.getUsuariosRegistrados().contains(this) && !i.estaReservado() ) {
-			Reserva r = new Reserva(this, i.getPropietario(), i, fechaInicio, fechaFin);
-			i.getPropietario().addReserva(r);
-		} else throw new InmuebleReservadoException();
+		Reserva r = new Reserva(this, i, fechaInicio, fechaFin);
+		this.reservasPendientes.add(r);
 	}
 
-	// Overwrited por UsuarioPropietario
-	public List<Reserva> getReservasPendientesDeAprobacion() throws ForbiddenException {
-			throw new ForbiddenException();
-	}
-	
-	// Overwrited por UsuarioPropietario
-	public void addReserva(Reserva r) throws ForbiddenException {
-		throw new ForbiddenException();
-	}
-
-	public Inmueble seleccionarInmueble(String ciudad, String fechaEntrada, String fechaSalida, Integer index) {
-		return web.buscarInmuebles(ciudad, fechaEntrada, fechaSalida).get(index); 
-	}
-	
-	public boolean mailRecibido() {
-		return this.mailRecibido;
-	}
-
-
-	public void setMailRecibido(boolean b) {
+	public void setMailRecibido(boolean b) { 
 		this.mailRecibido = b;
 	}
+	
 
-	//Overrided
-	public void aceptarReserva(Reserva r) throws ForbiddenException {
-		throw new ForbiddenException();
+	public void publicarInmueble(
+			String tipo, String ciudad, String pais, String direccion, Set<String> servicios, 
+			int capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, String horaCheckOut, double precio){
 		
+			Inmueble i = new Inmueble(tipo, ciudad, pais, direccion, servicios,capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
+			this.inmuebles.add(i);
+			web.ponerEnAlquiler(i);
+		}
+		
+	
+	public void addReservasPendientes(Reserva r) {
+		this.reservasPendientes.add(r);
 	}
 
 	
+	public void aceptarReserva(Reserva reservaPendiente) {
+		web.agregarReserva(reservaPendiente);
+		this.enviarMailA(reservaPendiente.getSolicitante());
+		this.removeReserva(reservaPendiente);
+		this.eliminarReservasDeInmuebleReservado(reservaPendiente);
+	}
+	
+	public void eliminarReservasDeInmuebleReservado(Reserva reserva) {
+		List<Reserva> reservas = this.getReservasPendientesDeAprobacion();
+		List<Reserva> resultado = new ArrayList<>();
+		
+		for(Reserva r : reservas) {
+			if( r.getInmueble() != reserva.getInmueble()) {
+				resultado.add(r);
+			}
+		}
+		this.setReservasPendientesDeAprobacion(resultado);
+	}
+	
+	public void setReservasPendientesDeAprobacion(List<Reserva> reservas) {
+		this.reservasPendientes = reservas;
+	}
 
+	public void enviarMailA(Usuario inquilino) {
+		inquilino.setMailRecibido(true);
+	}
+
+	public List<Reserva> getReservasPendientesDeAprobacion() { 
+		return this.reservasPendientes;
+	}
+	
+	public void removeReserva(Reserva r) {
+		this.reservasPendientes.remove(r);
+	}
 }

@@ -14,24 +14,23 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import clases.Administrador;
+
 import clases.Inmueble;
 import clases.SitioWeb;
 import excepciones.ForbiddenException;
 import excepciones.InmuebleInvalidoException;
 import excepciones.InmuebleReservadoException;
-import excepciones.UsuarioNoRegistradoException;
 import reserva.Reserva;
 
 class TestUsuarioPropietario {
 
 	private SitioWeb web = new SitioWeb();
-	private Administrador adm = new Administrador(web);
+	//private Administrador adm = new Administrador(web);
 	private Set<String> servicios = new HashSet<String>();
 	
-	UsuarioPropietario prop1 = new UsuarioPropietario("Fer","Santacruz", "fer@email.com", 8001111);
-	UsuarioPropietario prop2 = new UsuarioPropietario("Gonza","Torrez", "gonza@email.com", 8002222);
-	UsuarioPropietario prop3 = new UsuarioPropietario("Leo","Delgado", "leo@email.com", 8003333);
+	Usuario prop1 = new Usuario("Fer","Santacruz", "fer@email.com", 8001111);
+	Usuario prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 8002222);
+	Usuario prop3 = new Usuario("Leo","Delgado", "leo@email.com", 8003333);
 	
 	Usuario inquilino1 = new Usuario("Alguien3", "Lopez", "al@gmail.com", 42245225);
 	
@@ -47,20 +46,20 @@ class TestUsuarioPropietario {
 		web.ponerEnAlquiler(casa2);
 		web.ponerEnAlquiler(casa3);
 		
-		prop1 = new UsuarioPropietario("Fer","Santacruz", "fer@email.com", 8001111);
-		prop2 = new UsuarioPropietario("Gonza","Torrez", "gonza@email.com", 8002222);
-		prop3 = new UsuarioPropietario("Leo","Delgado", "leo@email.com", 8003333);
+		prop1 = new Usuario("Fer","Santacruz", "fer@email.com", 8001111);
+		prop2 = new Usuario("Gonza","Torrez", "gonza@email.com", 8002222);
+		prop3 = new Usuario("Leo","Delgado", "leo@email.com", 8003333);
 		
 		servicios.add("Gas");
 		servicios.add("Agua potable");
 		servicios.add("Wifi");
 		
-		adm.darDeAltaServicioDeInmuebles("Gas");
-		adm.darDeAltaServicioDeInmuebles("Agua potable");
-		adm.darDeAltaServicioDeInmuebles("Wifi");
+		//adm.darDeAltaServicioDeInmuebles("Gas");
+		//adm.darDeAltaServicioDeInmuebles("Agua potable");
+		//adm.darDeAltaServicioDeInmuebles("Wifi");
 		
-		adm.darDeAltaTipoDeInmueble("Casa");
-		adm.darDeAltaTipoDeInmueble("Habitacion");
+		//adm.darDeAltaTipoDeInmueble("Casa");
+		//adm.darDeAltaTipoDeInmueble("Habitacion");
 
 		
 	}
@@ -74,45 +73,36 @@ class TestUsuarioPropietario {
 		assertEquals(8001111,prop1.getTelefono().intValue());
 	}
 
-	@Test
-	public void testPropietarioNoRegistradoNoPuedePublicar() {
-
-		assertThrows( UsuarioNoRegistradoException.class, () -> {
-			prop1.publicarInmueble("Habitacion","Cordoba", "Argentina", "principal 1", servicios, 2, "2020-01-01", "2020-01-30", "10:30", "18:00", 8000.00);
-		});
-		
-		Assert.assertEquals(3, web.getInmuebles().size());
-	}
 	
-	/*@Test
-	public void testPropietarioRegistradoPuedePublicarInmuebleValido() throws UsuarioNoRegistradoException, InmuebleInvalidoException {
+	@Test
+	public void testPropietarioRegistradoPuedePublicarInmuebleValido() throws InmuebleInvalidoException {
 		
-		web.darDeAlta(prop1);
+		
 		prop1.publicarInmueble("Casa", "BsAs", "Argentina", "CABA 240", servicios, 3, "2021-01-01","2021-12-31","12:00", "10:00", 5000.00);
 		
 		Assert.assertEquals(4, web.getInmuebles().size());
-	}*/
+	}
 	
 	@Test
-	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorServicio() throws UsuarioNoRegistradoException, InmuebleInvalidoException {
+	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorServicio() throws InmuebleInvalidoException {
 		servicios.add("Spa");
 		
 		assertThrows( InmuebleInvalidoException.class, () -> {
 			prop2.publicarInmueble("Casa", "BsAs", "Argentina", "CABA 240", servicios, 3, "2021-01-01","2021-12-31","12:00", "10:00", 5000.00);
 		});
 		
-		adm.darDeAltaServicioDeInmuebles("Spa");
+		//adm.darDeAltaServicioDeInmuebles("Spa");
 		prop2.publicarInmueble("Casa", "BsAs", "Argentina", "CABA 240", servicios, 3, "2021-01-01","2021-12-31","12:00", "10:00", 5000.00);
 		assertEquals(4,web.getInmuebles().size());
 	}
 	
 	@Test
-	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorTipo() throws UsuarioNoRegistradoException, InmuebleInvalidoException {
+	public void testPropietarioNoPuedePublicarInmuebleInvalidoPorTipo() throws  InmuebleInvalidoException {
 		assertThrows( InmuebleInvalidoException.class, () -> {
 			prop2.publicarInmueble("Penthouse", "BsAs", "Argentina", "CABA 240", servicios, 3, "2021-01-01","2021-12-31","12:00", "10:00", 5000.00);
 		});
 		
-		adm.darDeAltaTipoDeInmueble("Penthouse");
+		//adm.darDeAltaTipoDeInmueble("Penthouse");
 		prop2.publicarInmueble("Penthouse", "BsAs", "Argentina", "CABA 240", servicios, 3, "2021-01-01","2021-12-31","12:00", "10:00", 5000.00);
 		assertEquals(4,web.getInmuebles().size());
 	}

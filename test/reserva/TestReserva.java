@@ -18,7 +18,6 @@ import clases.SitioWeb;
 import excepciones.ForbiddenException;
 import excepciones.InmuebleReservadoException;
 import usuario.Usuario;
-import usuario.UsuarioPropietario;
 
 class TestReserva {
 
@@ -27,7 +26,7 @@ class TestReserva {
 	SitioWeb web = new SitioWeb();
 
 	Usuario u = new Usuario("a","a","a@mail",11111111);
-	Usuario prop = new UsuarioPropietario("b","b","b@mail",22222222);
+	Usuario prop = new Usuario("b","b","b@mail",22222222);
 	
 	Inmueble i = new Inmueble(
 			prop,
@@ -107,7 +106,6 @@ class TestReserva {
 		
 		u.reservarInmueble(i, "2020-01-01", "2020-01-02");
 		assertEquals(1, prop.getReservasPendientesDeAprobacion().size());
-		assertFalse(i.estaReservado());
 		
 		
 		prop.aceptarReserva(r);
@@ -117,7 +115,6 @@ class TestReserva {
 		
 		assertEquals(0, prop.getReservasPendientesDeAprobacion().size());
 		
-		assertTrue(i.estaReservado());
 	}
 	
 	

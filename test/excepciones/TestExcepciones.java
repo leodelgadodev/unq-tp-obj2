@@ -10,18 +10,12 @@ import org.junit.jupiter.api.Test;
 class TestExcepciones {
 
 	Exception inmuebleInvalido = new InmuebleInvalidoException();
-	Exception noRegistrado = new UsuarioNoRegistradoException();
 	Exception error403 = new ForbiddenException();
 	Exception yaReservado = new InmuebleReservadoException();
 
 	@Test
 	void testInmuebleInvalidoE() {
 		assertThrows(InmuebleInvalidoException.class, () -> {throw inmuebleInvalido;});
-	}
-	
-	@Test
-	void testNoRegistradoE() {
-		assertThrows(UsuarioNoRegistradoException.class, () -> {throw noRegistrado;});
 	}
 	
 	@Test

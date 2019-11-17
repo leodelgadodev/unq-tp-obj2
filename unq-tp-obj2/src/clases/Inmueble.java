@@ -9,7 +9,6 @@ import usuario.Usuario;
 
 public class Inmueble {
 
-	private Usuario propietario;
 	private String tipoDeInmueble;
 	private String ciudad;
 	private String pais;
@@ -21,28 +20,25 @@ public class Inmueble {
 	private LocalTime horaCheckIn; 
 	private LocalTime horaCheckOut; 
 	private double precio; 
-	private Boolean reservado;
+	
 
-	public Inmueble(Usuario prop, String tipo, String ciudad, 
-			String pais, String direccion, Set<String> servicios, 
-			int capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, String horaCheckOut,
-			Double precio) {
-		this.propietario = prop;
+	public Inmueble(String tipo, String ciudad, String pais, String direccion, Set<String> servicios,
+			int capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, String horaCheckOut, Double precio) {
+		
 		this.tipoDeInmueble = tipo;
 		this.ciudad = ciudad;
 		this.pais = pais;
 		this.direccion = direccion;
 		this.precio = precio;
-		this.servicios = new HashSet<String>(); 
+		this.servicios = servicios;
 		this.capacidad = capacidad;
 		this.setFechaDeInicio(fechaInicio);
 		this.setFechaFinal(fechaFinal);
 		this.setHoraCheckIn(horaCheckIn); 
 		this.setHoraCheckOut(horaCheckOut);
-		this.reservado = false;
 	}
 
-	
+
 	public LocalDate getFechaDeInicio() {
 		return fechaDeInicio;
 	}
@@ -62,12 +58,6 @@ public class Inmueble {
 	public int getCapacidad() {
 		return capacidad;
 	}
-	
-	
-	public Usuario getPropietario() {
-		return propietario;
-	}
-
 
 	public String getTipoDeInmueble() {
 		return tipoDeInmueble;
@@ -89,12 +79,12 @@ public class Inmueble {
 	}
 
 
-	public Set<String> getServicios(){
-		return servicios;
+	public void setServicios(Set<String> servicios){
+		this.servicios= servicios;
 	}
 	
-	public void agregarServicio(String servicio) {
-		this.servicios.add(servicio);
+	public Set<String> getServicios(){
+		return servicios;
 	}
 
 	public LocalTime getHoraCheckIn() {
@@ -110,7 +100,6 @@ public class Inmueble {
 		return horaCheckOut;
 	}
 
-
 	public void setHoraCheckOut(String horaCheckOut) {
 	
 		this.horaCheckOut = LocalTime.parse(horaCheckOut);
@@ -119,13 +108,4 @@ public class Inmueble {
 	public double getPrecio() {
 		return precio;
 	}
-	
-	public void reservar() {
-		this.reservado = true;
-	}
-	
-	public Boolean estaReservado() {
-		return this.reservado;
-	}
-	
 }
