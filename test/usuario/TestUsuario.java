@@ -88,7 +88,7 @@ class TestUsuario {
 		});
 	}
 
-	@Test
+	/*@Test
 	public void testUsuarioRegistradoPuedeReservar() throws ForbiddenException, InmuebleReservadoException {
 		
 		web.darDeAlta(prop1);
@@ -110,7 +110,7 @@ class TestUsuario {
 		Inmueble inmuebleSeleccionado = inquilino.seleccionarInmueble("BsAs", "2019-01-04", "2019-01-14", 0);
 		assertNotNull(inmuebleSeleccionado);
 		assertEquals(prop2, inmuebleSeleccionado.getPropietario());
-	}
+	}*/
 	
 	@Test
 	public void testAddReserva() {

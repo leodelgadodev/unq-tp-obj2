@@ -93,11 +93,6 @@ public class Inmueble {
 		return servicios;
 	}
 	
-	/*public void setServicios(Set<String> servicios) {
-		
-		this.servicios = servicios;
-	}*/
-	
 	public void agregarServicio(String servicio) {
 		this.servicios.add(servicio);
 	}

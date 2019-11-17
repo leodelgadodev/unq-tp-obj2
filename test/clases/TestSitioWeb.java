@@ -22,7 +22,7 @@ import usuario.UsuarioPropietario;
 class TestSitioWeb {
 
 	SitioWeb web = new SitioWeb();
-	Administrador adm = new Administrador();
+	Administrador adm = new Administrador(web);
 	ArrayList<String> a = new ArrayList<>();
 	Set<String> servicios = new HashSet<String>(); 
 	
@@ -40,7 +40,7 @@ class TestSitioWeb {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		adm.setSitioWeb(web);
+		
 		adm.darDeAltaServicioDeInmuebles("Agua");
 		adm.darDeAltaTipoDeInmueble("Casa");
 		

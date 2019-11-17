@@ -3,13 +3,10 @@ package clases;
 public class Administrador {
 	private SitioWeb web;
 	
-	public SitioWeb getSitioWeb() {
-		return web;
+	public Administrador(SitioWeb web) {
+		this.web = web;
 	}
-
-	public void setSitioWeb(SitioWeb sitioWeb) {
-		web = sitioWeb;
-	}
+	
 
 	public void darDeAltaTipoDeInmueble(String tipo) {
 		web.agregarTipoDeInmueble(tipo);

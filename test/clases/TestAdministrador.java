@@ -14,24 +14,15 @@ import org.junit.jupiter.api.Test;
 
 class TestAdministrador {
 
-	Administrador admin = new Administrador();
+	
 	SitioWeb web = new SitioWeb();
+	Administrador admin = new Administrador(web);
 		
 	@BeforeEach
 	void setUp() throws Exception {
-		admin.setSitioWeb(web);
+		
 	}
 
-	@Test
-	void testAdminConoceAlSitioWeb() {
-		assertEquals(web, admin.getSitioWeb());
-	}
-	
-	@Test
-	void testAdminSetSitioWeb() {
-		admin.setSitioWeb(mock(SitioWeb.class));
-		assertNotEquals(web, admin.getSitioWeb());
-	}
 	
 	@Test
 	public void darDeAltaTipoDeInmuebles() {

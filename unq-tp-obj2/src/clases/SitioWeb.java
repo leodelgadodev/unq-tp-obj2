@@ -14,9 +14,8 @@ import usuario.UsuarioPropietario;
 
 public class SitioWeb {
 
-	private Set<Usuario> usuariosRegistrados;
-	private Set<Inmueble> inmuebles;
-
+	private Set<Usuario> usuarios;
+	private Set<Inmueble> inmueblesPublicados;
 	private Set<String> tiposInmueble;
 	private Set<String> serviciosInmuebles;
 
@@ -24,25 +23,24 @@ public class SitioWeb {
 	
 	public SitioWeb() {
 
-		this.usuariosRegistrados = new HashSet<Usuario>();
-		this.inmuebles = new HashSet<Inmueble>();
-
+		this.usuarios = new HashSet<Usuario>();
+		this.inmueblesPublicados = new HashSet<Inmueble>();
 		this.tiposInmueble = new HashSet<String>();
 		this.serviciosInmuebles = new HashSet<String>();
 		this.reservasPendientes = new HashSet<Reserva>();
 	}
 
 	public Set<Usuario> getUsuariosRegistrados() {
-		return this.usuariosRegistrados;
+		return this.usuarios;
 	}
 
 
 	public Set<Inmueble> getInmuebles() {
-		return this.inmuebles;
+		return this.inmueblesPublicados;
 	}
 
 	public void ponerEnAlquiler(Inmueble nvoInmueble) {
-		inmuebles.add(nvoInmueble);
+		inmueblesPublicados.add(nvoInmueble);
 	}
 
 
@@ -75,7 +73,7 @@ public class SitioWeb {
 	}
 
 	public List<Inmueble> getInmueblesDe(String ciudad) {
-		return this.inmuebles.stream().filter(i -> i.getCiudad() == ciudad).collect(Collectors.toList());
+		return this.inmueblesPublicados.stream().filter(i -> i.getCiudad() == ciudad).collect(Collectors.toList());
 	}
 	
 	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 

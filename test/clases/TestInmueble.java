@@ -22,7 +22,7 @@ import usuario.UsuarioPropietario;
 
 class TestInmueble {
 
-	Set<String> servicios = new HashSet<>();
+	public Set<String> servicios = new HashSet<>();
 	
 	Usuario prop = mock(Usuario.class);
 	
@@ -30,9 +30,8 @@ class TestInmueble {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		servicios.add("Gas");
-		servicios.add("Agua");
-		servicios.add("Wifi");
+		i.agregarServicio("Wifi");
+		i.agregarServicio("Agua");
 	}
 
 	
@@ -75,15 +74,21 @@ class TestInmueble {
 	
 	@Test
 	public void testAgregarServicios() {
-		servicios.add("Gas");
-		servicios.add("Agua");
+		
 		servicios.add("Wifi");
+		servicios.add("Agua");
+		
 		assertEquals(servicios,i.getServicios());
 	}
 	
 	@Test
-	public void testReservar() {
+	public void testNoReservado() {
+		
 		assertFalse(i.estaReservado());
+	}
+	
+	@Test
+	public void testReservado() {
 		
 		i.reservar();
 		assertTrue(i.estaReservado());
