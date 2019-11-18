@@ -1,10 +1,7 @@
 package reserva;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
-
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +18,7 @@ class TestReserva {
 	Usuario prop = mock (Usuario.class);
 	Inmueble i = mock(Inmueble.class);
 	
-	Reserva r = new Reserva(u,prop, i,"2020-01-01","2020-01-14");
+	Reserva r = new Reserva(u,prop, i);
 	
 	
 	@BeforeEach
@@ -31,8 +28,6 @@ class TestReserva {
 	
 	@Test
 	void testConstructorReserva() {
-
-		assertFalse(r.getEstatus());
 		assertEquals(u, r.getSolicitante());
 		assertEquals(i, r.getInmueble());
 		
@@ -43,8 +38,6 @@ class TestReserva {
 		Usuario u_ = mock(Usuario.class);
 		Usuario p_ = mock(Usuario.class);
 		Inmueble i_ = mock(Inmueble.class);
-		String inicio = "2020-01-02";
-		String fin = "2020-01-15";
 		
 		r.setSolicitante(u_);
 		assertEquals(u_, r.getSolicitante());
@@ -55,15 +48,6 @@ class TestReserva {
 		
 		r.setInmueble(i_);
 		assertEquals(i_, r.getInmueble());
-		
-		r.setFechaInicio(inicio);
-		assertEquals(LocalDate.of(2020, 1, 2),r.getFechaInicio());
-		
-		r.setFechaFin(fin);
-		assertEquals(LocalDate.of(2020, 1, 15), r.getFechaFin());
-		
-		r.setEstatus(false);
-		assertFalse(r.getEstatus());
 	}
 	
 }

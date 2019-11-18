@@ -22,7 +22,7 @@ class TestInmueble {
 	void setUp() throws Exception {
 		
 		servicios.add("Wifi");
-		servicios.add("Agua");
+		servicios.add("Agua"); 
 		i.setServicios(servicios);
 	}
 	

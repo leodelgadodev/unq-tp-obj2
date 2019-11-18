@@ -58,15 +58,13 @@ public class Usuario implements IPropietario, IInquilino{
 			this.inmuebles.add(i);
 		}
 		
-	
-	
 	public void reservarInmueble(Inmueble i,Usuario solicitante,Usuario propietario,String fechaInicio,String fechaFinal) {
 		
 		Reserva r = new Reserva(solicitante,propietario, i); 
-		propietario.addReservasPendientes(r); 
+		propietario.addReservaPendiente(r); 
 	}
 	
-	public void addReservasPendientes(Reserva r) {
+	public void addReservaPendiente(Reserva r) {
 		this.reservasPendientes.add(r);
 	}
 
@@ -74,11 +72,11 @@ public class Usuario implements IPropietario, IInquilino{
 	public void aceptarReserva(Reserva reservaPendiente,SitioWeb web) {
 		web.agregarReserva(reservaPendiente);
 		this.enviarMailA(reservaPendiente.getSolicitante());
-		this.removeReserva(reservaPendiente);
+		this.removeReservaPendiente(reservaPendiente);
 		this.eliminarReservasDeInmuebleReservado(reservaPendiente);
 	}
 	
-	public void eliminarReservasDeInmuebleReservado(Reserva reserva) {
+	private void eliminarReservasDeInmuebleReservado(Reserva reserva) {
 		List<Reserva> reservas = this.getReservasPendientes();
 		List<Reserva> resultado = new ArrayList<>();
 		
@@ -102,7 +100,7 @@ public class Usuario implements IPropietario, IInquilino{
 		return this.reservasPendientes;
 	}
 	
-	public void removeReserva(Reserva r) {
+	private void removeReservaPendiente(Reserva r) {
 		this.reservasPendientes.remove(r);
 	}
 }

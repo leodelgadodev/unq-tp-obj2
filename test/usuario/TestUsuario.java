@@ -16,8 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import clases.Inmueble;
 import clases.SitioWeb;
-import excepciones.ForbiddenException;
-import excepciones.InmuebleReservadoException;
 import reserva.Reserva;
 
 class TestUsuario {

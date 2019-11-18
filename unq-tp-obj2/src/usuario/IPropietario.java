@@ -9,7 +9,7 @@ import reserva.Reserva;
 public interface IPropietario {
 
 	
-	public void addReservasPendientes(Reserva r);
+	public void addReservaPendiente(Reserva r);
 	public void aceptarReserva(Reserva reservaPendiente,SitioWeb web);
 	public List<Reserva> getReservasPendientes();
 	public void publicarInmueble(String tipo, String ciudad, String pais, String direccion, Set<String> servicios, 

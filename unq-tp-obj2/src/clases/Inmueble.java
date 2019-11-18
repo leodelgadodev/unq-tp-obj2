@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.Set;
 
 
-public class Inmueble {
+public class Inmueble { 
 
 	private String tipoDeInmueble;
 	private String ciudad;
@@ -30,7 +30,7 @@ public class Inmueble {
 		this.precio = precio;
 		this.servicios = servicios;
 		this.capacidad = capacidad;
-		this.setFechaDeInicio(fechaInicio);
+		this.setFechaDeInicio(fechaInicio); 
 		this.setFechaFinal(fechaFinal);
 		this.setHoraCheckIn(horaCheckIn); 
 		this.setHoraCheckOut(horaCheckOut);
