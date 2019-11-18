@@ -48,7 +48,7 @@ class TestUsuario {
 	}
 	
 	@Test
-	public void testGettersUsuario() {
+	public void testGettersUsuario() { 
 		
 		assertEquals("Leo",prop1.getNombre());
 		assertEquals("Delgado",prop1.getApellido());

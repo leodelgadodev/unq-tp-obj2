@@ -2,8 +2,6 @@ package clases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 import java.time.LocalDate;
@@ -15,11 +13,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import excepciones.InmuebleInvalidoException;
 import reserva.Reserva;
-import usuario.Usuario;
 
 import static org.mockito.Mockito.*;
 
@@ -133,21 +128,22 @@ class TestSitioWeb {
 	public void testBuscarInmueblesPorCiudadYFechas2() {
 		
 		List<Inmueble> resultado = new ArrayList<Inmueble>();
-		resultado.add(departamento);
+		
 		resultado.add(casa);
+		resultado.add(departamento);
 		
 		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
 	}
 
 	
 	@Test
-	public void agregarReservaConcretada() { ////
+	public void agregarReservaConcretada() { 
 		web.agregarReserva(mock(Reserva.class));
 		assertEquals(1,web.getReservas().size());
 	}
 	
 	@Test
-	public void getReservasConcretadas() { /////
+	public void getReservasConcretadas() { 
 		assertEquals(0,web.getReservas().size());
 		web.agregarReserva(mock(Reserva.class));
 		assertEquals(1,web.getReservas().size());

@@ -46,7 +46,7 @@ public class SitioWeb {
 
 	public void agregarTipoDeInmueble(String tipo) {
 		
-		this.tiposInmueble.add(tipo);
+		this.tiposInmueble.add(tipo); 
 	}
 
 	public void agregarServiciosDeInmuebles(String servicio) {

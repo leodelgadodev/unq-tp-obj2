@@ -11,7 +11,7 @@ class TestUsuarioInquilino {
 	static void setUpBeforeClass() throws Exception {
 	}
 
-	@Test
+	@Test 
 	void test() {
 		fail("Not yet implemented");
 	}

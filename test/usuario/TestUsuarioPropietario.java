@@ -25,7 +25,6 @@ import reserva.Reserva;
 class TestUsuarioPropietario {
 
 	private SitioWeb web = new SitioWeb();
-	//private Administrador adm = new Administrador(web);
 	private Set<String> servicios = new HashSet<String>();
 	
 	Usuario prop1 = new Usuario("Fer","Santacruz", "fer@email.com", 8001111);
@@ -141,7 +140,7 @@ class TestUsuarioPropietario {
 	
 	@Test
 	public void testGetReservasPendientesDeAprobacion() {
-		assertEquals(0,prop1.getReservasPendientesDeAprobacion().size());
+		assertEquals(0,prop1.getReservasPendientes().size());
 	}
 	
 	@Test
@@ -149,10 +148,10 @@ class TestUsuarioPropietario {
 		Reserva r = mock(Reserva.class);
 		
 		prop1.addReserva(r);
-		assertEquals(1,prop1.getReservasPendientesDeAprobacion().size());
+		assertEquals(1,prop1.getReservasPendientes().size());
 		
 		prop1.removeReserva(r);
-		assertEquals(0,prop1.getReservasPendientesDeAprobacion().size());
+		assertEquals(0,prop1.getReservasPendientes().size());
 	}
 	
 	@Test
@@ -162,7 +161,7 @@ class TestUsuarioPropietario {
 		
 		prop1.setReservasPendientesDeAprobacion(reservas);
 		
-		assertEquals(reservas, prop1.getReservasPendientesDeAprobacion());
+		assertEquals(reservas, prop1.getReservasPendientes());
 	}
 
 }

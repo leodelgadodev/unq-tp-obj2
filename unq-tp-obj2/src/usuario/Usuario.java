@@ -11,7 +11,6 @@ import reserva.Reserva;
 
 public class Usuario implements IPropietario, IInquilino{
 	
-	protected SitioWeb web;
 	protected String nombre;
 	protected String apellido;
 	protected String email;
@@ -45,11 +44,6 @@ public class Usuario implements IPropietario, IInquilino{
 		return this.email;
 	}
 
-	public void reservarInmueble(Inmueble i,Usuario solicitante,Usuario propietario) {
-		
-		Reserva r = new Reserva(solicitante, i); ///
-		propietario.addReservasPendientes(r); //
-	}
 
 	public void setMailRecibido(boolean b) { 
 		this.mailRecibido = b;
@@ -62,16 +56,22 @@ public class Usuario implements IPropietario, IInquilino{
 		
 			Inmueble i = new Inmueble(tipo, ciudad, pais, direccion, servicios,capacidad,fechaInicio,fechaFinal, horaCheckIn, horaCheckOut, precio);
 			this.inmuebles.add(i);
-			web.ponerEnAlquiler(i);
 		}
 		
+	
+	
+	public void reservarInmueble(Inmueble i,Usuario solicitante,Usuario propietario,String fechaInicio,String fechaFinal) {
+		
+		Reserva r = new Reserva(solicitante,propietario, i); 
+		propietario.addReservasPendientes(r); 
+	}
 	
 	public void addReservasPendientes(Reserva r) {
 		this.reservasPendientes.add(r);
 	}
 
 	
-	public void aceptarReserva(Reserva reservaPendiente) {
+	public void aceptarReserva(Reserva reservaPendiente,SitioWeb web) {
 		web.agregarReserva(reservaPendiente);
 		this.enviarMailA(reservaPendiente.getSolicitante());
 		this.removeReserva(reservaPendiente);
@@ -94,7 +94,7 @@ public class Usuario implements IPropietario, IInquilino{
 		this.reservasPendientes = reservas;
 	}
 
-	public void enviarMailA(Usuario inquilino) {
+	private void enviarMailA(Usuario inquilino) {
 		inquilino.setMailRecibido(true);
 	}
 
