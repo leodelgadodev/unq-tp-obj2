@@ -15,7 +15,6 @@ public class Usuario implements IPropietario, IInquilino{
 	protected String apellido;
 	protected String email;
 	protected Integer telefono;
-	protected Boolean mailRecibido;
 	private Set<Inmueble> inmuebles;
 	private List<Reserva> reservasPendientes;
 	
@@ -25,29 +24,8 @@ public class Usuario implements IPropietario, IInquilino{
 		this.apellido = apellido;
 		this.email = email;
 		this.telefono = telefono;
-		this.mailRecibido = false;
 	}
 
-	public Integer getTelefono() {
-		return this.telefono;
-	}
-
-	public String getNombre() {
-		return this.nombre;
-	}
-	
-	public String getApellido() {
-		return this.apellido;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-
-	public void setMailRecibido(boolean b) { 
-		this.mailRecibido = b;
-	}
 	
 
 	public void publicarInmueble(
@@ -71,7 +49,6 @@ public class Usuario implements IPropietario, IInquilino{
 	
 	public void aceptarReserva(Reserva reservaPendiente,SitioWeb web) {
 		web.agregarReserva(reservaPendiente);
-		this.enviarMailA(reservaPendiente.getSolicitante());
 		this.removeReservaPendiente(reservaPendiente);
 		this.eliminarReservasDeInmuebleReservado(reservaPendiente);
 	}
@@ -88,12 +65,8 @@ public class Usuario implements IPropietario, IInquilino{
 		this.setReservasPendientesDeAprobacion(resultado);
 	}
 	
-	public void setReservasPendientesDeAprobacion(List<Reserva> reservas) {
+	private void setReservasPendientesDeAprobacion(List<Reserva> reservas) {
 		this.reservasPendientes = reservas;
-	}
-
-	private void enviarMailA(Usuario inquilino) {
-		inquilino.setMailRecibido(true);
 	}
 
 	public List<Reserva> getReservasPendientes() { 

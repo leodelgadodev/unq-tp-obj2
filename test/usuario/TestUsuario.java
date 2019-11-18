@@ -79,19 +79,4 @@ class TestUsuario {
 		assertEquals(prop2, inmuebleSeleccionado.getPropietario());
 	}*/
 	
-	@Test
-	public void testAddReserva() {
-		assertThrows(ForbiddenException.class, () -> {inquilino.addReservasPendientes(mock(Reserva.class));});
-	}
-	
-	@Test
-	public void testAceptarReserva() {
-		assertThrows(ForbiddenException.class, () -> {inquilino.aceptarReserva(mock(Reserva.class));});
-	}
-	
-	@Test
-	public void testThrowsExceptionGetReservasPendientesDeAprobacion() {
-		assertThrows(ForbiddenException.class, () -> {inquilino.getReservasPendientesDeAprobacion();});
-	}
-	
 }
