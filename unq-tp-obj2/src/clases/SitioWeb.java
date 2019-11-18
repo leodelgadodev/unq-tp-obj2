@@ -24,7 +24,7 @@ public class SitioWeb {
 		this.reservas = new HashSet<Reserva>();
 	}
 
-	public Set<Usuario> getUsuarios() {
+	public Set<Usuario> getUsuarios() { 
 		return this.usuarios;
 	}
 

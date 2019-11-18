@@ -35,21 +35,14 @@ class TestUsuarioPropietario {
 	
 	
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() throws Exception { 
 		
 		web.ponerEnAlquiler(casa1);
 		web.ponerEnAlquiler(casa2);
 		web.ponerEnAlquiler(casa3);	
 	}
 
-	@Test
-	public void testUsuarioPropietarioHeredaMetodosDeUsuario() {
 
-		assertEquals("Leo",prop.getNombre());
-		assertEquals("Delgado",prop.getApellido());
-		assertEquals("leo@email.com",prop.getEmail());
-		assertEquals(8003333,prop.getTelefono().intValue());
-	}
 
 
 }
