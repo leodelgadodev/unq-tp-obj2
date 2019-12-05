@@ -1,5 +1,7 @@
 package reserva;
 
+import java.time.LocalDate;
+
 import clases.Inmueble;
 import usuario.Usuario;
 
@@ -8,12 +10,8 @@ public class Reserva {
 	private Inmueble inmueble;
 	private Usuario solicitante;
 	private Usuario propietario;
-
-	public Reserva(Usuario solicitante, Usuario propietario, Inmueble i) {
-		this.setSolicitante(solicitante);
-		this.setPropietario(propietario);
-		this.setInmueble(i);
-	}
+	private LocalDate fechaDeInicio;
+	private LocalDate fechaFinal;
 
 	public void setSolicitante(Usuario unInquilino) {
 		this.solicitante = unInquilino;
@@ -31,13 +29,31 @@ public class Reserva {
 	public Usuario getSolicitante() {
 		return this.solicitante;
 	}
+	
+	public void setPropietario(Usuario p_) {
+		this.propietario = p_;
+	}
 
 	public Usuario getPropietario() {
 		return this.propietario;
 	}
-
-	public void setPropietario(Usuario p_) {
-		this.propietario = p_;
+	
+	public LocalDate getFechaInicio() {
+		return this.fechaDeInicio;
 	}
+
+	public void setFechaDeInicio(String fechaDeInicio) {
+		this.fechaDeInicio = LocalDate.parse(fechaDeInicio);
+	}
+	
+	public LocalDate getFechaFinal() {
+		return this.fechaFinal;
+	}
+
+	
+	public void setFechaFinal(String fechaFinal) {
+		this.fechaFinal = LocalDate.parse(fechaFinal);
+	}
+
 
 }

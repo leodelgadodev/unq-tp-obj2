@@ -3,6 +3,8 @@ package reserva;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,23 +16,25 @@ class TestReserva {
 	
 	SitioWeb web = new SitioWeb();
 
-	Usuario u = mock (Usuario.class);
-	Usuario prop = mock (Usuario.class);
+	Usuario solicitante = mock (Usuario.class);
+	Usuario propietario = mock (Usuario.class);
 	Inmueble i = mock(Inmueble.class);
 	
-	Reserva r = new Reserva(u,prop, i);
+	Reserva r = new Reserva();
 	
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		
+		r.setSolicitante(solicitante);
+		r.setPropietario(propietario);
+		r.setInmueble(i);
 	}
 	
 	@Test
 	void testConstructorReserva() {
-		assertEquals(u, r.getSolicitante());
+		assertEquals(solicitante, r.getSolicitante());
 		assertEquals(i, r.getInmueble());
-		
+		assertEquals(propietario, r.getPropietario());
 	}
 	
 	@Test
@@ -48,6 +52,15 @@ class TestReserva {
 		
 		r.setInmueble(i_);
 		assertEquals(i_, r.getInmueble());
+	}
+	
+	@Test
+	void testDeSetterDeFechas() {
+		r.setFechaDeInicio("2019-05-10");
+		r.setFechaFinal("2019-05-20");
+		
+		assertEquals(LocalDate.parse("2019-05-10"),r.getFechaInicio());
+		assertEquals(LocalDate.parse("2019-05-20"),r.getFechaFinal());
 	}
 	
 }

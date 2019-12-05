@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import reserva.Reserva;
+import usuario.Usuario;
 
 import static org.mockito.Mockito.*;
 
@@ -64,8 +65,24 @@ class TestSitioWeb {
 
 	@Test
 	public void testCantidadDeInmueblesEnAlquiler() {
-	
-		assertEquals(3,web.getInmuebles().size());
+		
+		Usuario a = spy(new Usuario("Leo","Delgado", "leo@email.com", 8003333));
+		Usuario b = spy(new Usuario("Gonza","Delgado", "gd@email.com", 8005555));
+		
+		a.publicarInmueble(mock(Inmueble.class));
+		a.publicarInmueble(mock(Inmueble.class));
+		
+		b.publicarInmueble(mock(Inmueble.class));
+		b.publicarInmueble(mock(Inmueble.class));
+		b.publicarInmueble(mock(Inmueble.class));
+		
+		Set<Usuario> ls = new HashSet<Usuario>();
+		ls.add(a);
+		ls.add(b);
+		web.setUsuarios(ls);
+		
+		
+		assertEquals(5,web.obtenerInmueblesEnAlquiler().size());
 	}
 
 	
@@ -123,19 +140,7 @@ class TestSitioWeb {
 		
 		assertEquals(resultado,web.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
 	}
-	
-	@Test 
-	public void testBuscarInmueblesPorCiudadYFechas2() {
-		
-		List<Inmueble> resultado = new ArrayList<Inmueble>();
-		
-		resultado.add(casa);
-		resultado.add(departamento);
-		
-		assertEquals(resultado,web.buscarInmuebles("BsAs", "2019-01-10", "2019-01-14"));
-	}
 
-	
 	@Test
 	public void agregarReservaConcretada() { 
 		web.agregarReserva(mock(Reserva.class));

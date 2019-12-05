@@ -27,9 +27,15 @@ public class SitioWeb {
 	public Set<Usuario> getUsuarios() { 
 		return this.usuarios;
 	}
+	
+	public void setUsuarios(Set<Usuario> u) {
+		this.usuarios = u;
+	}
 
-	public Set<Inmueble> getInmuebles() {
-		return this.inmueblesEnAlquiler;
+	public Set<Inmueble> obtenerInmueblesEnAlquiler() { //  agregar al uml
+		Set<Inmueble> inmueblesEnAlquiler = new HashSet<Inmueble>();
+		this.usuarios.stream().forEach(u-> inmueblesEnAlquiler.addAll(u.getInmuebles()));
+		return inmueblesEnAlquiler;
 	}
 	
 	public void agregarReserva(Reserva reserva) {
