@@ -16,7 +16,7 @@ class TestInmueble {
  
 	Set<String> servicios = new HashSet<>();
 	
-	Inmueble i = new Inmueble("Casa","BsAs","Argentina","Roque Saenz Peña 352", servicios, 4,"2020-01-01","2020-01-30","08:00","22:00",7000.00);
+	Inmueble i = new Inmueble("Casa","BsAs","Argentina","Roque Saenz Peï¿½a 352", servicios, 4,LocalDate.parse("2020-01-01"),LocalDate.parse("2020-01-30"),LocalTime.parse("08:00"),LocalTime.parse("22:00"),7000.00);
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -39,13 +39,13 @@ class TestInmueble {
 				
 		assertEquals( "BsAs", i.getCiudad());
 		assertEquals( "Argentina", i.getPais());
-		assertEquals( "Roque Saenz Peña 352", i.getDireccion());
+		assertEquals( "Roque Saenz Peï¿½a 352", i.getDireccion());
 	}
 	
 	@Test
 	public void testFechasInmueble() {
 				
-		assertEquals( LocalDate.of(2020, 01, 01), i.getFechaDeInicio());
+		assertEquals( LocalDate.of(2020, 01, 01), i.getFechaInicio());
 		assertEquals( LocalDate.of(2020, 01, 30), i.getFechaFinal());
 	}
 	

@@ -11,6 +11,8 @@ public class BFechaSalida implements IBusquedaParamDate {
 	@Override
 	public Set<Inmueble> buscar(LocalDate fecha, Set<Inmueble> inmuebles) {
 		
-		return inmuebles.stream().filter((i) -> i.getFechaFinal().isBefore(fecha)).collect(Collectors.toSet());
+		return inmuebles.stream().filter(
+				(i) -> i.getFechaFinal().isBefore(fecha)|| i.getFechaFinal().equals(fecha))
+					.collect(Collectors.toSet());
 	}
 }

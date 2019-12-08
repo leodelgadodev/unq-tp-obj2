@@ -2,6 +2,7 @@ package clases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
@@ -15,6 +16,8 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import busqueda.IBusquedaParamDate;
+import busqueda.IBusquedaParamString;
 import reserva.Reserva;
 import usuario.Usuario;
 
@@ -114,31 +117,6 @@ class TestSitioWeb {
 		
 		assertEquals(serviciosEsperados,web.getServiciosInmuebles());
 	}
-	
-//	@Test
-//	public void testCantidadInmuebles() { 
-//		
-//		assertEquals(2,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-14").size());
-//	
-//		assertEquals(1,web.buscarInmuebles("BsAs","2019-01-01", "2019-01-30").size());
-//	}
-	
-	
-//	@Test
-//	public void testGetInmueblesDe() {
-//		when(departamento.getCiudad()).thenReturn("BsAs");
-//		assertEquals(2,web.getInmueblesDe("BsAs").size());
-//	}
-//	 
-//	@Test
-//	public void testBuscarInmueblesPorCiudadYFechas() {
-//		
-//		List<Inmueble> resultado = new ArrayList<Inmueble>();
-//		
-//		resultado.add(quincho);
-//		
-//		assertEquals(resultado,web.buscarInmuebles("Cordoba", "2019-06-10", "2019-06-18"));
-//	}
 
 	@Test
 	public void agregarReservaConcretada() { 
@@ -154,21 +132,39 @@ class TestSitioWeb {
 	}
 	
 	@Test
+	public void getEstrategiasDeBusqueda() {
+		
+		assertTrue(web.porCiudad() instanceof IBusquedaParamString);
+		assertTrue(web.porEntrada() instanceof IBusquedaParamDate);
+		assertTrue(web.porSalida() instanceof IBusquedaParamDate);
+	}
+	
+	@Test
 	public void buscar() {
-		String aCiudad = "BsAs";
-		Set<Inmueble> res = web.buscar(web.porCiudad(), aCiudad);
+		assertEquals(0, web.buscar(web.porCiudad(), "Bariloche").size());
+		assertEquals(1, web.buscar(web.porCiudad(), "Cordoba").size());
+		assertEquals(2, web.buscar(web.porCiudad(), "BsAs").size());
+	}
+	
+	@Test
+	public void buscarY() {
+		Set<Inmueble> busqueda1 = web.buscar(web.porCiudad(), "BsAs");
+		Set<Inmueble> busqueda2 = web.buscar(web.porSalida(), LocalDate.of(2019, 01, 29));
+		Set<Inmueble> busqueda3 = web.buscar(web.porEntrada(), LocalDate.of(2019, 01, 01));
+		
+		assertEquals(3,busqueda3.size());
+		assertEquals(1, web.buscarY(busqueda1, busqueda2).size());
 	}
 	
 	@Test
 	public void buscarCiudadEntreDosFechas() {
-		String aCiudad = "BsAs";
-		LocalDate aFecha1 = ;
-		LocalDate aFecha2 = ;
-		Set<Inmueble> res = 
+		LocalDate fEntrada = LocalDate.of(2019, 01, 01);
+		LocalDate fSalida = LocalDate.of(2019, 01, 25);
+		assertEquals(1,
 				web.buscarY(
 						web.buscarY(
-								web.buscar(web.porEntrada(), aFecha1), web.buscar(web.porSalida(), aFecha2)), 
-				web.buscar(web.porCiudad(), aCiudad));
+								web.buscar(web.porEntrada(), fEntrada), web.buscar(web.porSalida(), fSalida)), 
+				web.buscar(web.porCiudad(), "BsAs")).size());
 	}
 }
 

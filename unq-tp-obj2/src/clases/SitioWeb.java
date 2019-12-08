@@ -43,7 +43,7 @@ public class SitioWeb {
 		this.usuarios = u;
 	}
 
-	public Set<Inmueble> obtenerInmueblesEnAlquiler() { //  agregar al uml
+	public Set<Inmueble> obtenerInmueblesEnAlquiler() {
 		Set<Inmueble> inmueblesEnAlquiler = new HashSet<Inmueble>();
 		this.usuarios.stream().forEach(u-> inmueblesEnAlquiler.addAll(u.getInmuebles()));
 		return inmueblesEnAlquiler;
@@ -66,7 +66,7 @@ public class SitioWeb {
 		this.tiposInmueble.add(tipo); 
 	}
 
-	public void agregarServiciosDeInmuebles(String servicio) {
+	public void agregarServicioDeInmuebles(String servicio) {
 
 		this.serviciosInmuebles.add(servicio);
 	}
@@ -92,6 +92,18 @@ public class SitioWeb {
 	public Set<Inmueble> buscarY(Set<Inmueble> busqueda1, Set<Inmueble> busqueda2) {
 		
 		return busqueda1.stream().filter((i) -> busqueda2.contains(i)).collect(Collectors.toSet());
+	}
+	
+	public IBusquedaParamString porCiudad() {
+		return this.bCiudad;
+	}
+	
+	public IBusquedaParamDate porEntrada() {
+		return this.bFechaEntrada;
+	}
+	
+	public IBusquedaParamDate porSalida() {
+		return this.bFechaSalida;
 	}
 	
 

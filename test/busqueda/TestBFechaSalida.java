@@ -14,12 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import clases.Inmueble;
 
-class TestBFechaSalida {
-
-	@BeforeEach
-	void setUp() throws Exception {
-		
-	}
+public class TestBFechaSalida {
 	
 	@Test
 	public void buscar() {
@@ -34,7 +29,7 @@ class TestBFechaSalida {
 		iSet.add(i1);
 		iSet.add(i2);
 		
-		assertTrue(bFechaSalida.buscar(LocalDate.of(2020, 01, 30), null).isEmpty());
+		assertTrue(bFechaSalida.buscar(LocalDate.of(2018, 01, 30), iSet).isEmpty());
 		assertEquals(1, bFechaSalida.buscar(LocalDate.of(2019, 01, 29), iSet).size());
 	}
 }
