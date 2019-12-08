@@ -13,7 +13,7 @@ public class Inmueble {
 	private String direccion;
 	private Set<String> servicios; 
 	private int capacidad; 
-	private LocalDate fechaDeInicio; 
+	private LocalDate fechaInicio; 
 	private LocalDate fechaFinal; 
 	private LocalTime horaCheckIn; 
 	private LocalTime horaCheckOut; 
@@ -21,7 +21,7 @@ public class Inmueble {
 	
 
 	public Inmueble(String tipo, String ciudad, String pais, String direccion, Set<String> servicios,
-			int capacidad,String fechaInicio,String fechaFinal, String horaCheckIn, String horaCheckOut, Double precio) {
+			int capacidad,LocalDate fechaInicio,LocalDate fechaFinal, LocalTime horaCheckIn, LocalTime horaCheckOut, Double precio) {
 		
 		this.tipoDeInmueble = tipo;
 		this.ciudad = ciudad;
@@ -30,27 +30,18 @@ public class Inmueble {
 		this.precio = precio;
 		this.servicios = servicios;
 		this.capacidad = capacidad;
-		this.setFechaDeInicio(fechaInicio); 
+		this.setFechaInicio(fechaInicio); 
 		this.setFechaFinal(fechaFinal);
 		this.setHoraCheckIn(horaCheckIn); 
 		this.setHoraCheckOut(horaCheckOut);
-	}
-
-
-	public LocalDate getFechaDeInicio() {
-		return fechaDeInicio;
-	}
-
-	public void setFechaDeInicio(String fechaDeInicio) {
-		this.fechaDeInicio = LocalDate.parse(fechaDeInicio);
 	}
 
 	public LocalDate getFechaFinal() {
 		return fechaFinal;
 	}
 
-	public void setFechaFinal(String fechaFinal) {
-		this.fechaFinal = LocalDate.parse(fechaFinal);
+	public void setFechaFinal(LocalDate fechaFinal) {
+		this.fechaFinal = fechaFinal;
 	}
 
 	public int getCapacidad() {
@@ -89,21 +80,31 @@ public class Inmueble {
 		return horaCheckIn;
 	}
 	
-	public void setHoraCheckIn(String horaCheckIn) {
+	public void setHoraCheckIn(LocalTime horaCheckIn_) {
 		
-		this.horaCheckIn = LocalTime.parse(horaCheckIn);
+		this.horaCheckIn = horaCheckIn_;
 	}
 	
 	public LocalTime getHoraCheckOut() {
 		return horaCheckOut;
 	}
 
-	public void setHoraCheckOut(String horaCheckOut) {
+	public void setHoraCheckOut(LocalTime horaCheckOut) {
 	
-		this.horaCheckOut = LocalTime.parse(horaCheckOut);
+		this.horaCheckOut = horaCheckOut;
 	}
 
 	public double getPrecio() {
 		return precio;
+	}
+
+
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
+
+
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 }

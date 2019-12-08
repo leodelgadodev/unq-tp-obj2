@@ -2,9 +2,14 @@ package clases;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import busqueda.BCiudad;
+import busqueda.BFechaEntrada;
+import busqueda.BFechaSalida;
+import busqueda.IBusquedaParamDate;
+import busqueda.IBusquedaParamString;
 import reserva.Reserva;
 import usuario.Usuario;
 
@@ -15,6 +20,9 @@ public class SitioWeb {
 	private Set<String> tiposInmueble;
 	private Set<String> serviciosInmuebles;
 	private Set<Reserva> reservas;
+	private IBusquedaParamString bCiudad;
+	private IBusquedaParamDate bFechaEntrada;
+	private IBusquedaParamDate bFechaSalida;
 	
 	public SitioWeb() {
 		this.usuarios = new HashSet<Usuario>();
@@ -22,6 +30,9 @@ public class SitioWeb {
 		this.tiposInmueble = new HashSet<String>();
 		this.serviciosInmuebles = new HashSet<String>();
 		this.reservas = new HashSet<Reserva>();
+		this.bCiudad = new BCiudad();
+		this.bFechaEntrada = new BFechaEntrada();
+		this.bFechaSalida = new BFechaSalida();
 	}
 
 	public Set<Usuario> getUsuarios() { 
@@ -67,21 +78,21 @@ public class SitioWeb {
 	public Set<String> getServiciosInmuebles() {
 		return this.serviciosInmuebles;
 	}
-
-
-	public List<Inmueble> getInmueblesDe(String ciudad) {
-		return this.inmueblesEnAlquiler.stream().filter(i -> i.getCiudad() == ciudad).collect(Collectors.toList());
+	
+	public Set<Inmueble> buscar(IBusquedaParamString busquedaStrategy, String ciudad) {
+		
+		return busquedaStrategy.buscar(ciudad, this.inmueblesEnAlquiler);
 	}
 	
-	public List<Inmueble> buscarInmuebles(String ciudad, String fechaEntrada, String fechaSalida){ 
-		List<Inmueble> inmuebles = this.getInmueblesDe(ciudad);
-		LocalDate fEntrada = LocalDate.parse(fechaEntrada);
-		LocalDate fSalida = LocalDate.parse(fechaSalida);
-
-		return inmuebles.stream()
-		.filter(x -> ( fEntrada.equals(x.getFechaDeInicio()) || fEntrada.isAfter(x.getFechaDeInicio()))  
-				&& (fSalida.equals(x.getFechaFinal()) || fSalida.isBefore(x.getFechaFinal()))) 
-		.collect(Collectors.toList());
+	public Set<Inmueble> buscar(IBusquedaParamDate busquedaStrategy, LocalDate fecha) {
+		
+		return busquedaStrategy.buscar(fecha, this.inmueblesEnAlquiler);
 	}
+	
+	public Set<Inmueble> buscarY(Set<Inmueble> busqueda1, Set<Inmueble> busqueda2) {
+		
+		return busqueda1.stream().filter((i) -> busqueda2.contains(i)).collect(Collectors.toSet());
+	}
+	
 
 }

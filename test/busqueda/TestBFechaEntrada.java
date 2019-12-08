@@ -1,0 +1,5 @@
+package busqueda;
+
+class TestBFechaEntrada {
+
+}
