@@ -4,7 +4,7 @@ public class Administrador {
 
 	SitioWeb web;
 	
-	public void setSitioWeb(SitioWeb web) {
+	public Administrador(SitioWeb web) {
 		this.web = web;
 	}
 	

@@ -100,9 +100,9 @@ class TestSitioWeb {
 	}
 	
 	@Test
-	public void agregarServiciosDeInmuebles() {//
+	public void agregarServicioDeInmuebles() {
 		
-		web.agregarServiciosDeInmuebles("Agua");
+		web.agregarServicioDeInmuebles("Agua");
 		assertFalse(web.getServiciosInmuebles().isEmpty());
 	}
 	
@@ -112,8 +112,8 @@ class TestSitioWeb {
 		serviciosEsperados.add("Agua");
 		serviciosEsperados.add("Luz");
 		
-		web.agregarServiciosDeInmuebles("Agua");
-		web.agregarServiciosDeInmuebles("Luz");
+		web.agregarServicioDeInmuebles("Agua");
+		web.agregarServicioDeInmuebles("Luz");
 		
 		assertEquals(serviciosEsperados,web.getServiciosInmuebles());
 	}

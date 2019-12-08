@@ -39,7 +39,7 @@ public class SitioWeb {
 		return this.usuarios;
 	}
 	
-	public void setUsuarios(Set<Usuario> u) {
+	public void setUsuarios(Set<Usuario> u) { 
 		this.usuarios = u;
 	}
 
